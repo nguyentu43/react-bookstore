@@ -13,10 +13,10 @@ import { FaCartPlus, FaHeart } from 'react-icons/fa';
 
 export default function Product() {
   return (
-    <VStack borderWidth={1} py={4} px={6} mr={2} mt={2}>
+    <VStack borderWidth={1} py={4} px={4} mx={2} my={2}>
       <Image objectFit="contain" src={Img} />
       <VStack align="stretch" spacing={1}  pt={2}>
-        <Text color="pink.500">KINDLE</Text>
+        <Text color="pink.500" isTruncated width={160}>KINDLE, KINDLE, KINDLE, KINDLE</Text>
         <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
           Angry God (All Saints High Book 3)
         </Text>

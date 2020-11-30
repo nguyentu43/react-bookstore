@@ -1,11 +1,21 @@
 import React from 'react';
 import {
   ChakraProvider,
-  theme,
 } from '@chakra-ui/react';
 
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import StoreRoute from "./pages/Store/Route";
+import { extendTheme } from "@chakra-ui/react";
+import { createBreakpoints } from "@chakra-ui/theme-tools";
+
+const breakpoints = createBreakpoints({
+  sm: "578px",
+  md: "768px",
+  lg: "992px",
+  xl: "1200px",
+});
+
+const theme = extendTheme({ breakpoints });
 
 function App() {
   return (

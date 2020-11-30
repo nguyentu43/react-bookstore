@@ -26,7 +26,7 @@ export default function BottomNav() {
   return (
     <Stack
       direction={['column', 'column', 'column', 'row']}
-      px={[8, 8, 12]}
+      px={[4, 6, 12]}
       py={6}
       borderBottomWidth={1}
       justify="space-between"
@@ -41,7 +41,7 @@ export default function BottomNav() {
         <Heading>Bookworm</Heading>
       </HStack>
 
-      <Flex d={['none', 'none', 'flex']}>
+      <Flex d={['none', 'none', 'none', 'flex']}>
         {[0, 0, 0, 0, 0].map((_, index) => (
           <Menu key={index}>
             <MenuButton

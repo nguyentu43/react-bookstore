@@ -8,7 +8,7 @@ function Item() {
     <Stack
       bgImage={'url(' + BannerBg + ')'}
       py={[12, 24]}
-      px={[8, 12, 24]}
+      px={[4, 6, 12]}
       direction={['column', 'column', 'row']}
       justify="space-between"
       align="center"
@@ -31,7 +31,7 @@ function Item() {
 
 export default function BannerCarousel() {
   return (
-    <CarouselWrapper>
+    <CarouselWrapper responsive={null}>
       <Item />
       <Item />
     </CarouselWrapper>

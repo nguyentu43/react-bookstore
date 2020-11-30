@@ -1,6 +1,6 @@
 import BlockLayout from './BlockLayout';
 import * as FCIcons from 'react-icons/fc';
-import { VStack, Heading, Icon, Stack, Box, Text, SimpleGrid } from '@chakra-ui/react';
+import { VStack, Heading, Icon, Text, SimpleGrid } from '@chakra-ui/react';
 
 export default function FeaturedCategoryBlock() {
   const data = [
@@ -16,7 +16,7 @@ export default function FeaturedCategoryBlock() {
       blockName="Featured Categories"
       rightButtonName="All Categories"
     >
-      <Stack direction={["column", "column", "row"]} justify="space-between">
+      <SimpleGrid columns={[1, 2, 3, 4]} gap={2}>
         {data.map((item, index) => (
           <VStack align="flex-start" key={index} bg="pink.50" px={8} py={6}>
             <Icon w={12} h={12} as={FCIcons[item.icon || 'FcReading']} />
@@ -24,7 +24,7 @@ export default function FeaturedCategoryBlock() {
             <Heading fontWeight="none" size="md">Shop Now</Heading>
           </VStack>
         ))}
-      </Stack>
+      </SimpleGrid>
     </BlockLayout>
   );
 }

@@ -13,7 +13,7 @@ export default function FeaturedBookBlock() {
         </TabList>
         <TabPanels>
           <TabPanel px={0}>
-            <SimpleGrid columns={[1, 3, 6]}>
+            <SimpleGrid columns={[1, 2, 3, 5]}>
              { [0,0,0,0,0,0, 0, 0, 0].map((items, index) => (<Product index={index} key={index} />))  }      
             </SimpleGrid>
           </TabPanel>

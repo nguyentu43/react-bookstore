@@ -26,7 +26,7 @@ export default function BottomFooter() {
     <>
       <Grid
         templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(2, 1fr)', 'repeat(6, 1fr)']}
-        px={[8, 12, 24]}
+        px={[4, 6, 12]}
         py={16}
         borderTopWidth={1}
         gap={8}
@@ -89,7 +89,7 @@ export default function BottomFooter() {
       <Stack
         direction={['column', 'column', 'row']}
         align="center"
-        px={[8, 12, 24]}
+        px={[4, 6, 12]}
         py={8}
         borderTopWidth={1}
         justify="space-between"

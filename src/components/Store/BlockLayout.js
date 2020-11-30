@@ -8,11 +8,11 @@ export default function BlockLayout({
   children,
 }) {
   return (
-    <Box px={[8, 12, 24]} py={12}>
+    <Box px={[4, 6, 12]} py={[8, 12]}>
       <Stack
         direction={['column', 'column', 'row']}
         justify="space-between"
-        mb={8}
+        mb={[8, 12]}
       >
         <Heading>{blockName}</Heading>
         {rightButtonName && (

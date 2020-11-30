@@ -10,12 +10,11 @@ export default function CarouselWrapper({ children, ...rest }) {
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    ...rest,
     prevArrow: <Icon w={8} h={8} as={FaChevronLeft} />,
     nextArrow: <Icon w={8} h={8} as={FaChevronRight} />,
     responsive: [
       {
-        breakpoint: 600,
+        breakpoint: 992,
         settings: {
           slidesToShow: 2,
           dots: true,
@@ -23,14 +22,15 @@ export default function CarouselWrapper({ children, ...rest }) {
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           dots: true,
           arrows: false
         }
       }
-    ]
+    ],
+    ...rest,
   };
 
   return (

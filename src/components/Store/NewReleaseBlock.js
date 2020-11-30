@@ -45,7 +45,7 @@ export default function NewReleaseBlock() {
             </TabList>
             <TabPanels>
               <TabPanel px={0}>
-                <SimpleGrid columns={[1, 2, 4]}>
+                <SimpleGrid columns={[1, 2, 2, 3]}>
                   {[0, 0, 0, 0, 0, 0, 0, 0].map((items, index) => (
                     <Product index={index} key={index} />
                   ))}
