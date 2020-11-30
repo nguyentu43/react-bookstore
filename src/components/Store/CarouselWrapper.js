@@ -2,6 +2,31 @@ import Slider from 'react-slick';
 import { Icon } from '@chakra-ui/react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+  <Icon w={8} h={8} as={FaChevronLeft}
+    {...props}
+    className={
+      "slick-prev slick-arrow" +
+      (currentSlide === 0 ? " slick-disabled" : "")
+    }
+    _hover={{color: 'black'}}
+    aria-hidden="true"
+    aria-disabled={currentSlide === 0 ? true : false}
+  />
+);
+const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+  <Icon w={8} h={8} as={FaChevronRight}
+    {...props}
+    className={
+      "slick-next slick-arrow" +
+      (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+    }
+    _hover={{color: 'black'}}
+    aria-hidden="true"
+    aria-disabled={currentSlide === slideCount - 1 ? true : false}
+  />
+);
+
 export default function CarouselWrapper({ children, ...rest }) {
   const settings = {
     dots: true,
@@ -10,34 +35,28 @@ export default function CarouselWrapper({ children, ...rest }) {
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevArrow: <Icon w={8} h={8} as={FaChevronLeft} />,
-    nextArrow: <Icon w={8} h={8} as={FaChevronRight} />,
+    prevArrow: <SlickArrowLeft/>,
+    nextArrow: <SlickArrowRight />,
     responsive: [
       {
         breakpoint: 992,
         settings: {
           slidesToShow: 2,
           dots: true,
-          arrows: false
-        }
+          arrows: false,
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
           dots: true,
-          arrows: false
-        }
-      }
+          arrows: false,
+        },
+      },
     ],
     ...rest,
   };
 
-  return (
-    <Slider
-      {...settings}
-    >
-      {children}
-    </Slider>
-  );
+  return <Slider {...settings}>{children}</Slider>;
 }
