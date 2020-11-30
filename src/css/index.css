@@ -1,5 +1,5 @@
-#banner .slick-slider .slick-dots{
-    margin-bottom: 30px;
+.slick-dots li button:before{
+    font-size: 12px;
 }
 
 .slick-prev{

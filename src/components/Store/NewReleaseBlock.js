@@ -22,7 +22,7 @@ export default function NewReleaseBlock() {
       <Grid templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(3, 1fr)"]}>
         <GridItem colSpan={1} bg="pink.50" mb={4}>
           <VStack align="stretch" px={8} justify="center" my={16}>
-            <Image src={Book} />
+            <Image objectFit="contain" src={Book} />
             <VStack align="flex-start">
               <Text fontSize="4xl">Get Extra</Text>
               <Text fontSize="5xl" textColor="red.500">
@@ -36,8 +36,8 @@ export default function NewReleaseBlock() {
             </VStack>
           </VStack>
         </GridItem>
-        <GridItem colSpan={[1, 1, 2]} px={4}>
-          <Tabs variant="soft-rounded" colorScheme="green">
+        <GridItem colSpan={[1, 1, 2]} px={[0,0,4]}>
+          <Tabs variant="" colorScheme="green">
             <TabList>
               <Tab>Featured</Tab>
               <Tab>On Sale</Tab>
