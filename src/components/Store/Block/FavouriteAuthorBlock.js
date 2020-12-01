@@ -1,7 +1,7 @@
 
-import Author from './Author';
-import BlockLayout from './BlockLayout';
-import CarouselWrapper from './CarouselWrapper';
+import Author from '../Author';
+import BlockLayout from '../BlockLayout';
+import CarouselWrapper from '../Wrapper/CarouselWrapper';
 
 export default function FavouriteAuthorBlock() {
 

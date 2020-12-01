@@ -1,7 +1,7 @@
 import { Button, Stack, VStack, Heading, Image } from '@chakra-ui/react';
 import Books from '../../imgs/books.png';
 import BannerBg from '../../imgs/banner-bg.jpg';
-import CarouselWrapper from './CarouselWrapper';
+import CarouselWrapper from './Wrapper/CarouselWrapper';
 
 function Item() {
   return (

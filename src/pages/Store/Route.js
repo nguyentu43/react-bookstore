@@ -5,6 +5,9 @@ import Single from './Single';
 import Search from './Search';
 import Checkout from './Checkout';
 import Cart from './Cart';
+import Login from './Login';
+import Register from './Register';
+import ForgotPassword from './ForgotPassword';
 
 export default function StoreRoute() {
   return <Layout>
@@ -14,7 +17,9 @@ export default function StoreRoute() {
           <Route path="/store/search" component={Search} exact/>
           {/* <Route path="/store/cart" component={Cart} exact/> */}
           {/* <Route path="/store/checkout" component={Checkout} exact/> */}
-
+          <Route path="/store/login" component={Login} />
+          <Route path="/store/register" component={Register} />
+          <Route path="/store/forgot-password" component={ForgotPassword} />
           <Redirect to="/store" />
       </Switch>
   </Layout>

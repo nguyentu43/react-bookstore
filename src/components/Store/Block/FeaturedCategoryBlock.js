@@ -1,4 +1,4 @@
-import BlockLayout from './BlockLayout';
+import BlockLayout from '../BlockLayout';
 import * as FCIcons from 'react-icons/fc';
 import { VStack, Heading, Icon, Text, SimpleGrid } from '@chakra-ui/react';
 

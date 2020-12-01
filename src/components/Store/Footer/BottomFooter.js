@@ -9,7 +9,6 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import {
-  FaCashRegister,
   FaCcMastercard,
   FaCcVisa,
   FaFacebook,

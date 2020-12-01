@@ -9,7 +9,7 @@ export default function BlockLayout({
 }) {
   return (
     <Box px={[4, 6, 12]} py={[8, 12]}>
-      <Stack
+      { blockName &&<Stack
         direction={['column', 'column', 'row']}
         justify="space-between"
         mb={[8, 12]}
@@ -20,7 +20,7 @@ export default function BlockLayout({
             {rightButtonName} <Icon ml={2} as={FaChevronRight} />
           </Text>
         )}
-      </Stack>
+      </Stack>}
       {children}
     </Box>
   );

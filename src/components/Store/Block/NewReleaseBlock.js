@@ -12,9 +12,9 @@ import {
   Text,
   Button,
 } from '@chakra-ui/react';
-import BlockLayout from './BlockLayout';
-import Product from './Product';
-import Book from '../../imgs/book-sales.png';
+import BlockLayout from '../BlockLayout';
+import Product from '../Product';
+import Book from '../../../imgs/book-sales.png';
 
 export default function NewReleaseBlock() {
   return (

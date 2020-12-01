@@ -7,8 +7,8 @@ import {
   FaUserAlt,
   FaShoppingBag,
 } from 'react-icons/fa';
-import RightDrawer from './RightDrawer';
-import ColorModeSwitcher from '../../components/ColorModeSwitcher';
+import RightDrawer from '../Drawer/RightDrawer';
+import ColorModeSwitcher from '../../ColorModeSwitcher';
 
 export default function TopNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();

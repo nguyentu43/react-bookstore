@@ -1,6 +1,6 @@
 import { SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import BlockLayout from './BlockLayout';
-import Product from './Product';
+import BlockLayout from '../BlockLayout';
+import Product from '../Product';
 
 export default function FeaturedBookBlock() {
   return (

@@ -5,25 +5,30 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Icon,
 } from '@chakra-ui/react';
+import { FaUserAlt } from 'react-icons/fa';
+import LoginForm from '../Forms/LoginForm';
 import { forwardRef } from 'react';
-import LeftMenu from './LeftMenu';
 
-const LeftDrawer = forwardRef(({ isOpen, onClose }, ref) => {
+const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
   return (
     <Drawer
       isOpen={isOpen}
-      placement="left"
+      placement="right"
       onClose={onClose}
       finalFocusRef={ref}
     >
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>MENU</DrawerHeader>
+          <DrawerHeader>
+            <Icon mr={2} as={FaUserAlt} />
+            Account
+          </DrawerHeader>
 
           <DrawerBody>
-            <LeftMenu />
+            <LoginForm />
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>
@@ -31,4 +36,4 @@ const LeftDrawer = forwardRef(({ isOpen, onClose }, ref) => {
   );
 });
 
-export default LeftDrawer;
+export default RightDrawer;

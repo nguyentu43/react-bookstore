@@ -17,7 +17,8 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { FaAlignJustify, FaChevronDown, FaSearch } from 'react-icons/fa';
-import LeftDrawer from './LeftDrawer';
+import { Link } from 'react-router-dom';
+import LeftDrawer from '../Drawer/LeftDrawer';
 
 export default function BottomNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -38,7 +39,7 @@ export default function BottomNav() {
           size="lg"
           icon={<Icon as={FaAlignJustify} />}
         />
-        <Heading>Bookworm</Heading>
+        <Heading as={Link} to='/store'>Bookworm</Heading>
       </HStack>
 
       <Flex d={['none', 'none', 'none', 'flex']}>

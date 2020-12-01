@@ -1,7 +1,7 @@
 
-import BlockLayout from './BlockLayout';
-import CarouselWrapper from './CarouselWrapper';
-import Product from './Product';
+import BlockLayout from '../BlockLayout';
+import CarouselWrapper from '../Wrapper/CarouselWrapper';
+import Product from '../Product';
 
 export default function BestSellingBlock() {
 

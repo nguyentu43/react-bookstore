@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
-import BottomFooter from '../../components/Store/BottomFooter';
-import BottomNav from '../../components/Store/BottomNav';
-import TopFooter from '../../components/Store/TopFooter';
-import TopNav from '../../components/Store/TopNav';
+import BottomFooter from '../../components/Store/Footer/BottomFooter';
+import BottomNav from '../../components/Store/Nav/BottomNav';
+import TopFooter from '../../components/Store/Footer/TopFooter';
+import TopNav from '../../components/Store/Nav/TopNav';
 
 export default function Layout({ children }) {
   return (

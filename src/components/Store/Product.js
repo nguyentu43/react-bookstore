@@ -10,6 +10,7 @@ import {
 import Img from '../../imgs/product.jpg';
 import CurrencyFormat from 'react-currency-format';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import Rating from './Rating';
 
 export default function Product() {
   return (
@@ -21,6 +22,7 @@ export default function Product() {
           Angry God (All Saints High Book 3)
         </Text>
         <Text color="gray.500">L.J. Shen</Text>
+        <Rating/>
         <HStack align="baseline" >
           <Text fontSize="xl" fontWeight="bold">
             <CurrencyFormat
@@ -38,6 +40,7 @@ export default function Product() {
               prefix={'$'}
             />
           </Text>
+          
         </HStack>
         <HStack justify="space-between" pt={2}>
           <Text _hover={{ cursor: 'pointer' }}>ADD TO CART</Text>
