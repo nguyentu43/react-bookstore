@@ -36,7 +36,7 @@ export default function BottomNav() {
       <HStack spacing={[4, 8]}>
         <IconButton
           onClick={onOpen}
-          size="lg"
+          size="md"
           icon={<Icon as={FaAlignJustify} />}
         />
         <Heading as={Link} to='/store'>Bookworm</Heading>

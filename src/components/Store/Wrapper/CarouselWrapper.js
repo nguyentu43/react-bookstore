@@ -58,5 +58,5 @@ export default function CarouselWrapper({ children, ...rest }) {
     ...rest,
   };
 
-  return <Slider {...settings}>{children}</Slider>;
+  return <Slider lazyLoad="ondemand" {...settings}>{children}</Slider>;
 }

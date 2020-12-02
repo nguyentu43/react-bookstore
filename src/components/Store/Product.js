@@ -17,7 +17,7 @@ export default function Product() {
     <VStack borderRadius="md" borderWidth={1} py={4} px={4} mx={2} my={2}>
       <Image objectFit="contain" src={Img} />
       <VStack align="stretch" spacing={1}  pt={2}>
-        <Text color="pink.500" isTruncated width={160}>KINDLE, KINDLE, KINDLE, KINDLE</Text>
+        <Text color="pink.500" isTruncated noOfLines={2}>KINDLE, KINDLE, KINDLE, KINDLE</Text>
         <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
           Angry God (All Saints High Book 3)
         </Text>

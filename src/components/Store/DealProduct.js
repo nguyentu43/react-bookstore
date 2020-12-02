@@ -51,7 +51,7 @@ export default function DealProduct() {
           <Text>Already Sold: 11</Text>
           <Text>Available: 3</Text>
         </Flex>
-        <Progress value={(9 / 11) * 100} height={5} colorScheme="pink" />
+        <Progress borderRadius="md" value={(9 / 11) * 100} height={3} colorScheme="pink" />
       </VStack>
     </Stack>
   );
