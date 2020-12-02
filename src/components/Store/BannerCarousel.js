@@ -2,7 +2,7 @@ import { Button, Stack, VStack, Heading, Image, Box } from '@chakra-ui/react';
 import Books from '../../imgs/books.png';
 import BannerBg from '../../imgs/banner-bg.jpg';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
-import Fade from 'react-reveal/Fade';
+import FadeIn from 'react-fade-in';
 
 function Item() {
   return (
@@ -16,24 +16,24 @@ function Item() {
       spacing={4}
     >
       <VStack align="flex-start" spacing={3}>
-        <Fade left delay={500}>
+        <FadeIn delay={500}>
           <Heading size="sm" color="gray.500">
             THE BOOKWORM EDITORS'
           </Heading>
-        </Fade>
-        <Fade top delay={600}>
+        </FadeIn>
+        <FadeIn delay={600}>
           <Heading size="2xl" fontWeight="none">
             Featured Books of the
           </Heading>
           <Heading size="2xl">February</Heading>
-        </Fade>
-        <Fade bottom delay={700}>
+        </FadeIn>
+        <FadeIn delay={700}>
           <Button colorScheme="blue">See More</Button>
-        </Fade>
+        </FadeIn>
       </VStack>
-      <Fade right delay={800}>
+      <FadeIn delay={500}>
         <Image w="auto" h={['auto', 'auto', 180, 240]} src={Books} />
-      </Fade>
+      </FadeIn>
     </Stack>
   );
 }
