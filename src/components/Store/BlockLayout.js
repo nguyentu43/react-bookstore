@@ -8,7 +8,7 @@ export default function BlockLayout({
   children,
 }) {
   return (
-    <Box px={[4, 6, 12]} py={[4, 8]}>
+    <Box px={[4, 6, 12]} py={[8]}>
       { blockName &&<Stack
         direction={['column', 'column', 'row']}
         justify="space-between"
