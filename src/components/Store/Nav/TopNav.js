@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa';
 import RightDrawer from '../Drawer/RightDrawer';
 import ColorModeSwitcher from '../../ColorModeSwitcher';
+import { Link } from 'react-router-dom';
 
 export default function TopNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -31,7 +32,7 @@ export default function TopNav() {
           onClick={onOpen}
           as={FaUserAlt}
         />
-        <Icon as={FaShoppingBag} />
+        <Link to="/store/cart"><Icon as={FaShoppingBag} /></Link>
         <ColorModeSwitcher/>
       </HStack>
       <RightDrawer isOpen={isOpen} onClose={onClose} />

@@ -8,7 +8,7 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { FaUserAlt } from 'react-icons/fa';
-import LoginForm from '../Forms/LoginForm';
+import LoginForm from '../Form/LoginForm';
 import { forwardRef } from 'react';
 
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
@@ -28,7 +28,7 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
           </DrawerHeader>
 
           <DrawerBody>
-            <LoginForm />
+            <LoginForm inDrawer={true} />
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

@@ -5,7 +5,7 @@ import Img from '../../imgs/product.jpg';
 export default function ShortedProduct() {
   return (
     <HStack align="flex-start" spacing={4}>
-      <Image w={100} objectFit="contain" src={Img} />
+      <Image w={70} objectFit="contain" src={Img} />
       <VStack align="flex-start" >
         <Text>Blindside (Michael Bennett Book 12)</Text>
         <Text>

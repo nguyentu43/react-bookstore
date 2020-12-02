@@ -1,9 +1,9 @@
 import {
-  Grid,
   GridItem,
   Heading,
   HStack,
   Icon,
+  SimpleGrid,
   Stack,
   Text,
   VStack,
@@ -23,8 +23,8 @@ import {
 export default function BottomFooter() {
   return (
     <>
-      <Grid
-        templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(2, 1fr)', 'repeat(6, 1fr)']}
+      <SimpleGrid
+        columns={[1,2,2,6]}
         px={[4, 6, 12]}
         py={16}
         borderTopWidth={1}
@@ -84,7 +84,7 @@ export default function BottomFooter() {
             <Text>Sign in/Join</Text>
           </VStack>
         </GridItem>
-      </Grid>
+      </SimpleGrid>
       <Stack
         direction={['column', 'column', 'row']}
         align="center"

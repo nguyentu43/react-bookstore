@@ -15,6 +15,7 @@ export default function SupportInfoBlock() {
       borderWidth={1}
       p={8}
       align="flex-start"
+      borderRadius="md"
       divider={<StackDivider borderColor="gray.200" />}
     >
       <HStack spacing={8}>

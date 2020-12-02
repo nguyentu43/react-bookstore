@@ -4,14 +4,12 @@ import {
   FormErrorMessage,
   FormLabel,
   HStack,
-  Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   Select,
-  Text,
   VStack,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
@@ -35,7 +33,7 @@ export default function AddProductForm() {
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
           </Select>
-          <FormErrorMessage>This field is requied*</FormErrorMessage>
+          <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
         <HStack justify="space-between">
             <NumberInput defaultValue={1} min={1} max={20}>

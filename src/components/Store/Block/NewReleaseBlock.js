@@ -19,8 +19,8 @@ import Book from '../../../imgs/book-sales.png';
 export default function NewReleaseBlock() {
   return (
     <BlockLayout blockName="New Releases">
-      <Grid templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(3, 1fr)"]}>
-        <GridItem colSpan={1} bg="pink.50" mb={4}>
+      <SimpleGrid columns={[1,1,3]}>
+        <GridItem colSpan={1} bg="pink.50" borderRadius="md" mb={6}>
           <VStack align="stretch" px={8} justify="center" my={16}>
             <Image objectFit="contain" src={Book} />
             <VStack align="flex-start">
@@ -37,7 +37,7 @@ export default function NewReleaseBlock() {
           </VStack>
         </GridItem>
         <GridItem colSpan={[1, 1, 2]} px={[0,0,4]}>
-          <Tabs variant="" colorScheme="green">
+          <Tabs isFitted variant="enclosed">
             <TabList>
               <Tab>Featured</Tab>
               <Tab>On Sale</Tab>
@@ -60,7 +60,7 @@ export default function NewReleaseBlock() {
             </TabPanels>
           </Tabs>
         </GridItem>
-      </Grid>
+      </SimpleGrid>
     </BlockLayout>
   );
 }

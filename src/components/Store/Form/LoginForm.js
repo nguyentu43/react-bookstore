@@ -10,12 +10,18 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-export default function LoginForm() {
+export default function LoginForm({inDrawer}) {
   const { handleSubmit, errors, control } = useForm();
+
+  const style = {};
+  if(!inDrawer){
+    style.p = 4;
+    style.borderWidth = 1;
+  }
 
   return (
     <form onSubmit={handleSubmit(data => console.log(data))}>
-      <VStack align="stretch">
+      <VStack align="stretch" {...style} borderRadius="md">
         <FormControl isInvalid={errors.email}>
           <FormLabel htmlFor="email">Email:</FormLabel>
           <Controller
@@ -27,7 +33,7 @@ export default function LoginForm() {
             rules={{ required: true, min: 6 }}
             control={control}
           />
-          <FormErrorMessage>This field is requied*</FormErrorMessage>
+          <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.password}>
           <FormLabel htmlFor="password">Password:</FormLabel>
@@ -41,7 +47,7 @@ export default function LoginForm() {
             rules={{ required: true }}
             control={control}
           />
-          <FormErrorMessage>This field is requied*</FormErrorMessage>
+          <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
         <Button type="submit" colorScheme="blue">
           Login

@@ -1,4 +1,4 @@
-import { Button, Stack, VStack, Heading, Image } from '@chakra-ui/react';
+import { Button, Stack, VStack, Heading, Image, Box } from '@chakra-ui/react';
 import Books from '../../imgs/books.png';
 import BannerBg from '../../imgs/banner-bg.jpg';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
@@ -31,9 +31,11 @@ function Item() {
 
 export default function BannerCarousel() {
   return (
-    <CarouselWrapper responsive={null}>
-      <Item />
-      <Item />
-    </CarouselWrapper>
+    <Box mb={4}>
+      <CarouselWrapper responsive={null}>
+        <Item />
+        <Item />
+      </CarouselWrapper>
+    </Box>
   );
 }

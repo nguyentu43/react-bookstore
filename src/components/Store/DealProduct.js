@@ -15,6 +15,7 @@ export default function DealProduct() {
     <Stack
       direction={['column', 'column', 'row']}
       borderWidth={1}
+      borderRadius="md"
       px={4}
       py={4}
       mx={2}

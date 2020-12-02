@@ -5,7 +5,7 @@ import Product from '../Product';
 export default function FeaturedBookBlock() {
   return (
     <BlockLayout blockName="Featured Books">
-      <Tabs variant="soft-rounded" colorScheme="green">
+      <Tabs isFitted variant="enclosed">
         <TabList>
           <Tab>Featured</Tab>
           <Tab>On Sale</Tab>

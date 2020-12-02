@@ -2,7 +2,6 @@ import Breadcrumb from '../../components/Store/Nav/Breadcrumb';
 import BlockLayout from '../../components/Store/BlockLayout';
 import {
   Box,
-  Grid,
   GridItem,
   Heading,
   HStack,
@@ -20,26 +19,19 @@ import {
 } from '@chakra-ui/react';
 import Book from '../../imgs/single.jpg';
 import CurrencyFormat from 'react-currency-format';
-import AddProductForm from '../../components/Store/Forms/AddProductForm';
+import AddProductForm from '../../components/Store/Form/AddProductForm';
 import { FaHeart, FaShare } from 'react-icons/fa';
 import CarouselWrapper from '../../components/Store/Wrapper/CarouselWrapper';
-import ShortedProductBlock from '../../components/Store/Block/ShortedProductBlock';
+import FeaturedShortedProductBlock from '../../components/Store/Block/FeaturedShortedProductBlock';
 import SupportInfoBlock from '../../components/Store/Block/SupportInfoBlock';
+import Author from '../../components/Store/Author';
 
 export default function Single() {
   return (
     <>
       <Breadcrumb />
       <BlockLayout>
-        <Grid
-          templateColumns={[
-            'repeat(1, 1fr)',
-            'repeat(1, 1fr)',
-            'repeat(1, 1fr)',
-            'repeat(3, 1fr)',
-          ]}
-          gap={20}
-        >
+        <SimpleGrid columns={[1, 1, 1, 3]} gap={20}>
           <GridItem colSpan={[1, 1, 1, 2]} justifyContent="stretch">
             <SimpleGrid columns={[1, 1, 1, 2]} gap={8} mb={12}>
               <Stack width={[200, 250, 350]} justifySelf="center">
@@ -88,6 +80,7 @@ export default function Single() {
                 </HStack>
               </VStack>
             </SimpleGrid>
+
             <Box borderTopWidth={1} pt={8}>
               <Tabs isFitted variant="enclosed">
                 <TabList>
@@ -111,12 +104,12 @@ export default function Single() {
             </Box>
           </GridItem>
           <GridItem colSpan={1}>
-            <ShortedProductBlock />
+            <FeaturedShortedProductBlock />
             <Box mt={8}>
               <SupportInfoBlock />
             </Box>
           </GridItem>
-        </Grid>
+        </SimpleGrid>
       </BlockLayout>
       <BlockLayout blockName="Related Products"></BlockLayout>
     </>

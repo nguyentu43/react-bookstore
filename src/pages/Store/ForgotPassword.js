@@ -1,7 +1,7 @@
 import { Box, Heading } from '@chakra-ui/react';
 import BlockLayout from '../../components/Store/BlockLayout';
-import RequestPasswordForm from '../../components/Store/Forms/RequestPasswordForm';
-import ResetPasswordForm from '../../components/Store/Forms/ResetPasswordForm';
+import RequestPasswordForm from '../../components/Store/Form/RequestPasswordForm';
+import ResetPasswordForm from '../../components/Store/Form/ResetPasswordForm';
 
 export default function ForgotPassword() {
 

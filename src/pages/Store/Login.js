@@ -1,6 +1,6 @@
 import { Box, Heading } from '@chakra-ui/react';
 import BlockLayout from '../../components/Store/BlockLayout';
-import LoginForm from '../../components/Store/Forms/LoginForm';
+import LoginForm from '../../components/Store/Form/LoginForm';
 
 export default function Login() {
   return (
