@@ -12,7 +12,7 @@ import FeaturedShortedProductBlock from './FeaturedShortedProductBlock';
 export default function FilterBlock() {
   return (
     <Box borderLeftWidth={1} borderRightWidth={1}>
-      <Accordion defaultIndex={[0, 1,2,3,4]} allowToggle allowMultiple>
+      <Accordion defaultIndex={[0, 1, 2, 3, 4]} allowToggle allowMultiple>
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={4} textAlign="left">
@@ -77,7 +77,7 @@ export default function FilterBlock() {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            <FeaturedShortedProductBlock/>
+            <FeaturedShortedProductBlock />
           </AccordionPanel>
         </AccordionItem>
       </Accordion>

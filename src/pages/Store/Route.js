@@ -15,7 +15,7 @@ export default function StoreRoute() {
       <Switch>
           <Route path="/store" component={Index} exact/>
           <Route path="/store/list/:section/:id" component={List} />
-          <Route path="/store/product/:slug" component={Single} exact />
+          <Route path="/store/book/:slug" component={Single} exact />
           <Route path="/store/search" component={Search} exact/>
           <Route path="/store/cart" component={Cart} exact/>
           <Route path="/store/checkout" component={Checkout} exact/>

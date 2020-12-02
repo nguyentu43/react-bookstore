@@ -20,7 +20,7 @@ export default function FeaturedCategoryBlock() {
         {data.map((item, index) => (
           <VStack align="flex-start" borderRadius="md" key={index} bg="pink.50" px={8} py={6}>
             <Icon w={12} h={12} as={FCIcons[item.icon || 'FcReading']} />
-            <Text width={150} isTruncated fontSize="2xl">{item.name}</Text>
+            <Text noOfLines={1} fontSize="2xl">{item.name}</Text>
             <Heading fontWeight="none" size="md">Shop Now</Heading>
           </VStack>
         ))}
