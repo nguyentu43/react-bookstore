@@ -1,48 +1,35 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Avatar,
-  Box,
-  HStack,
-  Icon,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Avatar, Box, HStack, Icon, Text, VStack } from '@chakra-ui/react';
 
 import {
   FcBusinesswoman,
   FcFolder,
-  FcList,
   FcManager,
   FcNews,
-  FcPlus,
   FcRatings,
   FcReading,
 } from 'react-icons/fc';
+import { useHistory } from 'react-router-dom';
 
-export default function LeftNav() {
-  const menu = [
-    { name: 'Book', icon: FcReading },
-    { name: 'Category', icon: FcFolder },
-    { name: 'Author', icon: FcBusinesswoman },
-    { name: 'Order', icon: FcNews },
-    { name: 'User', icon: FcManager },
-  ];
+const menu = [
+  { name: 'Dashboard', icon: FcRatings, path: 'dashboard' },
+  { name: 'Gallery', icon: FcFolder, path: 'gallery' },
+  { name: 'Book', icon: FcReading, path: 'book' },
+  { name: 'Category', icon: FcFolder, path: 'category' },
+  { name: 'Author', icon: FcBusinesswoman, path: 'author' },
+  { name: 'Order', icon: FcNews, path: 'order' },
+  { name: 'User', icon: FcManager, path: 'user' },
+];
 
-  const action = [
-    { name: 'List', icon: FcList },
-    { name: 'Create', icon: FcPlus },
-  ];
+export default function LeftNav({ onClose }) {
+  const history = useHistory();
 
   return (
     <VStack
       borderRightWidth={[0, 0, 1]}
       py={4}
       align="stretch"
-      h={["auto", "auto", "100vh"]}
+      h="100vh"
+      overflow="auto"
     >
       <HStack px={4} pb={2}>
         <Avatar
@@ -55,36 +42,23 @@ export default function LeftNav() {
         </Text>
       </HStack>
       <Box borderTopWidth={1}>
-        <HStack
-          px={4}
-          py={2}
-          align="center"
-          _hover={{ bg: 'gray.50', cursor: 'pointer' }}
-        >
-          <Icon w={8} h={8} as={FcRatings} />
-          <Text>Dashboard</Text>
-        </HStack>
-        <Accordion allowToggle allowMultiple>
-          {menu.map((item, index) => (
-            <AccordionItem key={index}>
-              <AccordionButton>
-                <HStack flex="1" align="center">
-                  <Icon w={8} h={8} as={item.icon} />
-                  <Text>{item.name}</Text>
-                </HStack>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>
-                {action.map((item, index) => (
-                  <HStack py={2} key={index} align="center">
-                    <Icon w={8} h={8} as={item.icon} />
-                    <Text>{item.name}</Text>
-                  </HStack>
-                ))}
-              </AccordionPanel>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {menu.map(item => (
+          <HStack
+            key={item.path}
+            px={4}
+            py={2}
+            align="center"
+            borderBottomWidth={1}
+            onClick={() => {
+              if(onClose) onClose();
+              history.push('/admin/' + item.path);
+            }}
+            _hover={{ bg: 'gray.50', cursor: 'pointer' }}
+          >
+            <Icon w={8} h={8} as={item.icon} />
+            <Text>{item.name}</Text>
+          </HStack>
+        ))}
       </Box>
     </VStack>
   );
