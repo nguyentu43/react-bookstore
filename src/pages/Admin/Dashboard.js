@@ -163,16 +163,12 @@ export default function Dashboard() {
       </GridItem>
       <GridItem colSpan={[1, 2]}>
         <BlockLayout blockName="Customer Review">
-          <Table>
-            
-          </Table>
+          
         </BlockLayout>
       </GridItem>
       <GridItem colSpan={[1, 2]}>
         <BlockLayout blockName="New Orders">
-          <Table>
-            
-          </Table>
+          
         </BlockLayout>
       </GridItem>
     </SimpleGrid>

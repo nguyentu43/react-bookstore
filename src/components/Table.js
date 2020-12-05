@@ -1,15 +1,58 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
+import { usePagination, useTable } from 'react-table';
 
-export function Table({ header, footer, children, ...rest }) {
-  return (
-    <Box overflowX="auto" borderRadius="md" borderWidth={1}>
-      <Box w="full" as="table" {...rest} >
-        <thead>{header}</thead>
-        <tbody>{children}</tbody>
-        <tfoot>{footer}</tfoot>
-      </Box>
-    </Box>
+export default function Table({ columns, data, action, skipPageReset, ...rest }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      autoResetPage: !skipPageReset,
+      ...action,
+    },
+    usePagination
   );
+
+  return <Box overflowX="auto" borderRadius="md" borderWidth={1}>
+    <Box w="full" as="table" {...rest} { ...getTableProps() }>
+        <thead>
+          {
+            headerGroups.map(headerGroup => (<TRow {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (<THeading { ...column.getHeaderProps() }>{column.render("Header")}</THeading>))}
+            </TRow>))
+          }
+        </thead>
+        <tbody {...getTableBodyProps()}>
+           {page.map((row, i) => {
+             prepareRow(row);
+             return (
+               <TRow {...row.getRowProps()}>
+                 {row.cells.map(cell => {
+                   return <TData {...cell.getCellProps()}>{cell.render("Cell")}</TData>
+                 })}
+               </TRow>
+             )
+           })}
+        </tbody>
+        <tfoot>
+          
+        </tfoot>
+      </Box>
+  </Box>
 }
 
 export function THeading({ children, ...rest }) {
