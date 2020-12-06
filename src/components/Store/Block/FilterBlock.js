@@ -11,7 +11,7 @@ import FeaturedShortedProductBlock from './FeaturedShortedProductBlock';
 
 export default function FilterBlock() {
   return (
-    <Box borderLeftWidth={1} borderRightWidth={1}>
+    <Box borderLeftWidth={1} borderRightWidth={1} borderRadius="md">
       <Accordion defaultIndex={[0, 1, 2, 3, 4]} allowToggle allowMultiple>
         <AccordionItem>
           <AccordionButton>

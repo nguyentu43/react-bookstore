@@ -19,8 +19,8 @@ import Book from '../../../imgs/book-sales.png';
 export default function NewReleaseBlock() {
   return (
     <BlockLayout blockName="New Releases">
-      <SimpleGrid columns={[1,1,3]}>
-        <GridItem colSpan={1} bg="pink.50" borderRadius="md" mb={6}>
+      <SimpleGrid columns={[1, 1, 3]}>
+        <GridItem colSpan={1} bg="pink.50" borderRadius="md">
           <VStack align="stretch" px={8} justify="center" my={16}>
             <Image objectFit="contain" src={Book} />
             <VStack align="flex-start">
@@ -36,7 +36,7 @@ export default function NewReleaseBlock() {
             </VStack>
           </VStack>
         </GridItem>
-        <GridItem colSpan={[1, 1, 2]} px={[0,0,4]}>
+        <GridItem colSpan={[1, 1, 2]} px={[0, 0, 4]}>
           <Tabs isFitted variant="enclosed">
             <TabList>
               <Tab>Featured</Tab>
@@ -44,10 +44,10 @@ export default function NewReleaseBlock() {
               <Tab>Most Viewed</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel px={0}>
-                <SimpleGrid columns={[1, 2, 2, 3]}>
+              <TabPanel px={0} pb={0}>
+                <SimpleGrid borderTopWidth={1} borderLeftWidth={1} columns={[1, 2, 2, 3]}>
                   {[0, 0, 0, 0, 0, 0, 0, 0].map((items, index) => (
-                    <Product index={index} key={index} />
+                    <Product key={index} />
                   ))}
                 </SimpleGrid>
               </TabPanel>

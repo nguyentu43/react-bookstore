@@ -24,7 +24,6 @@ export default function DealProduct() {
     >
       <Image objectFit="contain" src={Img} />
       <VStack align="stretch" spacing={1}>
-        <Text color="pink.500">KINDLE</Text>
         <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
           Angry God (All Saints High Book 3)
         </Text>

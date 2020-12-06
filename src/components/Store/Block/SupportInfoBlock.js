@@ -16,7 +16,6 @@ export default function SupportInfoBlock() {
       p={8}
       align="flex-start"
       borderRadius="md"
-      divider={<StackDivider borderColor="gray.200" />}
     >
       <HStack spacing={8}>
         <Icon w={16} h={16} color="red.500" as={FaShippingFast} />

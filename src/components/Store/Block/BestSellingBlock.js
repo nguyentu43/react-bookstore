@@ -13,7 +13,7 @@ export default function BestSellingBlock() {
         arrows={true}
       >
         {
-            [0,0,0,0,0,0].map((items, index) => (<Product index={index} key={index} />))
+            [0,0,0,0,0,0].map((items, index) => (<Product inSlider={true} key={index} />))
         }
         
       </CarouselWrapper>

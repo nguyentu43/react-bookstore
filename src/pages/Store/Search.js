@@ -11,14 +11,14 @@ export default function Search() {
             <FilterBlock />
         </GridItem>
         <GridItem colSpan={[1,1,1,2]}>
-          <HStack mx={2} mb={6} w={200}>
+          <HStack mb={6} w={200}>
               <Select>
                   <option value="short">Default sort</option>
               </Select>
           </HStack>
-          <SimpleGrid columns={[1, 2, 3, 4]}>
+          <SimpleGrid borderTopWidth={1} borderLeftWidth={1} columns={[1, 2, 3, 4]}>
             {[0, 0, 0, 0, 0, 0, 0, 0].map((items, index) => (
-              <Product index={index} key={index} />
+              <Product key={index} />
             ))}
           </SimpleGrid>
           <HStack mt={6} justify="center">

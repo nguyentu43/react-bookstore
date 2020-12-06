@@ -9,15 +9,34 @@ import {
 } from '@chakra-ui/react';
 import Img from '../../imgs/product.jpg';
 import CurrencyFormat from 'react-currency-format';
-import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 import Rating from './Rating';
+import { useMemo } from 'react';
 
-export default function Product() {
+export default function Product({inSlider = false}) {
+  const style = useMemo(() => {
+
+    if(inSlider){
+      return {
+        borderRadius: "md",
+        borderWidth: 1,
+        p: 4,
+        m: 2
+      }
+    }
+    else{
+      return {
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        p: 4
+      }
+    }
+
+  }, [inSlider]);
   return (
-    <VStack borderRadius="md" borderWidth={1} py={4} px={4} mx={2} my={2}>
+    <VStack {...style}>
       <Image objectFit="contain" src={Img} />
       <VStack align="stretch" spacing={1}  pt={2}>
-        <Text color="pink.500" isTruncated noOfLines={2}>KINDLE, KINDLE, KINDLE, KINDLE</Text>
         <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
           Angry God (All Saints High Book 3)
         </Text>
