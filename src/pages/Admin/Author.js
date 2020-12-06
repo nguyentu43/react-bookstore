@@ -1,30 +1,44 @@
 import { useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
-import * as FcIcon from 'react-icons/fc';
-import { Button, Input, Select } from '@chakra-ui/react';
+import {
+  Avatar,
+  Button,
+  Input,
+  Select,
+  Textarea,
+  useDisclosure,
+} from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
+import GalleryModal from '../../components/Admin/GalleryModal';
 
-export default function Category() {
-  const iconNameList = useMemo(() => Object.keys(FcIcon), []);
+export default function Author() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [dataAvatar, setDataAvatar] = useState(null);
+
+  function openModal(data) {
+    onOpen();
+    setDataAvatar(data);
+    console.log(data);
+  }
+
+  function onInsert(ids) {
+    if (ids.length === 1) {
+      console.log(ids);
+      console.log(dataAvatar);
+      setDataAvatar(null);
+    }
+    onClose();
+  }
 
   const columns = useMemo(
     () => [
       {
-        Header: 'Icon',
-        accessor: 'icon',
+        Header: 'Avatar',
+        accessor: 'avatar',
         Cell: data => {
-          const IconSelect = customInput(Select, data);
-          return (
-            <IconSelect>
-              {iconNameList.map((item, i) => (
-                <option value={item} key={i}>
-                  {item}
-                </option>
-              ))}
-            </IconSelect>
-          );
+          return <Avatar onClick={() => openModal(data)} />;
         },
       },
       {
@@ -36,16 +50,12 @@ export default function Category() {
         },
       },
       {
-        Header: 'Parent',
-        accessor: 'parent.name',
-        id: "parent",
+        Header: 'Description',
+        accessor: 'description',
+        id: 'description',
         Cell: data => {
-          const ParentInput = customInput(Select, data);
-          return <ParentInput>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </ParentInput>;
+          const DescInput = customInput(Textarea, data);
+          return <DescInput />;
         },
       },
       {
@@ -65,21 +75,22 @@ export default function Category() {
         name: 'ABC',
         icon: 'FcAlarmClock',
         id: '1',
-        parent: { name: 'Parent' },
+        description: 'This is author',
       },
       {
         name: 'ABFC',
         icon: 'FcAlarmClock',
         id: '2',
-        parent: { name: 'Parent 2' },
+        description: 'This is author',
       },
     ],
     []
   );
 
   return (
-    <BlockLayout blockName="Category Table">
+    <BlockLayout blockName="Author Table">
       <Table columns={columns} data={data} />
+      <GalleryModal isOpen={isOpen} onClose={onClose} onInsert={onInsert} />
     </BlockLayout>
   );
 }

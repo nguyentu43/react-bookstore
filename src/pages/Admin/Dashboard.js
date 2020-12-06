@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import Chart from 'react-google-charts';
 import BlockLayout from '../../components/Admin/BlockLayout';
-import { Table, THeading, TRow, TData } from '../../components/Table';
 
 export default function Dashboard() {
   return (

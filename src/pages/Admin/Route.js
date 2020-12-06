@@ -3,6 +3,8 @@ import Dashboard from './Dashboard';
 import Gallery from './Gallery';
 import Layout from './Layout';
 import Category from './Category';
+import Author from './Author';
+import User from './User';
 
 const menu = [
   { name: 'Book', path: 'book' },
@@ -19,6 +21,8 @@ export default function AdminRoute() {
         <Route path="/admin/dashboard" component={Dashboard} />
         <Route path="/admin/gallery" component={Gallery} />
         <Route path="/admin/category" component={Category} />
+        <Route path="/admin/author" component={Author} />
+        <Route path="/admin/user" component={User} />
         <Redirect to="/admin/dashboard" />
       </Switch>
     </Layout>
