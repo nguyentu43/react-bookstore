@@ -8,6 +8,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
+import { request, gql } from 'graphql-request';
+import ConfirmButton from '../components/ConfirmButton';
+
+const endpoint = 'http://localhost/graphql';
 
 function Item({ public_id, secure_url, onChange, isDisabled }) {
   function handleChange(e) {
@@ -38,22 +42,25 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const input = useRef(null);
 
   async function handleUpload(e) {
-    const formData = new FormData();
-    for (const file of Array.from(e.target.files)) {
-      formData.append('gallery', file);
-    }
+    const query = gql`
+      mutation($files: [Upload!]) {
+        uploadImages(files: $files) {
+          public_id
+        }
+      }
+    `;
 
-    const res = await fetch('http://localhost/storages/upload', {
-      method: 'post',
-      body: formData,
-    });
+    try {
+      const result = await request(endpoint, query, {
+        files: Array.from(e.target.files),
+      });
 
-    const result = await res.json();
-    if (res.status !== 200) {
-      setError(result.error);
-    } else {
       await fetchImages(true);
       setError(null);
+    } catch (error) {
+      setError('Upload Error');
+    }
+    finally{
       input.current.value = '';
     }
   }
@@ -61,39 +68,42 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   async function handleDelete() {
     if (ids.length === 0) return;
 
-    const res = await fetch('http://localhost/storages/delete', {
-      method: 'post',
-      body: JSON.stringify({ public_ids: ids }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const query = gql`
+      mutation($public_ids: [String!]) {
+        removeImages(public_ids: $public_ids)
+      }
+    `;
 
-    const result = await res.json();
-
-    if (res.status !== 200) {
-      setError(result.error);
-    } else {
+    try {
+      const result = await request(endpoint, query, { public_ids: ids.map(item => (item.public_id)) });
       setIds([]);
       setError(null);
       await fetchImages(true);
+    } catch (error) {
+      setError('Delete Error');
     }
   }
 
   async function fetchImages(reset) {
-    const res = await fetch(
-      'http://localhost/storages' + (cursor ? '?next_cursor=' + cursor : '')
-    );
-    const result = await res.json();
-    if (res.status === 200) {
-      setCursor(result.next_cursor);
-      if (reset) {
-        setImages([...result.resources]);
-      } else {
-        setImages([...result.resources, ...images]);
+    const query = gql`
+      query {
+        getImages {
+          list {
+            secure_url
+            public_id
+          }
+        }
       }
+    `;
+    const {
+      getImages: { list, next_cursor },
+    } = await request(endpoint, query);
+
+    setCursor(next_cursor);
+    if (reset) {
+      setImages([...list]);
     } else {
-      setError(result.error);
+      setImages([...list, ...images]);
     }
   }
 
@@ -110,6 +120,12 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   }
 
   function handleInsert() {
+    if(!multiple){
+      if(ids.length > 1){
+        alert("Only 1");
+        return;
+      }
+    }
     onInsert(ids);
   }
 
@@ -139,9 +155,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
             Insert
           </Button>
         )}
-        <Button colorScheme="red" onClick={handleDelete}>
-          Delete
-        </Button>
+        <ConfirmButton colorScheme="red" buttonText="Delete" onAccept={handleDelete}/>
       </HStack>
 
       <SimpleGrid
@@ -153,11 +167,6 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         {images.map(image => (
           <Item
             onChange={handleSelect}
-            isDisabled={
-              !multiple &&
-              ids.length === 1 &&
-              ids[0].public_id !== image.public_id
-            }
             key={image.public_id}
             {...image}
           />

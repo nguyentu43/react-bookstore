@@ -41,7 +41,7 @@ export default function ConfirmButton({ buttonText, title = 'Detele', content = 
                 <Button ref={cancelRef} onClick={onClose}>
                   { closeText }
                 </Button>
-                <Button colorScheme="red" onClick={onAccept} ml={3}>
+                <Button colorScheme="red" onClick={() => { onClose(); onAccept(); }} ml={3}>
                   { acceptText }
                 </Button>
               </AlertDialogFooter>
