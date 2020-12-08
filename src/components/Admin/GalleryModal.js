@@ -1,7 +1,7 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import Gallery from "../Gallery";
 
-export default function GalleryModal({onInsert, ...rest}) {
+export default function GalleryModal({onInsert, multiple=false, ...rest}) {
   return (
     <Modal {...rest} size="xl">
       <ModalOverlay />
@@ -9,7 +9,7 @@ export default function GalleryModal({onInsert, ...rest}) {
         <ModalHeader>Insert Image</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Gallery dialog={true} multiple={false} onInsert={onInsert}/>
+          <Gallery dialog={true} multiple={multiple} onInsert={onInsert}/>
         </ModalBody>
       </ModalContent>
     </Modal>

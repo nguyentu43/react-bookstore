@@ -8,10 +8,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
-import { request, gql } from 'graphql-request';
+import { request } from '../graphqlClient';
 import ConfirmButton from '../components/ConfirmButton';
-
-const endpoint = 'http://localhost/graphql';
 
 function Item({ public_id, secure_url, onChange, isDisabled }) {
   function handleChange(e) {
@@ -42,7 +40,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const input = useRef(null);
 
   async function handleUpload(e) {
-    const query = gql`
+    const query = `
       mutation($files: [Upload!]) {
         uploadImages(files: $files) {
           public_id
@@ -51,7 +49,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
     `;
 
     try {
-      const result = await request(endpoint, query, {
+      const result = await request(query, {
         files: Array.from(e.target.files),
       });
 
@@ -59,8 +57,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
       setError(null);
     } catch (error) {
       setError('Upload Error');
-    }
-    finally{
+    } finally {
       input.current.value = '';
     }
   }
@@ -68,14 +65,16 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   async function handleDelete() {
     if (ids.length === 0) return;
 
-    const query = gql`
+    const query = `
       mutation($public_ids: [String!]) {
         removeImages(public_ids: $public_ids)
       }
     `;
 
     try {
-      const result = await request(endpoint, query, { public_ids: ids.map(item => (item.public_id)) });
+      const result = await request(query, {
+        public_ids: ids.map(item => item.public_id),
+      });
       setIds([]);
       setError(null);
       await fetchImages(true);
@@ -85,7 +84,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   }
 
   async function fetchImages(reset) {
-    const query = gql`
+    const query = `
       query {
         getImages {
           list {
@@ -97,7 +96,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
     `;
     const {
       getImages: { list, next_cursor },
-    } = await request(endpoint, query);
+    } = await request(query);
 
     setCursor(next_cursor);
     if (reset) {
@@ -120,9 +119,9 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   }
 
   function handleInsert() {
-    if(!multiple){
-      if(ids.length > 1){
-        alert("Only 1");
+    if (!multiple) {
+      if (ids.length > 1) {
+        alert('Only 1');
         return;
       }
     }
@@ -155,7 +154,11 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
             Insert
           </Button>
         )}
-        <ConfirmButton colorScheme="red" buttonText="Delete" onAccept={handleDelete}/>
+        <ConfirmButton
+          colorScheme="red"
+          buttonText="Delete"
+          onAccept={handleDelete}
+        />
       </HStack>
 
       <SimpleGrid
@@ -165,11 +168,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         alignItems="center"
       >
         {images.map(image => (
-          <Item
-            onChange={handleSelect}
-            key={image.public_id}
-            {...image}
-          />
+          <Item onChange={handleSelect} key={image.public_id} {...image} />
         ))}
         {cursor && <Button onClick={() => fetchImages()}>Show more</Button>}
       </SimpleGrid>

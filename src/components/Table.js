@@ -5,7 +5,8 @@ import {
   FaAngleLeft,
   FaAngleRight,
 } from 'react-icons/fa';
-import { usePagination, useTable } from 'react-table';
+import React from 'react';
+import { useExpanded, usePagination, useTable } from 'react-table';
 
 export default function Table({
   columns,
@@ -13,11 +14,13 @@ export default function Table({
   action,
   skipPageReset,
   showPagination,
+  renderRowSubComponent,
   ...rest
 }) {
   const {
     getTableProps,
     getTableBodyProps,
+    visibleColumns,
     headerGroups,
     prepareRow,
     page,
@@ -29,7 +32,7 @@ export default function Table({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, expanded },
   } = useTable(
     {
       columns,
@@ -37,6 +40,7 @@ export default function Table({
       autoResetPage: !skipPageReset,
       ...action,
     },
+    useExpanded,
     usePagination
   );
 
@@ -45,10 +49,10 @@ export default function Table({
       <Box overflowX="auto" borderRadius="md" borderWidth={1}>
         <Box w="full" as="table" {...rest} {...getTableProps()}>
           <thead>
-            {headerGroups.map(headerGroup => (
-              <TRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <THeading {...column.getHeaderProps()}>
+            {headerGroups.map((headerGroup, hgI) => (
+              <TRow key={hgI} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, hcI) => (
+                  <THeading key={hcI} {...column.getHeaderProps()}>
                     {column.render('Header')}
                   </THeading>
                 ))}
@@ -56,18 +60,27 @@ export default function Table({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
+            {page.map((row, rI) => {
               prepareRow(row);
               return (
-                <TRow {...row.getRowProps()}>
-                  {row.cells.map(cell => {
-                    return (
-                      <TData {...cell.getCellProps()}>
-                        {cell.render('Cell')}
+                <React.Fragment key={rI}>
+                  <TRow {...row.getRowProps()}>
+                    {row.cells.map((cell, cI) => {
+                      return (
+                        <TData key={cI} {...cell.getCellProps()}>
+                          {cell.render('Cell')}
+                        </TData>
+                      );
+                    })}
+                  </TRow>
+                  {row.isExpanded && (
+                    <TRow>
+                      <TData colSpan={visibleColumns.length}>
+                        {renderRowSubComponent({row})}
                       </TData>
-                    );
-                  })}
-                </TRow>
+                    </TRow>
+                  )}
+                </React.Fragment>
               );
             })}
           </tbody>
@@ -136,7 +149,7 @@ export function TData({ children, ...rest }) {
 
 export function TRow({ children, ...rest }) {
   return (
-    <Box _even={{ bg: 'gray.50' }} as="tr" {...rest}>
+    <Box as="tr" {...rest}>
       {children}
     </Box>
   );
