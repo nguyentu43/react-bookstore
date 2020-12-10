@@ -4,14 +4,17 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./css/index.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './css/index.css';
+import { Provider } from './context';
 
 ReactDOM.render(
   <StrictMode>
     <ColorModeScript />
-    <App />
+    <Provider>
+      <App />
+    </Provider>
   </StrictMode>,
   document.getElementById('root')
 );

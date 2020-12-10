@@ -1,70 +1,77 @@
-import {
-  Image,
-  Box,
-  Text,
-  VStack,
-  HStack,
-  Icon,
-  Button,
-} from '@chakra-ui/react';
-import Img from '../../imgs/product.jpg';
+import { Image, Text, VStack, HStack, Icon } from '@chakra-ui/react';
 import CurrencyFormat from 'react-currency-format';
 import { FaHeart } from 'react-icons/fa';
 import Rating from './Rating';
 import { useMemo } from 'react';
+import AddProductForm from './Form/AddProductForm';
+import { Link } from 'react-router-dom';
 
-export default function Product({inSlider = false}) {
+export default function Product({
+  inSlider = false,
+  id,
+  name,
+  price,
+  discount,
+  images,
+  authors,
+  slug,
+}) {
+
   const style = useMemo(() => {
-
-    if(inSlider){
+    if (inSlider) {
       return {
-        borderRadius: "md",
+        borderRadius: 'md',
         borderWidth: 1,
         p: 4,
-        m: 2
-      }
-    }
-    else{
+        m: 2,
+      };
+    } else {
       return {
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        p: 4
-      }
+        p: 4,
+      };
     }
-
   }, [inSlider]);
   return (
     <VStack {...style}>
-      <Image objectFit="contain" src={Img} />
-      <VStack align="stretch" spacing={1}  pt={2}>
-        <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
-          Angry God (All Saints High Book 3)
+      <Image objectFit="contain" w={120} src={images[0].secure_url} />
+      <VStack align="stretch" spacing={1} pt={2}>
+        <Text
+          to={'/store/book/' + slug}
+          as={Link}
+          fontWeight="bold"
+          fontSize="xl"
+          noOfLines={2}
+        >
+          {name}
         </Text>
-        <Text color="gray.500">L.J. Shen</Text>
-        <Rating/>
-        <HStack align="baseline" >
+        <Text color="gray.500">
+          {authors.map(author => author.name).join(', ')}
+        </Text>
+        <Rating />
+        <HStack align="baseline">
           <Text fontSize="xl" fontWeight="bold">
             <CurrencyFormat
-              value={1.3}
+              value={price * (1 - discount)}
+              decimalScale={2}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'$'}
             />{' '}
           </Text>
-          <Text as="s" fontSize="sm">
-            <CurrencyFormat
-              value={1.75}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'$'}
-            />
-          </Text>
-          
+          {discount > 0 && (
+            <Text as="s" fontSize="sm">
+              <CurrencyFormat
+                value={price}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </Text>
+          )}
         </HStack>
-        <HStack justify="space-between" pt={2}>
-          <Text _hover={{ cursor: 'pointer' }}>ADD TO CART</Text>
-          <Icon color="pink.500" as={FaHeart} />
-        </HStack>
+        <AddProductForm id={id} />
       </VStack>
     </VStack>
   );

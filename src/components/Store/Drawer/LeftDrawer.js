@@ -9,7 +9,7 @@ import {
 import { forwardRef } from 'react';
 import LeftMenu from '../LeftMenu';
 
-const LeftDrawer = forwardRef(({ isOpen, onClose }, ref) => {
+const LeftDrawer = forwardRef(({ isOpen, onClose, categories }, ref) => {
   return (
     <Drawer
       isOpen={isOpen}
@@ -21,9 +21,8 @@ const LeftDrawer = forwardRef(({ isOpen, onClose }, ref) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>MENU</DrawerHeader>
-
           <DrawerBody>
-            <LeftMenu />
+            <LeftMenu categories={categories}/>
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

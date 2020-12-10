@@ -1,13 +1,12 @@
 import { VStack, Avatar, Text, Box } from '@chakra-ui/react';
-import AuthorImg from '../../imgs/author.jpg';
 
-export default function Author() {
+export default function Author({ name, avatar, books }) {
   return (
     <VStack>
-      <Avatar size="2xl" src={AuthorImg} />
+      <Avatar size="2xl" src={avatar} />
       <Box textAlign="center">
-        <Text fontWeight="bold">A G Riddle</Text>
-        <Text>2 Published Books</Text>
+        <Text fontWeight="bold">{name}</Text>
+        <Text>{books} Published Books</Text>
       </Box>
     </VStack>
   );

@@ -3,14 +3,12 @@ import BlockLayout from '../BlockLayout';
 import CarouselWrapper from '../Wrapper/CarouselWrapper';
 import DealProduct from '../DealProduct';
 
-export default function WeekDealBlock() {
+export default function WeekDealBlock({products}) {
   return (
     <Box bg="pink.50">
-      <BlockLayout blockName="Deals of the Week" rightButtonName="View All">
+      <BlockLayout blockName="Deals of the Week">
         <CarouselWrapper slidesToShow={2} dots={false} arrows={true}>
-          <DealProduct />
-          <DealProduct />
-          <DealProduct />
+          {products.map(item => <DealProduct key={item.id} {...item}/>)}
         </CarouselWrapper>
       </BlockLayout>
     </Box>

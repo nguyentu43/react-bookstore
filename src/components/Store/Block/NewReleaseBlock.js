@@ -16,7 +16,7 @@ import BlockLayout from '../BlockLayout';
 import Product from '../Product';
 import Book from '../../../imgs/book-sales.png';
 
-export default function NewReleaseBlock() {
+export default function NewReleaseBlock({ categories }) {
   return (
     <BlockLayout blockName="New Releases">
       <SimpleGrid columns={[1, 1, 3]}>
@@ -28,7 +28,7 @@ export default function NewReleaseBlock() {
               <Text fontSize="5xl" textColor="red.500">
                 Sale -25%
               </Text>
-              <Text fontSize="xl" fontWeight="bold" textColor="gray.500">
+              <Text fontSize="2xl" fontWeight="bold" textColor="gray.500">
                 ON ORDER OVER <br />
                 $100
               </Text>
@@ -39,24 +39,24 @@ export default function NewReleaseBlock() {
         <GridItem colSpan={[1, 1, 2]} px={[0, 0, 4]}>
           <Tabs isFitted variant="enclosed">
             <TabList>
-              <Tab>Featured</Tab>
-              <Tab>On Sale</Tab>
-              <Tab>Most Viewed</Tab>
+              {categories.map(category => (
+                <Tab key={category.id}>{category.name}</Tab>
+              ))}
             </TabList>
             <TabPanels>
-              <TabPanel px={0} pb={0}>
-                <SimpleGrid borderTopWidth={1} borderLeftWidth={1} columns={[1, 2, 2, 3]}>
-                  {[0, 0, 0, 0, 0, 0, 0, 0].map((items, index) => (
-                    <Product key={index} />
-                  ))}
-                </SimpleGrid>
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
+              {categories.map(category => (
+                <TabPanel key={category.id} px={0} pb={0}>
+                  <SimpleGrid
+                    borderTopWidth={1}
+                    borderLeftWidth={1}
+                    columns={[1, 2, 2, 3]}
+                  >
+                    {category.products.map((item) => (
+                      <Product key={item.id} {...item} />
+                    ))}
+                  </SimpleGrid>
+                </TabPanel>
+              ))}
             </TabPanels>
           </Tabs>
         </GridItem>

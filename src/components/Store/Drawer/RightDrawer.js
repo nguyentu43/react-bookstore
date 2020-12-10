@@ -1,4 +1,5 @@
 import {
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -10,8 +11,23 @@ import {
 import { FaUserAlt } from 'react-icons/fa';
 import LoginForm from '../Form/LoginForm';
 import { forwardRef } from 'react';
+import { logout } from '../../../api';
+import { useHistory } from 'react-router-dom';
+import { useAppContext } from '../../../context';
 
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
+  const {
+    state: { auth },
+    dispatch
+  } = useAppContext();
+  const history = useHistory();
+
+  function handleLogout(){
+    logout();
+    dispatch({ type: 'SET_AUTH', payload: { isLogin: false } });
+    history.push('/store');
+  }
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -28,7 +44,11 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
           </DrawerHeader>
 
           <DrawerBody>
-            <LoginForm inDrawer={true} />
+            {auth.isLogin ? (
+              <Button onClick={handleLogout}>Logout</Button>
+            ) : (
+              <LoginForm inDrawer={true} />
+            )}
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

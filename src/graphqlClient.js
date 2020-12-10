@@ -14,3 +14,7 @@ export default graphQLClient;
 export function request(query, variables){
   return graphQLClient.request(gql`${query}`, variables);
 }
+
+export function rawRequest(query, variables){
+  return graphQLClient.rawRequest(gql`${query}`, variables);
+}

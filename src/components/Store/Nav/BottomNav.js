@@ -13,16 +13,26 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useDisclosure
+  useDisclosure,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
-import { useRef } from 'react';
-import { FaAlignJustify, FaChevronDown, FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { FaAlignJustify, FaSearch } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
 import LeftDrawer from '../Drawer/LeftDrawer';
 
-export default function BottomNav() {
+export default function BottomNav({ categories }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const btnRef = useRef();
+  const history = useHistory();
+  const [keyword, setKeyword] = useState('');
+
+  function handleSeach(e) {
+    if (e.key === 'Enter' && keyword.trim().length > 3) {
+      history.push('/store/search?keyword=' + keyword.trim());
+    }
+  }
 
   return (
     <Stack
@@ -31,7 +41,7 @@ export default function BottomNav() {
       py={6}
       borderBottomWidth={1}
       justify="space-between"
-      align={["stretch", "stretch", "center"]}
+      align={['stretch', 'stretch', 'center']}
     >
       <HStack spacing={[4, 8]}>
         <IconButton
@@ -39,39 +49,40 @@ export default function BottomNav() {
           size="md"
           icon={<Icon as={FaAlignJustify} />}
         />
-        <Heading as={Link} to='/store'>Bookworm</Heading>
+        <Heading as={Link} to="/store">
+          Bookworm
+        </Heading>
       </HStack>
 
-      <Flex d={['none', 'none', 'none', 'flex']}>
-        {[0, 0, 0, 0, 0].map((_, index) => (
-          <Menu key={index}>
-            <MenuButton
-              p={4}
-            >
-              Actions <Icon as={FaChevronDown} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
-            </MenuList>
-          </Menu>
-        ))}
-      </Flex>
+      <HStack d={['none', 'none', 'none', 'flex']}>
+        <Text>Home</Text>
+        <Text onClick={onOpen}>Categories</Text>
+        <Text>About us</Text>
+      </HStack>
 
-      <Box w={["auto", "auto", 300]}>
+      <Box w={['auto', 'auto', 300]}>
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
             children={<Icon as={FaSearch} />}
           />
-          <Input placeholder="Search by keyword" />
+          <Input
+            value={keyword}
+            onChange={e => {
+              setKeyword(e.target.value);
+            }}
+            onKeyPress={handleSeach}
+            placeholder="Search by keyword"
+          />
         </InputGroup>
       </Box>
 
-      <LeftDrawer ref={btnRef} isOpen={isOpen} onClose={onClose} />
+      <LeftDrawer
+        categories={categories}
+        ref={btnRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Stack>
   );
 }
