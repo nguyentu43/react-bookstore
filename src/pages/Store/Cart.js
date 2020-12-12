@@ -20,6 +20,7 @@ import BlockLayout from '../../components/Store/BlockLayout';
 import ShortedProduct from '../../components/Store/ShortedProduct';
 import Table from '../../components/Table';
 import { useAppContext } from '../../context';
+import withAuth from '../../hocs/withAuth';
 
 function QuantityInput({ quantity, id, changeQuantity }) {
   const [value, setValue] = useState(quantity);
@@ -54,7 +55,7 @@ function QuantityInput({ quantity, id, changeQuantity }) {
   );
 }
 
-export default function Cart() {
+export default withAuth(function Cart() {
   const {
     state: {
       cart: { items, total },
@@ -71,7 +72,7 @@ export default function Cart() {
       const { cart } = await addItemToCart({ input: { quantity, id } });
       setCart(cart);
     } catch (error) {
-      alert(error);
+      throw error;
     }
   }
 
@@ -80,7 +81,7 @@ export default function Cart() {
       const { cart } = await removeItemFromCart({ productID });
       setCart(cart);
     } catch (error) {
-      alert(error);
+      throw error;
     }
   }
 
@@ -153,7 +154,6 @@ export default function Cart() {
         columns={columns}
         action={{ changeQuantity, deleteProduct }}
         data={data}
-        showPagination={false}
       />
       <Heading mt={4} textAlign="right">
         Total:{' '}
@@ -170,4 +170,4 @@ export default function Cart() {
       </Button>
     </BlockLayout>
   );
-}
+});

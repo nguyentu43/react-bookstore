@@ -42,14 +42,14 @@ export function fetchUserOrder() {
 
 export function addItemToCart(variables) {
   return request(
-    'mutation ($input: CartItemData!){cart: addCartItem(input: $input){id, name, price, slug, discount, quantity, images}}',
+    'mutation ($input: CartItemData!){cart: addCartItem(input: $input){id, name, price, slug, discount, quantity, images{secure_url}}}',
     variables
   );
 }
 
 export function removeItemFromCart(variables) {
   return request(
-    'mutation ($productID: ID!){cart: removeCartItem(productID: $productID){id, name, price, slug, discount, quantity, images}}',
+    'mutation ($productID: ID!){cart: removeCartItem(productID: $productID){id, name, price, slug, discount, quantity, images{secure_url}}}',
     variables
   );
 }
@@ -74,8 +74,49 @@ export function fetchCategories() {
   );
 }
 
+export function addCategory(variables) {
+  return request(
+    'mutation($input: CategoryData){result: addCategory(input: $input){id}}',
+    variables
+  );
+}
+
+export function updateCategory(variables) {
+  return request(
+    'mutation($id: ID, $input: CategoryData){result: updateCategory(id: $id, input: $input){id}}',
+    variables
+  );
+}
+
+export function removeCategory(variables) {
+  return request(
+    'mutation($id: ID){result:removeCategory(id: $id)}',
+    variables
+  );
+}
+
+export function addAuthor(variables) {
+  return request(
+    'mutation($input: AuthorData){result: addAuthor(input: $input){id}}',
+    variables
+  );
+}
+
+export function updateAuthor(variables) {
+  return request(
+    'mutation($id: ID, $input: AuthorData){result: updateAuthor(id: $id, input: $input){id}}',
+    variables
+  );
+}
+
+export function removeAuthor(variables) {
+  return request('mutation($id: ID){result:removeAuthor(id: $id)}', variables);
+}
+
 export function fetchAuthors() {
-  return request('query {authors:getAuthors{id, name, avatar, books}}');
+  return request(
+    'query {authors:getAuthors{id, name, avatar, books, description}}'
+  );
 }
 
 export function addWishlist(variables) {
@@ -102,9 +143,114 @@ export function getPaymentCode(variables) {
   );
 }
 
+export function fetchUsers() {
+  return request('query{users: getUsers{id, name, email, isAdmin}}');
+}
+
+export function addUser(variables) {
+  return request(
+    'mutation($input: UserData!){result: addUser(input: $input){id}}',
+    variables
+  );
+}
+
+export function updateUser(variables) {
+  return request(
+    'mutation($id: ID!, $input: UserData!){result: updateUser(id: $id, input: $input){id}}',
+    variables
+  );
+}
+
+export function removeUser(variables) {
+  return request('mutation($id: ID!){result: removeUser(id: $id)}', variables);
+}
+
+export function addProduct(variables) {
+  return request(
+    'mutation($input: ProductData!){result: addProduct(input: $input){id}}',
+    variables
+  );
+}
+
+export function updateProduct(variables) {
+  return request(
+    'mutation($id: ID!, $input: ProductData!){result: updateProduct(id: $id, input: $input){id}}',
+    variables
+  );
+}
+
+export function removeProduct(variables) {
+  return request(
+    'mutation($id: ID!){result: removeProduct(id: $id)}',
+    variables
+  );
+}
+
+export function fetchOrders() {
+  return request(
+    'query{orders: getOrders{id, name, address, total, status, user{email, id, name},phone, createdAt, items{id, name, price, discount, quantity, images{secure_url}}}}'
+  );
+}
+
+export function checkout(variables) {
+  return request(
+    'mutation($input: OrderData!){order: checkout(input: $input){id, status}}',
+    variables
+  );
+}
+
 export function addOrder(variables) {
   return request(
     'mutation($input: OrderData!, $userID: ID){order: addOrder(input: $input, userID: $userID){id, status}}',
+    variables
+  );
+}
+
+export function updateOrder(variables) {
+  return request(
+    'mutation($input: OrderData!, $id: ID!){result: updateOrder(input: $input, id: $id){id, status}}',
+    variables
+  );
+}
+
+export function removeOrder(variables) {
+  return request('mutation($id: ID!){result: removeOrder(id: $id)}', variables);
+}
+
+export function uploadImages(variables) {
+  return request(
+    `
+      mutation($files: [Upload!], $urls: String) {
+        uploadImages(files: $files, urls: $urls) {
+          public_id
+        }
+      }
+    `,
+    variables
+  );
+}
+
+export function deleteImages(variables) {
+  return request(
+    `
+      mutation($public_ids: [String!]) {
+        removeImages(public_ids: $public_ids)
+      }
+    `,
+    variables
+  );
+}
+
+export function fetchImages(variables) {
+  return request(
+    `query {
+      getImages {
+        list {
+          secure_url
+          public_id
+        }
+      }
+    }`,
     variables
   );
 }

@@ -13,7 +13,6 @@ export default function Table({
   data,
   action,
   skipPageReset,
-  showPagination,
   renderRowSubComponent,
   ...rest
 }) {
@@ -76,7 +75,7 @@ export default function Table({
                   {row.isExpanded && (
                     <TRow>
                       <TData colSpan={visibleColumns.length}>
-                        {renderRowSubComponent({row})}
+                        {renderRowSubComponent({ row })}
                       </TData>
                     </TRow>
                   )}
@@ -87,38 +86,36 @@ export default function Table({
           <tfoot></tfoot>
         </Box>
       </Box>
-      {showPagination && (
-        <HStack my={4}>
-          <IconButton
-            colorScheme="blue"
-            size="sm"
-            disabled={!canPreviousPage}
-            icon={<Icon as={FaAngleDoubleLeft} />}
-            onClick={() => gotoPage(0)}
-          />
-          <IconButton
-            colorScheme="blue"
-            size="sm"
-            disabled={!canPreviousPage}
-            icon={<Icon as={FaAngleLeft} />}
-            onClick={() => previousPage()}
-          />
-          <IconButton
-            colorScheme="blue"
-            size="sm"
-            disabled={!canNextPage}
-            icon={<Icon as={FaAngleRight} />}
-            onClick={() => nextPage()}
-          />
-          <IconButton
-            colorScheme="blue"
-            size="sm"
-            disabled={!canNextPage}
-            icon={<Icon as={FaAngleDoubleRight} />}
-            onClick={() => gotoPage(pageCount - 1)}
-          />
-        </HStack>
-      )}
+      <HStack my={4}>
+        <IconButton
+          colorScheme="blue"
+          size="sm"
+          disabled={!canPreviousPage}
+          icon={<Icon as={FaAngleDoubleLeft} />}
+          onClick={() => gotoPage(0)}
+        />
+        <IconButton
+          colorScheme="blue"
+          size="sm"
+          disabled={!canPreviousPage}
+          icon={<Icon as={FaAngleLeft} />}
+          onClick={() => previousPage()}
+        />
+        <IconButton
+          colorScheme="blue"
+          size="sm"
+          disabled={!canNextPage}
+          icon={<Icon as={FaAngleRight} />}
+          onClick={() => nextPage()}
+        />
+        <IconButton
+          colorScheme="blue"
+          size="sm"
+          disabled={!canNextPage}
+          icon={<Icon as={FaAngleDoubleRight} />}
+          onClick={() => gotoPage(pageCount - 1)}
+        />
+      </HStack>
     </>
   );
 }

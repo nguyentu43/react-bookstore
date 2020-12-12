@@ -4,6 +4,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
@@ -14,6 +15,7 @@ import graphQLClient from '../../../graphqlClient';
 export default function RegisterForm() {
   const { handleSubmit, errors, control } = useForm();
   const { dispatch } = useAppContext();
+  const toast = useToast();
 
   async function handleRegister(data) {
     try {
@@ -23,8 +25,8 @@ export default function RegisterForm() {
       const { user, cart } = await fetchUserInfo();
       dispatch({ type: 'SET_AUTH', payload: { ...user, isLogin: true } });
       dispatch({ type: 'SET_CART', payload: cart });
-    } catch (error) {
-      alert(error);
+    } catch({response}){
+      toast({title: response.errors[0].message, status: 'error'});
     }
   }
 

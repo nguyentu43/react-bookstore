@@ -11,33 +11,67 @@ import {
   InputLeftElement,
   useDisclosure,
   Text,
-  VStack, Button
+  VStack,
+  Spinner,
+  Button,
+  InputRightElement,
 } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
-import { FaAlignJustify, FaSearch } from 'react-icons/fa';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FaAlignJustify, FaBackspace, FaSearch } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
+import { fetchProducts } from '../../../api';
 import LeftDrawer from '../Drawer/LeftDrawer';
+import _ from 'lodash';
+import ShortedProduct from '../ShortedProduct';
 
 export default function BottomNav({ categories }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const btnRef = useRef();
   const history = useHistory();
   const [keyword, setKeyword] = useState('');
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const trimmedKeyword = useMemo(() => keyword.trim(), [keyword]);
 
-  function handleSeach(e) {
+  async function fetchData(keyword) {
+    setLoading(true);
+    try {
+      const { products } = await fetchProducts({
+        search: 'keyword=' + keyword,
+        limit: 3,
+      });
+      setBooks(products);
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleEnter(e) {
     if (e.key === 'Enter') {
-      history.push('/store/search?keyword=' + keyword.trim());
+      history.push('/store/search?keyword=' + trimmedKeyword);
+    }
+  }
+
+  const debounce = useCallback(_.debounce(fetchData, 300), []);
+
+  function handleChangeKeyword(e) {
+    const keyword = e.target.value;
+    setKeyword(keyword);
+    if (trimmedKeyword !== '') {
+      debounce(trimmedKeyword);
     }
   }
 
   useEffect(() => {
-    for (const sub of history.location.search.substr(1).split('&')){
+    for (const sub of history.location.search.substr(1).split('&')) {
       const params = sub.split('=');
-      if(params[0] === 'keyword'){
+      if (params[0] === 'keyword') {
         setKeyword(params[1]);
       }
     }
-  }, [])
+  }, []);
 
   return (
     <Stack
@@ -55,17 +89,11 @@ export default function BottomNav({ categories }) {
           icon={<Icon as={FaAlignJustify} />}
         />
         <Heading as={Link} to="/store">
-          Bookworm
+          Bookstore
         </Heading>
       </HStack>
 
-      <HStack d={['none', 'none', 'none', 'flex']}>
-        <Button colorScheme="green" as={Link} to="/store">Home</Button>
-        <Button colorScheme="blue" onClick={onOpen} to="/store">Categories</Button>
-        <Button as={Link} to="/store#">About us</Button>
-      </HStack>
-
-      <Box w={['auto', 'auto', 300]}>
+      <Box w={['auto', 'auto', 300]} pos="relative">
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
@@ -73,13 +101,55 @@ export default function BottomNav({ categories }) {
           />
           <Input
             value={keyword}
-            onChange={e => {
-              setKeyword(e.target.value);
-            }}
-            onKeyPress={handleSeach}
+            onChange={handleChangeKeyword}
+            onKeyPress={handleEnter}
             placeholder="Search by keyword"
           />
+          <InputRightElement
+            children={
+              <IconButton
+                colorScheme="blue"
+                onClick={() => setKeyword('')}
+                icon={<Icon as={FaBackspace} />}
+              />
+            }
+          />
         </InputGroup>
+        {trimmedKeyword !== '' && (
+          <VStack
+            right={0}
+            left={0}
+            align="stretch"
+            bg="white"
+            mt={4}
+            borderWidth={1}
+            borderRadius="md"
+            p={3}
+            pos="absolute"
+            zIndex="banner"
+          >
+            {loading ? (
+              <Spinner color="blue.500" alignSelf="center" />
+            ) : books.length > 0 ? (
+              <>
+                {books.map(p => (
+                  <ShortedProduct {...p} key={p.id} />
+                ))}
+                <Text
+                  textAlign="center"
+                  color="blue.500"
+                  as={Link}
+                  onClick={() => setKeyword('')}
+                  to={'/store/search?keyword=' + trimmedKeyword}
+                >
+                  See more books
+                </Text>
+              </>
+            ) : (
+              <Text>Please change another keyword</Text>
+            )}
+          </VStack>
+        )}
       </Box>
 
       <LeftDrawer

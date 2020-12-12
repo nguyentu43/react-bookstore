@@ -8,7 +8,7 @@ import { fetchCategories } from '../../api';
 
 export default function Layout({ children }) {
 
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,15 +17,11 @@ export default function Layout({ children }) {
         setCategories(categories.filter(c => !c.parent));
       }
       catch(error){
-        alert(error)
+        throw new Error('loi');
       }
     }
     fetchData();
   }, []);
-
-  if(!categories){
-    return 'loading.....';
-  }
 
   return (
     <Box>

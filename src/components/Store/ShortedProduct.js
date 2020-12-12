@@ -31,6 +31,16 @@ export default function ShortedProduct({
             thousandSeparator={true}
             prefix={'$'}
           />
+          {discount > 0 && (
+            <Text as="s" fontSize="sm">
+              <CurrencyFormat
+                value={price}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </Text>
+          )}
         </Text>
       </VStack>
     </HStack>

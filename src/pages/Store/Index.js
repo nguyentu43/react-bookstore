@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { FaNetworkWired } from 'react-icons/fa';
 import { fetchAuthors, fetchCategories, fetchProducts } from '../../api';
+import LoadingData from '../../components/LoadingData';
 import BannerCarousel from '../../components/Store/BannerCarousel';
 import BestSellingBlock from '../../components/Store/Block/BestSellingBlock';
 import FavouriteAuthorBlock from '../../components/Store/Block/FavouriteAuthorBlock';
@@ -10,6 +10,7 @@ import NewReleaseBlock from '../../components/Store/Block/NewReleaseBlock';
 import WeekDealBlock from '../../components/Store/Block/WeekDealBlock';
 
 export default function Index() {
+
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function Index() {
         const { authors } = await fetchAuthors();
         const data = await fetchCategories();
         const categories = data.categories
+          .reverse()
           .filter(c => c.parent === null)
           .slice(0, 4);
 
@@ -62,14 +64,16 @@ export default function Index() {
           categories,
         });
       } catch (error) {
-        alert(error);
+        throw error;
       }
     }
 
     fetchData();
   }, []);
 
-  if (!data) return 'loading';
+  if(data === null){
+    return <LoadingData />
+  }
 
   return (
     <>

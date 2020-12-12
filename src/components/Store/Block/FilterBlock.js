@@ -15,6 +15,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Select,
+  Button,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -24,8 +25,8 @@ import FeaturedShortedProductBlock from './FeaturedShortedProductBlock';
 export default function FilterBlock() {
   const { location, push } = useHistory();
   const [data, setData] = useState({ categories: [], authors: [] });
-  const [category, setCategory] = useState();
-  const [author, setAuthor] = useState();
+  const [category, setCategory] = useState(null);
+  const [author, setAuthor] = useState(null);
   const [range, setRange] = useState([0, 500]);
   const [order, setOrder] = useState(0);
   const orderOptions = [
@@ -136,11 +137,14 @@ export default function FilterBlock() {
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={4} textAlign="left">
-              <Heading size="md">Categories</Heading>
+              <Heading size="md">Categories </Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
+            <Button size="sm" onClick={() => setCategory(null)}>
+              Clear
+            </Button>
             <RadioGroup
               onChange={v => {
                 setCategory(v);
@@ -159,11 +163,14 @@ export default function FilterBlock() {
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={4} textAlign="left">
-              <Heading size="md">Author</Heading>
+              <Heading size="md">Author </Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
+            <Button size="sm" onClick={() => setAuthor(null)}>
+              Clear
+            </Button>
             <RadioGroup onChange={v => setAuthor(v)}>
               <VStack align="stretch">
                 {data.authors.map(item => (

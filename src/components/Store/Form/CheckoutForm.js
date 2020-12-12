@@ -4,17 +4,15 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  HStack,
   Input,
-  Select,
-  Text,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useAppContext } from '../../../context';
-import { addOrder, getPaymentCode } from '../../../api';
+import { checkout, getPaymentCode } from '../../../api';
 import { useHistory } from 'react-router-dom';
 
 export default function CheckoutForm() {
@@ -28,6 +26,7 @@ export default function CheckoutForm() {
     },
     dispatch,
   } = useAppContext();
+  const toast = useToast();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -69,7 +68,7 @@ export default function CheckoutForm() {
           setCardError(true);
         }
       } else {
-        await addOrder({
+        await checkout({
           input: {
             ...data,
             paymentID: paymentIntent.id,
@@ -85,9 +84,10 @@ export default function CheckoutForm() {
         alert(true);
         dispatch({ type: 'SET_CART', payload: [] });
         push('/store');
+        toast({title: 'Your order will be processed as soon as possible'});
       }
     } catch (error) {
-      alert(error);
+      toast({ status: 'error', title: 'Checkout Error. Try again!' });
     }
   }
 

@@ -3,8 +3,9 @@ import ShortedOrderBlock from '../../components/Store/Block/ShortedOrderBlock';
 import BlockLayout from '../../components/Store/BlockLayout';
 import CheckoutForm from '../../components/Store/Form/CheckoutForm';
 import { useAppContext } from '../../context';
+import withAuth from '../../hocs/withAuth';
 
-export default function Checkout() {
+export default withAuth(function Checkout() {
   const {
     state: { cart },
   } = useAppContext();
@@ -27,4 +28,4 @@ export default function Checkout() {
       </SimpleGrid>
     </BlockLayout>
   );
-}
+});

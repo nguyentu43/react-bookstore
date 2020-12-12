@@ -1,8 +1,4 @@
 import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   HStack,
   Icon,
   IconButton,
@@ -11,8 +7,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Select,
-  VStack,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
@@ -23,12 +18,19 @@ export default function AddProductForm({ id }) {
   const {
     state: {
       cart: { items },
+      auth: { isLogin },
     },
     dispatch,
   } = useAppContext();
-  const { handleSubmit, errors, register } = useForm();
+  const { handleSubmit, register } = useForm();
+  const toast = useToast();
 
   async function handleAddProduct(data) {
+    if (!isLogin) {
+      toast({ status: 'info', title: 'Login to add book to cart' });
+      return;
+    }
+
     const exists = items.find(item => item.id === id);
     const input = {
       quantity: 1,
@@ -41,18 +43,22 @@ export default function AddProductForm({ id }) {
     try {
       const { cart } = await addItemToCart({ input });
       dispatch({ type: 'SET_CART', payload: cart });
+      toast({title: 'A book is added to cart'});
     } catch (error) {
-      alert(error);
+      throw error;
     }
   }
 
-  async function handleAddWishlist(){
-    try{
-      const { result } = await addWishlist({ id });
-      alert(result); 
+  async function handleAddWishlist() {
+    if (!isLogin) {
+      toast({ status: 'info', title: 'Login to add book to wishlist' });
+      return;
     }
-    catch (error) {
-      alert(error);
+    try {
+      const { result } = await addWishlist({ id });
+      toast({title: 'A book is added to wishlist'});
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -71,7 +77,11 @@ export default function AddProductForm({ id }) {
           type="submit"
           colorScheme="blue"
         />
-        <IconButton color="pink.500" onClick={handleAddWishlist} icon={<Icon as={FaHeart} />} />
+        <IconButton
+          color="pink.500"
+          onClick={handleAddWishlist}
+          icon={<Icon as={FaHeart} />}
+        />
       </HStack>
     </form>
   );

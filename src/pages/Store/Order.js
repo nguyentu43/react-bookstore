@@ -14,9 +14,11 @@ import {
 } from '@chakra-ui/react';
 import { FaRegSmile } from 'react-icons/fa';
 import ShortedOrderBlock from '../../components/Store/Block/ShortedOrderBlock';
+import withAuth from '../../hocs/withAuth';
+import LoadingData from '../../components/LoadingData';
 
-export default function Order() {
-  const [orders, setOrders] = useState([]);
+export default withAuth(function Order() {
+  const [orders, setOrders] = useState(null);
   const columns = [
     {
       Header: 'Detail',
@@ -58,7 +60,7 @@ export default function Order() {
         const { orders } = await fetchUserOrder();
         setOrders(orders);
       } catch (error) {
-        alert(error);
+        throw error;
       }
     }
     fetchData();
@@ -79,6 +81,10 @@ export default function Order() {
     </SimpleGrid></>
   );
 
+  if(orders === null){
+    return <LoadingData/>
+  }
+
   return (
     <BlockLayout blockName="Order">
       <Table
@@ -88,4 +94,4 @@ export default function Order() {
       />
     </BlockLayout>
   );
-}
+});

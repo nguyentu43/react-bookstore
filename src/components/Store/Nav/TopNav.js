@@ -5,6 +5,7 @@ import {
   FaHeart,
   FaUserAlt,
   FaShoppingBag,
+  FaSlidersH
 } from 'react-icons/fa';
 import RightDrawer from '../Drawer/RightDrawer';
 import ColorModeSwitcher from '../../ColorModeSwitcher';
@@ -31,6 +32,9 @@ export default function TopNav() {
       <HStack spacing={8}>
         <Link to="/store/wishlist">
           <Icon as={FaHeart} />
+        </Link>
+        <Link to="/admin">
+          <Icon as={FaSlidersH} />
         </Link>
         <Text>
           <Icon

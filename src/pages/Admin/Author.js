@@ -1,33 +1,37 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
 import {
   Avatar,
   Button,
   Input,
-  Select,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
 import GalleryModal from '../../components/Admin/GalleryModal';
+import { addAuthor, fetchAuthors, removeAuthor, updateAuthor } from '../../api';
 
 export default function Author() {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [dataAvatar, setDataAvatar] = useState(null);
+  const [avatarData, setAvatarData] = useState(null);
 
   function openModal(data) {
     onOpen();
-    setDataAvatar(data);
-    console.log(data);
+    setAvatarData(data);
   }
 
   function onInsert(ids) {
     if (ids.length === 1) {
       console.log(ids);
-      console.log(dataAvatar);
-      setDataAvatar(null);
+      const input = {
+        avatar: ids[0].public_id,
+        name: avatarData.row.original.name,
+        description: avatarData.row.original.description,
+      }
+      avatarData.save({id: avatarData.row.original.id, ...input});
+      setAvatarData(null);
     }
     onClose();
   }
@@ -38,7 +42,7 @@ export default function Author() {
         Header: 'Avatar',
         accessor: 'avatar',
         Cell: data => {
-          return <Avatar onClick={() => openModal(data)} />;
+          return <Avatar src={data.value} onClick={() => openModal(data)} />;
         },
       },
       {
@@ -61,35 +65,76 @@ export default function Author() {
       {
         Header: 'Action',
         accessor: 'id',
-        Cell: ({ value }) => (
-          <ConfirmButton size="sm" colorScheme="red" buttonText="Delete" />
+        Cell: ({ value, remove }) => (
+          <ConfirmButton size="sm" onAccept={() => remove({id: value})} colorScheme="red" buttonText="Delete" />
         ),
       },
     ],
     []
   );
 
-  const data = useMemo(
-    () => [
-      {
-        name: 'ABC',
-        icon: 'FcAlarmClock',
-        id: '1',
-        description: 'This is author',
-      },
-      {
-        name: 'ABFC',
-        icon: 'FcAlarmClock',
-        id: '2',
-        description: 'This is author',
-      },
-    ],
-    []
-  );
+  const [authors, setAuthors] = useState([]);
+
+  const [skipPageReset, setSkipPage] = useState(false);
+  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSkipPage(false);
+  }, [authors]);
+
+
+  async function fetchData(){
+    try{
+      const {authors} = await fetchAuthors();
+      setAuthors(authors);
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  const action = {
+    save: async ({id, name, avatar, description}) => {
+      try{
+        setSkipPage(true);
+        await updateAuthor({id, input: {name, avatar, description}});
+        fetchData();
+      }
+      catch(error){
+        throw error;
+      }
+    },
+    remove: async ({id}) => {
+      try{
+        setSkipPage(true);
+        await removeAuthor({id});
+        fetchData();
+      }
+      catch(error){
+        throw error;
+      }
+    }
+  }
+
+  async function add(){
+    try{
+      setSkipPage(true);
+      await addAuthor({input: {name: 'New Author'}});
+      fetchData();
+    }
+    catch(error){
+      throw error;
+    }
+  }
 
   return (
     <BlockLayout blockName="Author Table">
-      <Table columns={columns} data={data} />
+      <Button colorScheme="blue" my={2} onClick={add}>Add</Button>
+      <Table columns={columns} data={authors} action={action} />
       <GalleryModal isOpen={isOpen} onClose={onClose} onInsert={onInsert} />
     </BlockLayout>
   );

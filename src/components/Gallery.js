@@ -5,11 +5,12 @@ import {
   HStack,
   Image,
   SimpleGrid,
+  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
-import { request } from '../graphqlClient';
 import ConfirmButton from '../components/ConfirmButton';
+import { deleteImages, fetchImages, uploadImages } from '../api';
 
 function Item({ public_id, secure_url, onChange, isDisabled }) {
   function handleChange(e) {
@@ -37,66 +38,44 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const [ids, setIds] = useState([]);
   const [cursor, setCursor] = useState(null);
   const [error, setError] = useState('');
-  const input = useRef(null);
+  const fileInput = useRef(null);
+  const [urls, setUrls] = useState('');
 
   async function handleUpload(e) {
-    const query = `
-      mutation($files: [Upload!]) {
-        uploadImages(files: $files) {
-          public_id
-        }
-      }
-    `;
-
+    e.preventDefault();
     try {
-      const result = await request(query, {
-        files: Array.from(e.target.files),
+      await uploadImages({
+        files: Array.from(fileInput.current.files),
+        urls,
       });
-
-      await fetchImages(true);
+      await fetchData(true);
       setError(null);
+      fileInput.current.value = '';
+      setUrls('');
     } catch (error) {
       setError('Upload Error');
-    } finally {
-      input.current.value = '';
     }
   }
 
   async function handleDelete() {
     if (ids.length === 0) return;
 
-    const query = `
-      mutation($public_ids: [String!]) {
-        removeImages(public_ids: $public_ids)
-      }
-    `;
-
     try {
-      const result = await request(query, {
+      await deleteImages({
         public_ids: ids.map(item => item.public_id),
       });
       setIds([]);
       setError(null);
-      await fetchImages(true);
+      await fetchData(true);
     } catch (error) {
       setError('Delete Error');
     }
   }
 
-  async function fetchImages(reset) {
-    const query = `
-      query {
-        getImages {
-          list {
-            secure_url
-            public_id
-          }
-        }
-      }
-    `;
+  async function fetchData(reset) {
     const {
       getImages: { list, next_cursor },
-    } = await request(query);
+    } = await fetchImages({ cursor });
 
     setCursor(next_cursor);
     if (reset) {
@@ -129,18 +108,21 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   }
 
   useEffect(() => {
-    fetchImages(true);
+    fetchData(true);
   }, []);
 
   return (
     <Box>
-      <input
-        type="file"
-        id="gallery"
-        multiple
-        ref={input}
-        onChange={handleUpload}
-      />
+      <form onSubmit={handleUpload}>
+        <input type="file" id="gallery" multiple ref={fileInput} />
+        <Textarea
+          placeholder="Enter url images"
+          mt={2}
+          value={urls}
+          onChange={e => setUrls(e.target.value)}
+        />
+        <Button type="submit">Upload</Button>
+      </form>
 
       {error && (
         <Box mt={4} textColor="red.500">
@@ -168,9 +150,18 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         alignItems="center"
       >
         {images.map(image => (
-          <Item onChange={handleSelect} key={image.public_id} {...image} />
+          <Item
+            onChange={handleSelect}
+            isDisabled={
+              !multiple &&
+              ids.length === 1 &&
+              ids[0].public_id !== image.public_id
+            }
+            key={image.public_id}
+            {...image}
+          />
         ))}
-        {cursor && <Button onClick={() => fetchImages()}>Show more</Button>}
+        {cursor && <Button onClick={() => fetchData()}>Show more</Button>}
       </SimpleGrid>
     </Box>
   );

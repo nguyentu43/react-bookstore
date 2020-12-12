@@ -4,9 +4,11 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { getWishlist, removeWishlist } from '../../api';
 import BlockLayout from '../../components/Store/BlockLayout';
 import ShortedProduct from '../../components/Store/ShortedProduct';
+import withAuth from '../../hocs/withAuth';
+import LoadingData from '../../components/LoadingData';
 
-export default function Wishlist() {
-  const [products, setProducts] = useState([]);
+export default withAuth(function Wishlist() {
+  const [products, setProducts] = useState(null);
 
   async function handleRemoveWishlist(id){
     try{
@@ -15,7 +17,7 @@ export default function Wishlist() {
       fetchData();
     }
     catch(error){
-      alert(error);
+      throw error;
     }
   }
 
@@ -24,7 +26,7 @@ export default function Wishlist() {
       const { products } = await getWishlist();
       setProducts(products);
     } catch (error) {
-      alert(error);
+      throw error;
     }
   }
 
@@ -32,7 +34,7 @@ export default function Wishlist() {
     fetchData();
   }, []);
 
-  if (products.length === 0) return 'loading';
+  if (products === null) return <LoadingData />
 
   return (
     <BlockLayout blockName="Wishlist">
@@ -46,4 +48,4 @@ export default function Wishlist() {
       </SimpleGrid>
     </BlockLayout>
   );
-}
+});

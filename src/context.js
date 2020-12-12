@@ -34,9 +34,13 @@ export const AppContext = createContext({});
 
 export function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialsState);
-  const contextValue = useMemo(() => ({
-    state, dispatch
-  }), [state, dispatch]);
+  const contextValue = useMemo(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state, dispatch]
+  );
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );

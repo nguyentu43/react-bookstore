@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import BlockLayout from '../BlockLayout';
 import Product from '../Product';
-import Book from '../../../imgs/book-sales.png';
+import Book from '../../../imgs/books.png';
 
 export default function NewReleaseBlock({ categories }) {
 

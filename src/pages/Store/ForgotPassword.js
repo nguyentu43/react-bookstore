@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom';
 import BlockLayout from '../../components/Store/BlockLayout';
 import RequestPasswordForm from '../../components/Store/Form/RequestPasswordForm';
 import ResetPasswordForm from '../../components/Store/Form/ResetPasswordForm';
+import withPrevent from '../../hocs/withPrevent';
 
-export default function ForgotPassword() {
+export default withPrevent(function ForgotPassword() {
 
   const [token, setToken] = useState(null);
   const {location} = useHistory();
@@ -29,4 +30,4 @@ export default function ForgotPassword() {
       </Box>
     </BlockLayout>
   );
-}
+});

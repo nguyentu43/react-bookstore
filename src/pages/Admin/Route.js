@@ -7,6 +7,7 @@ import Author from './Author';
 import User from './User';
 import ProductPage from './Product';
 import OrderPage from './Order';
+import withAuth from '../../hocs/withAuth';
 
 const menu = [
   { name: 'Book', path: 'book' },
@@ -16,7 +17,7 @@ const menu = [
   { name: 'User', path: 'user' },
 ];
 
-export default function AdminRoute() {
+export default withAuth(function AdminRoute() {
   return (
     <Layout>
       <Switch>
@@ -31,4 +32,4 @@ export default function AdminRoute() {
       </Switch>
     </Layout>
   );
-}
+}, {checkAdmin: true});

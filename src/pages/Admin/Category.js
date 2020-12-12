@@ -1,13 +1,28 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
 import * as FcIcon from 'react-icons/fc';
 import { Button, Input, Select } from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
+import {
+  fetchCategories,
+  updateCategory,
+  removeCategory,
+  addCategory,
+} from '../../api';
 
 export default function Category() {
   const iconNameList = useMemo(() => Object.keys(FcIcon), []);
+
+  async function fetchData() {
+    try {
+      const { categories } = await fetchCategories();
+      setCategories(categories);
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const columns = useMemo(
     () => [
@@ -37,49 +52,95 @@ export default function Category() {
       },
       {
         Header: 'Parent',
-        accessor: 'parent.name',
-        id: "parent",
-        Cell: data => {
-          const ParentInput = customInput(Select, data);
-          return <ParentInput>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </ParentInput>;
+        accessor: 'parent.id',
+        id: 'parentID',
+        Cell: table => {
+          const ParentInput = customInput(Select, table);
+          console.log(table.data);
+          return (
+            <ParentInput>
+              <option>Choose parent</option>
+              {table.data
+                .filter(category => category.parent === null)
+                .map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+            </ParentInput>
+          );
         },
       },
       {
         Header: 'Action',
         accessor: 'id',
-        Cell: ({ value }) => (
-          <ConfirmButton size="sm" colorScheme="red" buttonText="Delete" />
+        Cell: ({ value, remove }) => (
+          <ConfirmButton
+            size="sm"
+            onAccept={() => remove({ id: value })}
+            colorScheme="red"
+            buttonText="Delete"
+          />
         ),
       },
     ],
     []
   );
 
-  const data = useMemo(
-    () => [
-      {
-        name: 'ABC',
-        icon: 'FcAlarmClock',
-        id: '1',
-        parent: { name: 'Parent' },
-      },
-      {
-        name: 'ABFC',
-        icon: 'FcAlarmClock',
-        id: '2',
-        parent: { name: 'Parent 2' },
-      },
-    ],
-    []
-  );
+  const [categories, setCategories] = useState([]);
+
+  const [skipPageReset, setSkipPage] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSkipPage(false);
+  }, [categories]);
+
+  const action = {
+    save: async ({ id, name, parentID, icon }) => {
+      try {
+        setSkipPage(true);
+        await updateCategory({ id, input: { name, parentID, icon } });
+        fetchData();
+      } catch (error) {
+        throw error;
+      }
+    },
+    remove: async ({ id }) => {
+      try {
+        setSkipPage(true);
+        await removeCategory({ id });
+        fetchData();
+      } catch (error) {
+        throw error;
+      }
+    },
+  };
+
+  async function add() {
+    try {
+      setSkipPage(true);
+      await addCategory({ input: { name: 'New Category' } });
+      fetchData();
+    } catch (error) {
+      throw error;
+    }
+  }
 
   return (
     <BlockLayout blockName="Category Table">
-      <Table columns={columns} data={data} />
+      <Button colorScheme="blue" my={2} onClick={add}>
+        Add
+      </Button>
+      <Table
+        skipPageReset={skipPageReset}
+        columns={columns}
+        data={categories}
+        action={action}
+      />
     </BlockLayout>
   );
 }

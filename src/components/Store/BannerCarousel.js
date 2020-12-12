@@ -21,7 +21,7 @@ function Item() {
       <VStack align="flex-start" spacing={3}>
         <FadeIn delay={500}>
           <Heading size="sm" color="gray.500">
-            THE BOOKWORM EDITORS'
+            THE BOOKSTORE EDITORS'
           </Heading>
         </FadeIn>
         <FadeIn delay={600}>

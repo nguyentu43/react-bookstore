@@ -4,21 +4,22 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { verifyTokenAndResetPassword } from '../../../api';
 
-export default function RequestPasswordForm({token}) {
+export default function RequestPasswordForm({ token }) {
   const { handleSubmit, errors, control } = useForm();
+  const toast = useToast();
 
-  async function handleReset({password}){
-    try{
-      await verifyTokenAndResetPassword({password, token});
-      alert(true);
-    }
-    catch(error){
-      alert(error);
+  async function handleReset({ password }) {
+    try {
+      await verifyTokenAndResetPassword({ password, token });
+      toast({ title: 'Password has been reset', status: 'success' });
+    } catch (error) {
+      toast({ title: 'Reset password error', status: 'error' });
     }
   }
 

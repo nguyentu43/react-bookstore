@@ -5,6 +5,7 @@ import {
     FormLabel,
     Input,
     Text,
+    useToast,
     VStack,
   } from '@chakra-ui/react';
   import { useForm, Controller } from 'react-hook-form';
@@ -12,14 +13,15 @@ import {
   
   export default function RequestPasswordForm() {
     const { handleSubmit, errors, control } = useForm();
+    const toast = useToast();
 
     async function handleRequest(data){
       try{
         await requestResetPassword(data);
-        alert(true);
+        toast({title: 'A email has been sent. Check your email'});
       }
       catch(error){
-        alert(error);
+        toast({title: 'Send mail error', status: 'error'});
       }
     }
   

@@ -1,6 +1,14 @@
 import { Button, HStack, Image } from '@chakra-ui/react';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
+import {
+  addProduct,
+  fetchAuthors,
+  fetchCategories,
+  fetchProducts,
+  removeProduct,
+  updateProduct,
+} from '../../api';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import ProductEditForm from '../../components/Admin/Form/ProductEditForm';
 import ConfirmButton from '../../components/ConfirmButton';
@@ -12,7 +20,7 @@ export default function ProductPage() {
       {
         Header: 'Image',
         accessor: 'images',
-        Cell: ({ value }) => <Image width="60px" src={value[0]} />,
+        Cell: ({ value }) => <Image width="60px" src={value[0].secure_url} />,
       },
       {
         Header: 'Name',
@@ -47,8 +55,9 @@ export default function ProductPage() {
       },
       {
         Header: 'Action',
+        accessor: 'id',
         id: 'expander',
-        Cell: ({ value, row }) => {
+        Cell: ({ value, row, remove }) => {
           return (
             <HStack>
               <Button
@@ -59,7 +68,12 @@ export default function ProductPage() {
               >
                 Edit
               </Button>
-              <ConfirmButton buttonText="Delete" colorScheme="red" size="sm" />
+              <ConfirmButton
+                onAccept={() => remove({ id: value })}
+                buttonText="Delete"
+                colorScheme="red"
+                size="sm"
+              />
             </HStack>
           );
         },
@@ -68,36 +82,116 @@ export default function ProductPage() {
     []
   );
 
-  const data = useMemo(
-    () => [
-      {
-        name: 'Book 1',
-        price: 1234,
-        discount: 0.3,
-        category: {
-          name: 'ABC',
-        },
-        images: [
-          'https://res.cloudinary.com/dqwgxcnh7/image/upload/v1607339103/store/mhnt25j8ll0xhy48lyfs.jpg',
-        ],
-        authors: [{ name: 'abc' }, { name: 'xyz' }],
-      },
-    ],
-    []
-  );
+  const [products, setProducts] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [skipPageReset, setSkipPage] = useState(false);
+
+  async function add() {
+    try {
+      setSkipPage(true);
+      const input = {
+        name: 'New book',
+        images: JSON.stringify(['store/200x300_rffsze']),
+        price: 1,
+        category: '1',
+        authors: ['1']
+      };
+
+      await addProduct({
+        input
+      });
+      fetchData();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function save({ id, input }) {
+    try {
+      setSkipPage(true);
+      await updateProduct({ id, input });
+      fetchData();
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const renderRowSubComponent = useCallback(
-    ({row}) => (<ProductEditForm />),
-    []
+    ({ row }) => {
+      const product = { ...row.original };
+      product.category = {
+        value: product.category.id,
+        label: product.category.name,
+      };
+      product.authors = product.authors.map(({ id, name }) => ({
+        label: name,
+        value: id,
+      }));
+
+      return (
+        <ProductEditForm
+          product={product}
+          save={save}
+          categoryOptions={categories}
+          authorOptions={authors}
+        />
+      );
+    },
+    [authors, categories]
   );
+
+  const action = {
+    async remove({ id }) {
+      try {
+        setSkipPage(true);
+        await removeProduct({ id });
+        fetchData();
+      } catch (error) {
+        throw error;
+      }
+    },
+  };
+
+  async function fetchData() {
+    try {
+      const { products } = await fetchProducts({ search: 'order=1' });
+      const { categories } = await fetchCategories();
+      const { authors } = await fetchAuthors();
+      setProducts(products);
+      setAuthors(
+        authors.map(author => ({ value: author.id, label: author.name }))
+      );
+      setCategories(
+        categories.map(category => ({
+          value: category.id,
+          label: category.name,
+        }))
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSkipPage(false);
+  }, [products]);
 
   return (
     <BlockLayout blockName="Product Table">
+      <Button colorScheme="blue" my={2} onClick={add}>
+        Add
+      </Button>
       <Table
         columns={columns}
-        showPagination={true}
-        data={data}
+        data={products}
         renderRowSubComponent={renderRowSubComponent}
+        action={action}
+        skipPageReset={skipPageReset}
       />
     </BlockLayout>
   );

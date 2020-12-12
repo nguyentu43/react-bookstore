@@ -1,8 +1,7 @@
 import { VStack, Avatar, Text, Box } from '@chakra-ui/react';
-import { useHistory, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 
 export default function Author({ id, name, avatar, books }) {
-  const { push } = useHistory();
 
   return (
     <VStack

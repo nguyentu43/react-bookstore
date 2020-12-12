@@ -4,10 +4,11 @@ import { FcLock } from 'react-icons/fc';
 
 export default function (
   Comp,
-  { value: initialValue, column },
+  { value: initialValue, column, row: { original }, save },
   rules = null,
   clickToEdit = false,
-  size = 'sm'
+  size = 'sm',
+  valueName = 'value'
 ) {
   return ({ children, ...rest }) => {
     const [isEdit, setEdit] = useState(!clickToEdit);
@@ -18,7 +19,7 @@ export default function (
 
     const props = useMemo(
       () => ({
-        value,
+        [valueName]: value,
         onChange,
         onBlur,
         ref: input,
@@ -29,7 +30,12 @@ export default function (
     );
 
     function onChange(e) {
-      setValue(e.target.value);
+      if(valueName === 'isChecked'){
+        setValue(e.target.checked);
+      }
+      else{
+        setValue(e.target.value);
+      }
     }
 
     function onBlur(e) {
@@ -58,7 +64,7 @@ export default function (
       }
 
       setError(false);
-      console.log(column.id, value, 'Save');
+      save({ ...original, [column.id]: value });
     }
 
     return (
@@ -77,7 +83,13 @@ export default function (
           ) : (
             <Comp {...rest} {...props} isDisabled={!isEdit} />
           )}
-          {clickToEdit && !isEdit && <IconButton size="sm" icon={<Icon as={FcLock} />} onClick={() => setEdit(true)}/>}
+          {clickToEdit && !isEdit && (
+            <IconButton
+              size="sm"
+              icon={<Icon as={FcLock} />}
+              onClick={() => setEdit(true)}
+            />
+          )}
         </HStack>
       </Tooltip>
     );
