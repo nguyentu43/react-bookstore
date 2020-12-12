@@ -1,5 +1,6 @@
-import { Image, Text, VStack, HStack, Stack } from '@chakra-ui/react';
+import { Image, Text, VStack, HStack, Stack, useColorModeValue } from '@chakra-ui/react';
 import CurrencyFormat from 'react-currency-format';
+import { Link } from 'react-router-dom';
 import AddProductForm from './Form/AddProductForm';
 
 export default function DealProduct({
@@ -11,6 +12,7 @@ export default function DealProduct({
   authors,
   slug,
 }) {
+  const bg = useColorModeValue('white', 'blue.900');
   return (
     <Stack
       direction={['column', 'column', 'row']}
@@ -20,14 +22,14 @@ export default function DealProduct({
       py={4}
       mx={2}
       spacing={5}
-      bg="white"
+      bg={bg}
     >
       <Image h={60} objectFit="contain" src={images[0].secure_url} />
       <VStack align="stretch" spacing={1}>
-        <Text fontWeight="bold" fontSize="xl" noOfLines={2}>
+        <Text as={Link} to={"/store/book" + slug} fontWeight="bold" fontSize="xl" noOfLines={2}>
           {name}
         </Text>
-        <Text color="gray.500">
+        <Text>
           {authors.map(author => author.name).join(', ')}
         </Text>
         <HStack align="baseline">

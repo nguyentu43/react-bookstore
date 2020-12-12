@@ -8,12 +8,23 @@ import {
     VStack,
   } from '@chakra-ui/react';
   import { useForm, Controller } from 'react-hook-form';
+  import {requestResetPassword} from '../../../api';
   
   export default function RequestPasswordForm() {
     const { handleSubmit, errors, control } = useForm();
+
+    async function handleRequest(data){
+      try{
+        await requestResetPassword(data);
+        alert(true);
+      }
+      catch(error){
+        alert(error);
+      }
+    }
   
     return (
-      <form onSubmit={handleSubmit(data => console.log(data))}>
+      <form onSubmit={handleSubmit(data => handleRequest(data))}>
         <VStack align="stretch" p={4} borderWidth={1} borderRadius="md">
           <FormControl isInvalid={errors.email}>
             <FormLabel htmlFor="email">Email:</FormLabel>

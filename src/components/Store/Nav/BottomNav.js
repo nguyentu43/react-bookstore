@@ -9,15 +9,11 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   useDisclosure,
   Text,
-  VStack,
+  VStack, Button
 } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaAlignJustify, FaSearch } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import LeftDrawer from '../Drawer/LeftDrawer';
@@ -29,10 +25,19 @@ export default function BottomNav({ categories }) {
   const [keyword, setKeyword] = useState('');
 
   function handleSeach(e) {
-    if (e.key === 'Enter' && keyword.trim().length > 3) {
+    if (e.key === 'Enter') {
       history.push('/store/search?keyword=' + keyword.trim());
     }
   }
+
+  useEffect(() => {
+    for (const sub of history.location.search.substr(1).split('&')){
+      const params = sub.split('=');
+      if(params[0] === 'keyword'){
+        setKeyword(params[1]);
+      }
+    }
+  }, [])
 
   return (
     <Stack
@@ -55,9 +60,9 @@ export default function BottomNav({ categories }) {
       </HStack>
 
       <HStack d={['none', 'none', 'none', 'flex']}>
-        <Text>Home</Text>
-        <Text onClick={onOpen}>Categories</Text>
-        <Text>About us</Text>
+        <Button colorScheme="green" as={Link} to="/store">Home</Button>
+        <Button colorScheme="blue" onClick={onOpen} to="/store">Categories</Button>
+        <Button as={Link} to="/store#">About us</Button>
       </HStack>
 
       <Box w={['auto', 'auto', 300]}>

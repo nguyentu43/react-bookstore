@@ -1,8 +1,7 @@
-import { Flex, HStack, Icon, useDisclosure } from '@chakra-ui/react';
+import { Flex, HStack, Icon, Text, useDisclosure } from '@chakra-ui/react';
 import {
   FaQuestionCircle,
   FaPhoneAlt,
-  FaMarsStrokeH,
   FaHeart,
   FaUserAlt,
   FaShoppingBag,
@@ -15,8 +14,13 @@ export default function TopNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
-    <HStack px={[4, 6, 12]} py={2} borderBottomWidth={1} justify={["center", "center", "space-between"]}>
-      <HStack spacing={8} d={["none", "none", "flex"]}>
+    <HStack
+      px={[4, 6, 12]}
+      py={2}
+      borderBottomWidth={1}
+      justify={['center', 'center', 'space-between']}
+    >
+      <HStack spacing={8} d={['none', 'none', 'flex']}>
         <Flex align="center">
           <Icon mr={2} as={FaQuestionCircle} /> Can we help you?
         </Flex>
@@ -25,15 +29,22 @@ export default function TopNav() {
         </Flex>
       </HStack>
       <HStack spacing={8}>
-        <Icon as={FaMarsStrokeH} />
-        <Icon as={FaHeart} />
-        <Icon
-          _hover={{ cursor: 'pointer' }}
-          onClick={onOpen}
-          as={FaUserAlt}
-        />
-        <Link to="/store/cart"><Icon as={FaShoppingBag} /></Link>
-        <ColorModeSwitcher/>
+        <Link to="/store/wishlist">
+          <Icon as={FaHeart} />
+        </Link>
+        <Text>
+          <Icon
+            _hover={{ cursor: 'pointer' }}
+            onClick={onOpen}
+            as={FaUserAlt}
+          />
+        </Text>
+        <Link to="/store/cart">
+          <Icon as={FaShoppingBag} />
+        </Link>
+        <Text>
+          <ColorModeSwitcher />
+        </Text>
       </HStack>
       <RightDrawer isOpen={isOpen} onClose={onClose} />
     </HStack>

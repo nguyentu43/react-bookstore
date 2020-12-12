@@ -9,6 +9,12 @@ import {
   Radio,
   RadioGroup,
   VStack,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Select,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -20,18 +26,32 @@ export default function FilterBlock() {
   const [data, setData] = useState({ categories: [], authors: [] });
   const [category, setCategory] = useState();
   const [author, setAuthor] = useState();
-  const [priceRange, setRange] = useState({ start: 0, end: 10 });
+  const [range, setRange] = useState([0, 500]);
+  const [order, setOrder] = useState(0);
+  const orderOptions = [
+    {
+      value: 0,
+      name: 'Best Seller',
+    },
+    {
+      value: 1,
+      name: 'Newest',
+    },
+    {
+      value: 2,
+      name: 'Dec Price',
+    },
+    {
+      value: 3,
+      name: 'Inc Price',
+    },
+    {
+      value: 4,
+      name: 'On Sale',
+    },
+  ];
 
-  useEffect(() => {
-    async function fetchData() {
-      const { categories } = await fetchCategories();
-      const { authors } = await fetchAuthors();
-      setData({ categories, authors });
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
+  function handleChangeLocation() {
     for (const sub of location.search.substr(1).split('&')) {
       const params = sub.split('=');
       if (params[0] === 'category') {
@@ -40,13 +60,27 @@ export default function FilterBlock() {
         setAuthor(params[1]);
       }
     }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      const { categories } = await fetchCategories();
+      const { authors } = await fetchAuthors();
+      setData({ categories, authors });
+    }
+    fetchData();
+    handleChangeLocation();
+  }, []);
+
+  useEffect(() => {
+    handleChangeLocation();
   }, [location]);
 
   useEffect(() => {
     let query = [];
     for (const sub of location.search.substr(1).split('&')) {
       const params = sub.split('=');
-      if (['category', 'author'].indexOf(params[0]) === -1) {
+      if (['category', 'author', 'range', 'order'].indexOf(params[0]) === -1) {
         query.push(sub);
       }
     }
@@ -56,12 +90,49 @@ export default function FilterBlock() {
     if (author) {
       query.push('author=' + author);
     }
+    query.push('range=' + range.join('-'));
+    query.push('order=' + order);
+
     push('/store/search?' + query.join('&'));
-  }, [category, author]);
+  }, [category, author, range, order]);
+
+  function handleChangeRange(v, type) {
+    if (type === 'min') {
+      if (v <= range[1] && v >= 0) {
+        setRange([v, range[1]]);
+      }
+    } else if (type === 'max') {
+      if (v >= range[0] && v <= 500) {
+        setRange([range[0], v]);
+      }
+    }
+  }
 
   return (
     <Box borderLeftWidth={1} borderRightWidth={1} borderRadius="md">
       <Accordion defaultIndex={[0, 1, 2, 3, 4]} allowToggle allowMultiple>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" py={4} textAlign="left">
+              <Heading size="md">Order by</Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            <Select
+              value={order}
+              onChange={e => {
+                setOrder(e.target.value);
+              }}
+            >
+              {orderOptions.map(op => (
+                <option value={op.value} key={op.value}>
+                  {op.name}
+                </option>
+              ))}
+            </Select>
+          </AccordionPanel>
+        </AccordionItem>
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={4} textAlign="left">
@@ -95,9 +166,13 @@ export default function FilterBlock() {
           <AccordionPanel pb={4}>
             <RadioGroup onChange={v => setAuthor(v)}>
               <VStack align="stretch">
-                {data.authors.map(author => (
-                  <Radio isChecked={author.id === author} key={author.id} value={author.id}>
-                    {author.name}
+                {data.authors.map(item => (
+                  <Radio
+                    isChecked={item.id === author}
+                    key={item.id}
+                    value={item.id}
+                  >
+                    {item.name}
                   </Radio>
                 ))}
               </VStack>
@@ -111,7 +186,34 @@ export default function FilterBlock() {
             </Box>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel pb={4}></AccordionPanel>
+          <AccordionPanel pb={4}>
+            Min:{' '}
+            <NumberInput
+              value={range[0]}
+              onChange={v => handleChangeRange(v, 'min')}
+              min={0}
+              max={500}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+            Max:{' '}
+            <NumberInput
+              value={range[1]}
+              onChange={v => handleChangeRange(v, 'max')}
+              min={0}
+              max={500}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
           <AccordionButton>

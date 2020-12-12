@@ -15,8 +15,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { FaCartPlus, FaHeart, FaRegUser } from 'react-icons/fa';
-import { addItemToCart } from '../../../api';
+import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { addItemToCart, addWishlist } from '../../../api';
 import { useAppContext } from '../../../context';
 
 export default function AddProductForm({ id }) {
@@ -46,6 +46,16 @@ export default function AddProductForm({ id }) {
     }
   }
 
+  async function handleAddWishlist(){
+    try{
+      const { result } = await addWishlist({ id });
+      alert(result); 
+    }
+    catch (error) {
+      alert(error);
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(data => handleAddProduct(data))}>
       <HStack>
@@ -61,7 +71,7 @@ export default function AddProductForm({ id }) {
           type="submit"
           colorScheme="blue"
         />
-        <IconButton color="pink.500" icon={<Icon as={FaHeart} />} />
+        <IconButton color="pink.500" onClick={handleAddWishlist} icon={<Icon as={FaHeart} />} />
       </HStack>
     </form>
   );

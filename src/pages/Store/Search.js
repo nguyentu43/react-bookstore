@@ -4,14 +4,16 @@ import {
   HStack,
   Select,
   SimpleGrid,
-  Spinner,
+  Skeleton,
+  Stack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { fetchProducts } from '../../api';
 import FilterBlock from '../../components/Store/Block/FilterBlock';
 import BlockLayout from '../../components/Store/BlockLayout';
 import Product from '../../components/Store/Product';
+import InifiniteScroll from 'react-infinite-scroll-component';
 
 export default function Search() {
   const { location } = useHistory();
@@ -30,7 +32,7 @@ export default function Search() {
     } else {
       setProducts(products.concat(data.products));
     }
-    setHasMore(data.products.length < limit);
+    setHasMore(data.products.length === limit);
   }
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function Search() {
   }, [location]);
 
   useEffect(() => {
-    fetchData();
+    fetchData(true);
   }, []);
 
   return (
@@ -48,14 +50,25 @@ export default function Search() {
           <FilterBlock />
         </GridItem>
         <GridItem colSpan={[1, 1, 1, 3]}>
-          <HStack mb={6} w={200}>
-            <Select>
-              <option value="short">Default sort</option>
-            </Select>
-          </HStack>
           <SimpleGrid
             borderTopWidth={1}
             borderLeftWidth={1}
+            as={InifiniteScroll}
+            next={() => fetchData()}
+            dataLength={products.length}
+            hasMore={hasMore}
+            loader={
+              <>
+                {Array.from({ length: limit }).map((_, i) => (
+                  <Stack key={i} p={2} borderRightWidth={1} borderBottomWidth={1}>
+                    <Skeleton height="240px" />
+                    <Skeleton height="20px" />
+                    <Skeleton height="20px" />
+                    <Skeleton height="20px" />
+                  </Stack>
+                ))}
+              </>
+            }
             columns={[1, 2, 3, 4]}
           >
             {products.map(item => (

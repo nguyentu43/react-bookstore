@@ -7,12 +7,13 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Icon,
+  VStack,
 } from '@chakra-ui/react';
 import { FaUserAlt } from 'react-icons/fa';
 import LoginForm from '../Form/LoginForm';
 import { forwardRef } from 'react';
 import { logout } from '../../../api';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useAppContext } from '../../../context';
 
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
@@ -45,7 +46,10 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
 
           <DrawerBody>
             {auth.isLogin ? (
-              <Button onClick={handleLogout}>Logout</Button>
+              <VStack align="flex-start">
+             <Button as={Link} to="/store/order" colorScheme="green">Order</Button>
+              <Button onClick={handleLogout} colorScheme="red">Logout</Button></VStack>
+              
             ) : (
               <LoginForm inDrawer={true} />
             )}

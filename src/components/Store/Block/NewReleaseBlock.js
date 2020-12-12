@@ -10,17 +10,20 @@ import {
   Tabs,
   Image,
   Text,
-  Button,
+  Button, useColorModeValue
 } from '@chakra-ui/react';
 import BlockLayout from '../BlockLayout';
 import Product from '../Product';
 import Book from '../../../imgs/book-sales.png';
 
 export default function NewReleaseBlock({ categories }) {
+
+  const bg = useColorModeValue('pink.50', "pink.500");
+
   return (
     <BlockLayout blockName="New Releases">
       <SimpleGrid columns={[1, 1, 3]}>
-        <GridItem colSpan={1} bg="pink.50" borderRadius="md">
+        <GridItem colSpan={1} bg={bg} borderRadius="md">
           <VStack align="stretch" px={8} justify="center" my={16}>
             <Image objectFit="contain" src={Book} />
             <VStack align="flex-start">
@@ -28,11 +31,11 @@ export default function NewReleaseBlock({ categories }) {
               <Text fontSize="5xl" textColor="red.500">
                 Sale -25%
               </Text>
-              <Text fontSize="2xl" fontWeight="bold" textColor="gray.500">
+              <Text fontSize="2xl" fontWeight="bold">
                 ON ORDER OVER <br />
                 $100
               </Text>
-              <Button colorScheme="pink">View More</Button>
+              <Button colorScheme="blue">View More</Button>
             </VStack>
           </VStack>
         </GridItem>

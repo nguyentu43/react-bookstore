@@ -1,9 +1,11 @@
 import BlockLayout from '../BlockLayout';
 import * as FCIcons from 'react-icons/fc';
-import { VStack, Heading, Icon, Text, SimpleGrid } from '@chakra-ui/react';
+import { VStack, Icon, Text, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 export default function FeaturedCategoryBlock({ categories }) {
+
+  const bg = useColorModeValue('pink.50', 'pink.500');
 
   return (
     <BlockLayout
@@ -17,7 +19,7 @@ export default function FeaturedCategoryBlock({ categories }) {
             align="flex-start"
             borderRadius="md"
             key={item.id}
-            bg="pink.50"
+            bg={bg}
             px={8}
             py={6}
           >

@@ -1,7 +1,5 @@
-import { Image, Text, VStack, HStack, Icon } from '@chakra-ui/react';
+import { Image, Text, VStack, HStack } from '@chakra-ui/react';
 import CurrencyFormat from 'react-currency-format';
-import { FaHeart } from 'react-icons/fa';
-import Rating from './Rating';
 import { useMemo } from 'react';
 import AddProductForm from './Form/AddProductForm';
 import { Link } from 'react-router-dom';
@@ -49,7 +47,6 @@ export default function Product({
         <Text color="gray.500">
           {authors.map(author => author.name).join(', ')}
         </Text>
-        <Rating />
         <HStack align="baseline">
           <Text fontSize="xl" fontWeight="bold">
             <CurrencyFormat

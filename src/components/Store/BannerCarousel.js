@@ -1,13 +1,16 @@
-import { Button, Stack, VStack, Heading, Image, Box } from '@chakra-ui/react';
-import Books from '../../imgs/books.png';
-import BannerBg from '../../imgs/banner-bg.jpg';
+import { Button, Stack, VStack, Heading, Image, Box, useColorModeValue } from '@chakra-ui/react';
+import Book from '../../imgs/books.png';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
 import FadeIn from 'react-fade-in';
+import { Link } from 'react-router-dom';
 
 function Item() {
+
+  const bg = useColorModeValue('pink.50', 'pink.500');
+
   return (
     <Stack
-      bgImage={'url(' + BannerBg + ')'}
+      bg={bg}
       py={[12, 24]}
       px={[4, 6, 12]}
       direction={['column', 'column', 'row']}
@@ -25,14 +28,18 @@ function Item() {
           <Heading size="2xl" fontWeight="none">
             Featured Books of the
           </Heading>
-          <Heading size="2xl">February</Heading>
+          <Heading size="2xl">
+            February
+          </Heading>
         </FadeIn>
         <FadeIn delay={700}>
-          <Button colorScheme="blue">See More</Button>
+          <Button as={Link} to="/store" colorScheme="blue">
+            See More
+          </Button>
         </FadeIn>
       </VStack>
       <FadeIn delay={500}>
-        <Image w="auto" h={['auto', 'auto', 180, 240]} src={Books} />
+        <Image w="auto" h={['auto', 'auto', 180, 240]} src={Book} />
       </FadeIn>
     </Stack>
   );

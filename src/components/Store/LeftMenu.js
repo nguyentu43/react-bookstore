@@ -1,6 +1,7 @@
 import { VStack, Text, Icon, Flex, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 const stack = [];
 const prevItemStack = [];
@@ -9,14 +10,18 @@ export default function LeftMenu({categories}) {
 
   const [items, setItems] = useState([...categories]);
   const [prevItem, setPrevItem] = useState(null);
+  const {push} = useHistory();
 
   function handleClick(item) {
 
-    if(item.children.length > 0){
+    if(item.children && item.children.length > 0){
       stack.push(items);
       prevItemStack.push(item);
       setItems(item.children);
       setPrevItem(item);
+    }
+    else{
+      push('/store/search?category=' + item.id);
     }
   }
 
@@ -55,12 +60,12 @@ export default function LeftMenu({categories}) {
               justify="space-between"
             >
               <Text>{item.name}</Text>
-              {item.children.length >0 && <Icon as={FaChevronRight} />}
+              {item.children && item.children.length >0 && <Icon as={FaChevronRight} />}
             </Flex>
           );
         })}
         {items.length > 0 && <Flex
-              onClick={() => handleClick({ id: prevItem })}
+              onClick={() => handleClick({ id: prevItem.id})}
               _hover={{ cursor: 'pointer' }}
               align="center"
               justify="space-between"
