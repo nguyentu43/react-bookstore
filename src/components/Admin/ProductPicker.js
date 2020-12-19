@@ -1,4 +1,11 @@
-import { HStack, VStack, Input, IconButton, Icon, Heading } from '@chakra-ui/react';
+import {
+  HStack,
+  VStack,
+  Input,
+  IconButton,
+  Icon,
+  Heading,
+} from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { FaRegTrashAlt } from 'react-icons/fa';
@@ -33,7 +40,14 @@ export default function ProductPicker({
     onChange([...items]);
   }
 
-  const total = useMemo(() => items.reduce((prev, item) => prev + item.price * (1-item.discount) * item.quantity, 0), [items]);
+  const total = useMemo(
+    () =>
+      items.reduce(
+        (prev, item) => prev + item.price * (1 - item.discount) * item.quantity,
+        0
+      ),
+    [items]
+  );
 
   return (
     <VStack align="stretch" borderWidth={1} borderRadius="md" p={2}>
@@ -56,7 +70,7 @@ export default function ProductPicker({
         </HStack>
       ))}
       <Heading>
-        { "Total: "}
+        {'Total: '}
         <CurrencyFormat
           value={total}
           displayType={'text'}

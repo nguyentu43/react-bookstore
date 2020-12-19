@@ -16,7 +16,7 @@ export default function OrderEditForm({
   userOptions,
   productOptions,
   statusOptions,
-  save
+  save,
 }) {
   const { handleSubmit, control, errors } = useForm({ defaultValues: order });
 
@@ -26,10 +26,18 @@ export default function OrderEditForm({
     const input = {
       ...data,
       status: data.status.value,
-      total: data.items.reduce((prev, item) => prev + item.price * (1-item.discount) * item.quantity, 0),
-      items: data.items.map(({id, discount, price, quantity}) => ({id, discount, price, quantity}))
-    }
-    save({input, id: order.id, userID});
+      total: data.items.reduce(
+        (prev, item) => prev + item.price * (1 - item.discount) * item.quantity,
+        0
+      ),
+      items: data.items.map(({ id, discount, price, quantity }) => ({
+        id,
+        discount,
+        price,
+        quantity,
+      })),
+    };
+    save({ input, id: order.id, userID });
   }
 
   return (

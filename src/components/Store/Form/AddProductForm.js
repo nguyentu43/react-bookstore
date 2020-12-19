@@ -43,7 +43,7 @@ export default function AddProductForm({ id }) {
     try {
       const { cart } = await addItemToCart({ input });
       dispatch({ type: 'SET_CART', payload: cart });
-      toast({title: 'A book is added to cart'});
+      toast({ title: 'A book is added to cart' });
     } catch (error) {
       throw error;
     }
@@ -55,8 +55,8 @@ export default function AddProductForm({ id }) {
       return;
     }
     try {
-      const { result } = await addWishlist({ id });
-      toast({title: 'A book is added to wishlist'});
+      await addWishlist({ id });
+      toast({ title: 'A book is added to wishlist' });
     } catch (error) {
       throw error;
     }

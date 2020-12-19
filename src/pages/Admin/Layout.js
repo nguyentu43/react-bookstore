@@ -1,7 +1,6 @@
 import {
   Box,
   Drawer,
-  DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
@@ -38,7 +37,7 @@ export default function Layout({ children }) {
       <SimpleGrid columns={5}>
         {isOpen && !enableDrawer && (
           <GridItem>
-            <LeftNav/>
+            <LeftNav />
           </GridItem>
         )}
         <GridItem colSpan={enableDrawer ? 5 : isOpen ? 4 : 5}>
@@ -52,10 +51,10 @@ export default function Layout({ children }) {
         onClose={onClose}
       >
         <DrawerOverlay>
-          <DrawerContent >
+          <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
-            <LeftNav onClose={onClose}/>
+            <LeftNav onClose={onClose} />
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>

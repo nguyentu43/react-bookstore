@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
-  Flex,
   Heading,
   HStack,
   Stack,
@@ -13,7 +13,6 @@ import {
   Text,
   VStack,
   Spinner,
-  Button,
   InputRightElement,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';

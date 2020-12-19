@@ -19,11 +19,11 @@ import { useAppContext } from '../../../context';
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
   const {
     state: { auth },
-    dispatch
+    dispatch,
   } = useAppContext();
   const history = useHistory();
 
-  function handleLogout(){
+  function handleLogout() {
     logout();
     dispatch({ type: 'SET_AUTH', payload: { isLogin: false } });
     history.push('/store');
@@ -47,9 +47,13 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
           <DrawerBody>
             {auth.isLogin ? (
               <VStack align="flex-start">
-             <Button as={Link} to="/store/order" colorScheme="green">Order</Button>
-              <Button onClick={handleLogout} colorScheme="red">Logout</Button></VStack>
-              
+                <Button as={Link} to="/store/order" colorScheme="green">
+                  Order
+                </Button>
+                <Button onClick={handleLogout} colorScheme="red">
+                  Logout
+                </Button>
+              </VStack>
             ) : (
               <LoginForm inDrawer={true} />
             )}

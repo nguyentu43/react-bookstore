@@ -1,12 +1,10 @@
+import { Box, HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import {
-  Box,
-  HStack,
-  Icon,
-  StackDivider,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { FaCheckCircle, FaFacebookMessenger, FaRegMoneyBillAlt, FaShippingFast } from 'react-icons/fa';
+  FaCheckCircle,
+  FaFacebookMessenger,
+  FaRegMoneyBillAlt,
+  FaShippingFast,
+} from 'react-icons/fa';
 
 export default function SupportInfoBlock() {
   return (
@@ -35,17 +33,14 @@ export default function SupportInfoBlock() {
       <HStack spacing={8}>
         <Icon w={16} h={16} color="red.500" as={FaCheckCircle} />
         <Box>
-          <Text fontWeight="bold">Money Back Guarantee
-</Text>Within 30 Days
-         
+          <Text fontWeight="bold">Money Back Guarantee</Text>Within 30 Days
         </Box>
       </HStack>
 
       <HStack spacing={8}>
         <Icon w={16} h={16} color="red.500" as={FaFacebookMessenger} />
         <Box>
-          <Text fontWeight="bold">24/7 Support
-</Text>Within 1 Business Day
+          <Text fontWeight="bold">24/7 Support</Text>Within 1 Business Day
         </Box>
       </HStack>
     </VStack>

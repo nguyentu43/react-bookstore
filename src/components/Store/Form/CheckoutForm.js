@@ -9,11 +9,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useAppContext } from '../../../context';
 import { checkout, getPaymentCode } from '../../../api';
 import { useHistory } from 'react-router-dom';
+
+const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
 
 export default function CheckoutForm() {
   const { handleSubmit, errors, control } = useForm();
@@ -81,10 +83,9 @@ export default function CheckoutForm() {
             })),
           },
         });
-        alert(true);
         dispatch({ type: 'SET_CART', payload: [] });
         push('/store');
-        toast({title: 'Your order will be processed as soon as possible'});
+        toast({ title: 'Your order will be processed as soon as possible' });
       }
     } catch (error) {
       toast({ status: 'error', title: 'Checkout Error. Try again!' });
@@ -131,7 +132,7 @@ export default function CheckoutForm() {
             control={control}
             rules={{
               required: true,
-              pattern: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+              pattern: phoneReg,
             }}
           />
           <FormErrorMessage>

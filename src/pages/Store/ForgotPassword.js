@@ -7,18 +7,17 @@ import ResetPasswordForm from '../../components/Store/Form/ResetPasswordForm';
 import withPrevent from '../../hocs/withPrevent';
 
 export default withPrevent(function ForgotPassword() {
-
   const [token, setToken] = useState(null);
-  const {location} = useHistory();
+  const { location } = useHistory();
 
   useEffect(() => {
-    for(const sub of location.search.substr(1).split('&')){
+    for (const sub of location.search.substr(1).split('&')) {
       const params = sub.split('=');
-      if(params[0] === 'token'){
+      if (params[0] === 'token') {
         setToken(params[1]);
       }
     }
-  }, []);
+  }, [location.search]);
 
   return (
     <BlockLayout>

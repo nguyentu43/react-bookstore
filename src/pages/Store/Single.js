@@ -4,8 +4,6 @@ import {
   Box,
   GridItem,
   Heading,
-  HStack,
-  Icon,
   Image,
   List,
   ListIcon,
@@ -23,14 +21,15 @@ import {
 import { FcContacts, FcBookmark } from 'react-icons/fc';
 import CurrencyFormat from 'react-currency-format';
 import AddProductForm from '../../components/Store/Form/AddProductForm';
-import { FaHeart, FaShare } from 'react-icons/fa';
 import CarouselWrapper from '../../components/Store/Wrapper/CarouselWrapper';
 import FeaturedShortedProductBlock from '../../components/Store/Block/FeaturedShortedProductBlock';
 import SupportInfoBlock from '../../components/Store/Block/SupportInfoBlock';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchProduct, fetchProducts } from '../../api';
 import { useEffect, useState } from 'react';
 import Product from '../../components/Store/Product';
+import ScrollTop from 'react-router-scroll-top';
+import LoadingData from '../../components/LoadingData';
 
 export default function Single() {
   const { slug } = useParams();
@@ -49,19 +48,20 @@ export default function Single() {
         setProduct(product);
         setProducts(products);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     }
 
     fetchData();
-  }, []);
+  }, [slug]);
 
   if (!product) {
-    return 'loading......';
+    return <LoadingData />;
   }
 
   return (
     <>
+      <ScrollTop />
       <Breadcrumb category={product.category} />
       <BlockLayout>
         <SimpleGrid columns={[1, 1, 1, 3]} gap={20}>

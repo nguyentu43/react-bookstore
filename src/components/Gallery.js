@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Button,
@@ -5,12 +6,14 @@ import {
   HStack,
   Image,
   SimpleGrid,
+  Spinner,
   Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import ConfirmButton from '../components/ConfirmButton';
 import { deleteImages, fetchImages, uploadImages } from '../api';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Item({ public_id, secure_url, onChange, isDisabled }) {
   function handleChange(e) {
@@ -98,12 +101,6 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   }
 
   function handleInsert() {
-    if (!multiple) {
-      if (ids.length > 1) {
-        alert('Only 1');
-        return;
-      }
-    }
     onInsert(ids);
   }
 
@@ -147,6 +144,11 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         columns={dialog ? [1, 1, 2] : [1, 2, 3, 4]}
         gap={4}
         mt={4}
+        as={InfiniteScroll}
+        hasMore={cursor}
+        dataLength={images.length}
+        next={() => fetchData(false)}
+        loader={<Spinner />}
         alignItems="center"
       >
         {images.map(image => (
@@ -161,7 +163,6 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
             {...image}
           />
         ))}
-        {cursor && <Button onClick={() => fetchData()}>Show more</Button>}
       </SimpleGrid>
     </Box>
   );

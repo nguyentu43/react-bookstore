@@ -32,11 +32,7 @@ export default function LeftNav({ onClose }) {
       overflow="auto"
     >
       <HStack px={4} pb={2}>
-        <Avatar
-          mr={4}
-          size="lg"
-          src="https://i.pinimg.com/originals/f5/1d/08/f51d08be05919290355ac004cdd5c2d6.png"
-        />
+        <Avatar mr={4} size="lg" />
         <Text fontSize="lg" fontWeight="bold">
           Pikachu
         </Text>
@@ -50,7 +46,7 @@ export default function LeftNav({ onClose }) {
             align="center"
             borderBottomWidth={1}
             onClick={() => {
-              if(onClose) onClose();
+              if (onClose) onClose();
               history.push('/admin/' + item.path);
             }}
             _hover={{ bg: 'gray.50', cursor: 'pointer' }}

@@ -9,11 +9,16 @@ import {
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
-import {Editor} from '@tinymce/tinymce-react';
+import { Editor } from '@tinymce/tinymce-react';
 import ImagePicker from '../ImagePicker';
 
-export default function ProductEditForm({ product, save, categoryOptions, authorOptions }) {
-  const { handleSubmit, control, errors } = useForm({defaultValues: product});
+export default function ProductEditForm({
+  product,
+  save,
+  categoryOptions,
+  authorOptions,
+}) {
+  const { handleSubmit, control, errors } = useForm({ defaultValues: product });
 
   function handleSave(data) {
     const input = {
@@ -22,9 +27,9 @@ export default function ProductEditForm({ product, save, categoryOptions, author
       discount: Number(data.discount),
       images: JSON.stringify(data.images.map(image => image.public_id)),
       category: data.category.value,
-      authors: data.authors.map(author => author.value)
-    }
-    save({id: product.id, input});
+      authors: data.authors.map(author => author.value),
+    };
+    save({ id: product.id, input });
   }
 
   return (
@@ -122,7 +127,9 @@ export default function ProductEditForm({ product, save, categoryOptions, author
               control={control}
               defaultValue={[]}
               rules={{ required: true }}
-              render={({onChange, value}) => (<ImagePicker images={value} onChange={onChange}/>)}
+              render={({ onChange, value }) => (
+                <ImagePicker images={value} onChange={onChange} />
+              )}
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>
@@ -136,7 +143,7 @@ export default function ProductEditForm({ product, save, categoryOptions, author
               control={control}
               rules={{ required: true }}
               render={({ onChange, value }) => (
-                <Editor initialValue={value} onEditorChange={onChange}/>
+                <Editor initialValue={value} onEditorChange={onChange} />
               )}
             />
             <FormErrorMessage>This field is required</FormErrorMessage>

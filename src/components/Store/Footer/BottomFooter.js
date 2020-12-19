@@ -24,19 +24,19 @@ export default function BottomFooter() {
   return (
     <>
       <SimpleGrid
-        columns={[1,2,2,6]}
+        columns={[1, 2, 2, 6]}
         px={[4, 6, 12]}
         py={16}
         borderTopWidth={1}
         gap={8}
       >
         <GridItem colSpan={[1, 2]}>
-          <Heading>Bookworm</Heading>
+          <Heading>Bookstore</Heading>
           <Text mt={6}>
             1418 River Drive, Suite 35 Cottonhall, CA 9622 United States
           </Text>
           <Text mt={6}>
-            sale@bookworm.com
+            sale@bookstore.example
             <br />
             +1 246-345-0695
           </Text>

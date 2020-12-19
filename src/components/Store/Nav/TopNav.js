@@ -5,7 +5,7 @@ import {
   FaHeart,
   FaUserAlt,
   FaShoppingBag,
-  FaSlidersH
+  FaSlidersH,
 } from 'react-icons/fa';
 import RightDrawer from '../Drawer/RightDrawer';
 import ColorModeSwitcher from '../../ColorModeSwitcher';

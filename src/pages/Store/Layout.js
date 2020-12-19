@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { fetchCategories } from '../../api';
 
 export default function Layout({ children }) {
-
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -15,9 +14,8 @@ export default function Layout({ children }) {
       try {
         const { categories } = await fetchCategories();
         setCategories(categories.filter(c => !c.parent));
-      }
-      catch(error){
-        throw new Error('loi');
+      } catch (error) {
+        throw error;
       }
     }
     fetchData();
@@ -26,7 +24,7 @@ export default function Layout({ children }) {
   return (
     <Box>
       <Box id="header">
-        <TopNav/>
+        <TopNav />
         <BottomNav categories={categories} />
       </Box>
       <Box id="main">{children}</Box>

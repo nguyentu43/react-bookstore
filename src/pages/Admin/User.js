@@ -110,7 +110,11 @@ export default function User() {
     try {
       setSkipReset(true);
       await addUser({
-        input: { name: 'New User', email: random({length: 10}) + '@example.xyz', password: '123123' },
+        input: {
+          name: 'New User',
+          email: random({ length: 10 }) + '@example.xyz',
+          password: '123123',
+        },
       });
       fetchData();
     } catch (error) {

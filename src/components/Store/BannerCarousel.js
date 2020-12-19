@@ -1,11 +1,18 @@
-import { Button, Stack, VStack, Heading, Image, Box, useColorModeValue } from '@chakra-ui/react';
+import {
+  Button,
+  Stack,
+  VStack,
+  Heading,
+  Image,
+  Box,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import Book from '../../imgs/books.png';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
 import FadeIn from 'react-fade-in';
 import { Link } from 'react-router-dom';
 
 function Item() {
-
   const bg = useColorModeValue('pink.50', 'pink.500');
 
   return (
@@ -28,9 +35,7 @@ function Item() {
           <Heading size="2xl" fontWeight="none">
             Featured Books of the
           </Heading>
-          <Heading size="2xl">
-            February
-          </Heading>
+          <Heading size="2xl">February</Heading>
         </FadeIn>
         <FadeIn delay={700}>
           <Button as={Link} to="/store" colorScheme="blue">

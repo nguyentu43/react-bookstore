@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { HStack, Icon, IconButton, Tooltip } from '@chakra-ui/react';
 import { useMemo, useRef, useState } from 'react';
 import { FcLock } from 'react-icons/fc';
 
-export default function (
+export default function hocInput(
   Comp,
   { value: initialValue, column, row: { original }, save },
   rules = null,
@@ -10,7 +11,7 @@ export default function (
   size = 'sm',
   valueName = 'value'
 ) {
-  return ({ children, ...rest }) => {
+  return function CustomInput({ children, ...rest }) {
     const [isEdit, setEdit] = useState(!clickToEdit);
     const [value, setValue] = useState(initialValue || '');
     const [error, setError] = useState(false);
@@ -30,10 +31,9 @@ export default function (
     );
 
     function onChange(e) {
-      if(valueName === 'isChecked'){
+      if (valueName === 'isChecked') {
         setValue(e.target.checked);
-      }
-      else{
+      } else {
         setValue(e.target.value);
       }
     }
@@ -59,6 +59,7 @@ export default function (
                 return;
               }
               break;
+            default:
           }
         }
       }

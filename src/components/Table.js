@@ -25,13 +25,10 @@ export default function Table({
     page,
     canPreviousPage,
     canNextPage,
-    pageOptions,
     pageCount,
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize, expanded },
   } = useTable(
     {
       columns,

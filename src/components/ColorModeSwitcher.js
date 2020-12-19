@@ -9,7 +9,7 @@ const ColorModeSwitcher = props => {
 
   return (
     <Icon
-      _hover={{cursor: "pointer"}}
+      _hover={{ cursor: 'pointer' }}
       aria-label={`Switch to ${text} mode`}
       color="current"
       onClick={toggleColorMode}

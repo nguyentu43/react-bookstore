@@ -1,5 +1,5 @@
 {
-  "name": "frontend-2",
+  "name": "bookstore-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,6 +29,7 @@
     "react-icons": "^4.1.0",
     "react-infinite-scroll-component": "^5.1.0",
     "react-router-dom": "^5.2.0",
+    "react-router-scroll-top": "^0.2.1",
     "react-scripts": "4.0.1",
     "react-select": "^3.1.1",
     "react-slick": "^0.27.13",
@@ -40,7 +41,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
   }
 }

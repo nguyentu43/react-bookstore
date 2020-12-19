@@ -9,7 +9,6 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  VStack,
 } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';

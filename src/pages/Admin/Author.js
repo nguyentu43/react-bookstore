@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
 import {
@@ -17,20 +17,22 @@ export default function Author() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [avatarData, setAvatarData] = useState(null);
 
-  function openModal(data) {
-    onOpen();
-    setAvatarData(data);
-  }
+  const openModal = useCallback(
+    data => {
+      onOpen();
+      setAvatarData(data);
+    },
+    [onOpen]
+  );
 
   function onInsert(ids) {
     if (ids.length === 1) {
-      console.log(ids);
       const input = {
         avatar: ids[0].public_id,
         name: avatarData.row.original.name,
         description: avatarData.row.original.description,
-      }
-      avatarData.save({id: avatarData.row.original.id, ...input});
+      };
+      avatarData.save({ id: avatarData.row.original.id, ...input });
       setAvatarData(null);
     }
     onClose();
@@ -66,17 +68,21 @@ export default function Author() {
         Header: 'Action',
         accessor: 'id',
         Cell: ({ value, remove }) => (
-          <ConfirmButton size="sm" onAccept={() => remove({id: value})} colorScheme="red" buttonText="Delete" />
+          <ConfirmButton
+            size="sm"
+            onAccept={() => remove({ id: value })}
+            colorScheme="red"
+            buttonText="Delete"
+          />
         ),
       },
     ],
-    []
+    [openModal]
   );
 
   const [authors, setAuthors] = useState([]);
 
   const [skipPageReset, setSkipPage] = useState(false);
-  
 
   useEffect(() => {
     fetchData();
@@ -86,55 +92,57 @@ export default function Author() {
     setSkipPage(false);
   }, [authors]);
 
-
-  async function fetchData(){
-    try{
-      const {authors} = await fetchAuthors();
+  async function fetchData() {
+    try {
+      const { authors } = await fetchAuthors();
       setAuthors(authors);
-    }
-    catch(error){
+    } catch (error) {
       throw error;
     }
   }
 
   const action = {
-    save: async ({id, name, avatar, description}) => {
-      try{
+    save: async ({ id, name, avatar, description }) => {
+      try {
         setSkipPage(true);
-        await updateAuthor({id, input: {name, avatar, description}});
+        await updateAuthor({ id, input: { name, avatar, description } });
         fetchData();
-      }
-      catch(error){
+      } catch (error) {
         throw error;
       }
     },
-    remove: async ({id}) => {
-      try{
+    remove: async ({ id }) => {
+      try {
         setSkipPage(true);
-        await removeAuthor({id});
+        await removeAuthor({ id });
         fetchData();
-      }
-      catch(error){
+      } catch (error) {
         throw error;
       }
-    }
-  }
+    },
+  };
 
-  async function add(){
-    try{
+  async function add() {
+    try {
       setSkipPage(true);
-      await addAuthor({input: {name: 'New Author'}});
+      await addAuthor({ input: { name: 'New Author' } });
       fetchData();
-    }
-    catch(error){
+    } catch (error) {
       throw error;
     }
   }
 
   return (
     <BlockLayout blockName="Author Table">
-      <Button colorScheme="blue" my={2} onClick={add}>Add</Button>
-      <Table columns={columns} data={authors} action={action} />
+      <Button colorScheme="blue" my={2} onClick={add}>
+        Add
+      </Button>
+      <Table
+        columns={columns}
+        skipPageReset={skipPageReset}
+        data={authors}
+        action={action}
+      />
       <GalleryModal isOpen={isOpen} onClose={onClose} onInsert={onInsert} />
     </BlockLayout>
   );

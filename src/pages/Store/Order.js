@@ -10,7 +10,8 @@ import {
   UnorderedList,
   SimpleGrid,
   ListItem,
-  Box, Heading
+  Box,
+  Heading,
 } from '@chakra-ui/react';
 import { FaRegSmile } from 'react-icons/fa';
 import ShortedOrderBlock from '../../components/Store/Block/ShortedOrderBlock';
@@ -67,22 +68,26 @@ export default withAuth(function Order() {
   }, []);
 
   const renderRowSubComponent = ({ row: { original: order } }) => (
-    <><Heading size="xl" mb={4}>Order Detail</Heading>
-    <SimpleGrid columns={[1, 1, 1, 2]} gap={4}>
-      <Box px={4} py={2}>
-        <UnorderedList>
-          <ListItem>Name: {order.name}</ListItem>
-          <ListItem>Phone: {order.phone}</ListItem>
-          <ListItem>Address: {order.address}</ListItem>
-          <ListItem>Status: {order.status}</ListItem>
-        </UnorderedList>
-      </Box>
-      <ShortedOrderBlock total={order.total} items={order.items} />
-    </SimpleGrid></>
+    <>
+      <Heading size="xl" mb={4}>
+        Order Detail
+      </Heading>
+      <SimpleGrid columns={[1, 1, 1, 2]} gap={4}>
+        <Box px={4} py={2}>
+          <UnorderedList>
+            <ListItem>Name: {order.name}</ListItem>
+            <ListItem>Phone: {order.phone}</ListItem>
+            <ListItem>Address: {order.address}</ListItem>
+            <ListItem>Status: {order.status}</ListItem>
+          </UnorderedList>
+        </Box>
+        <ShortedOrderBlock total={order.total} items={order.items} />
+      </SimpleGrid>
+    </>
   );
 
-  if(orders === null){
-    return <LoadingData/>
+  if (orders === null) {
+    return <LoadingData />;
   }
 
   return (

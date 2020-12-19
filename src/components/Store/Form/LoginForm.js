@@ -14,29 +14,27 @@ import { fetchUserInfo, login } from '../../../api';
 import { useAppContext } from '../../../context';
 import graphQLClient from '../../../graphqlClient';
 
-export default function LoginForm({inDrawer}) {
-
+export default function LoginForm({ inDrawer }) {
   const { handleSubmit, errors, control } = useForm();
   const { dispatch } = useAppContext();
   const toast = useToast();
 
   const style = {};
-  if(!inDrawer){
+  if (!inDrawer) {
     style.p = 4;
     style.borderWidth = 1;
   }
 
-  async function handleLogin(data){
-    try{
-      const { token } = await login({...data});
+  async function handleLogin(data) {
+    try {
+      const { token } = await login({ ...data });
       localStorage.setItem('token', token);
       graphQLClient.setHeader('authorization', 'Bearer ' + token);
       const { user, cart } = await fetchUserInfo();
       dispatch({ type: 'SET_AUTH', payload: { ...user, isLogin: true } });
       dispatch({ type: 'SET_CART', payload: cart });
-    }
-    catch({response}){
-      toast({title: response.errors[0].message, status: 'error'});
+    } catch ({ response }) {
+      toast({ title: response.errors[0].message, status: 'error' });
     }
   }
 
@@ -76,8 +74,10 @@ export default function LoginForm({inDrawer}) {
         <Button as={Link} to="/store/register" colorScheme="green">
           Create an account
         </Button>
-        <Link to="/store/forgot-password" >
-          <Text as="u" color="blue.500">Forgot your password?</Text>
+        <Link to="/store/forgot-password">
+          <Text as="u" color="blue.500">
+            Forgot your password?
+          </Text>
         </Link>
       </VStack>
     </form>

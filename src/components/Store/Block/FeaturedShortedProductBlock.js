@@ -23,8 +23,9 @@ export default function FeaturedShortedProductBlock() {
       align="flex-start"
       borderRadius="md"
     >
-        {products.map(product => (<ShortedProduct key={product.id} {...product}/>))}
-      
+      {products.map(product => (
+        <ShortedProduct key={product.id} {...product} />
+      ))}
     </VStack>
   );
 }

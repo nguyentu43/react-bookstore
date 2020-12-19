@@ -117,16 +117,14 @@ export default function Dashboard() {
               displayMode: 'markers',
               colorAxis: { colors: ['green', 'blue'] },
             }}
-            // Note: you will need to get a mapsApiKey for your project.
-            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-            mapsApiKey="YOUR_KEY_HERE"
+            mapsApiKey="AIzaSyD5LRDYeqyPfkp4CTXWoVXzL_WVMDZt6G0"
             rootProps={{ 'data-testid': '2' }}
           />
         </BlockLayout>
       </GridItem>
       <GridItem colSpan={[1, 2]}>
         <BlockLayout blockName="Total Sales">
-          <Stack direction={["column", "column", "row"]}>
+          <Stack direction={['column', 'column', 'row']}>
             <StatGroup p={2} borderRadius="md" bg="red.500" color="white">
               <Stat>
                 <StatLabel>Sent</StatLabel>
@@ -161,14 +159,7 @@ export default function Dashboard() {
         </BlockLayout>
       </GridItem>
       <GridItem colSpan={[1, 2]}>
-        <BlockLayout blockName="Customer Review">
-          
-        </BlockLayout>
-      </GridItem>
-      <GridItem colSpan={[1, 2]}>
-        <BlockLayout blockName="New Orders">
-          
-        </BlockLayout>
+        <BlockLayout blockName="New Orders"></BlockLayout>
       </GridItem>
     </SimpleGrid>
   );

@@ -1,11 +1,31 @@
 import BlockLayout from '../BlockLayout';
 import * as FCIcons from 'react-icons/fc';
-import { VStack, Icon, Text, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
+import {
+  VStack,
+  Icon,
+  Text,
+  SimpleGrid,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { fetchCategories } from '../../../api';
 
-export default function FeaturedCategoryBlock({ categories }) {
-
+export default function FeaturedCategoryBlock() {
   const bg = useColorModeValue('pink.50', 'pink.500');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetchCategories();
+      const categories = data.categories
+        .reverse()
+        .filter(c => c.parent === null)
+        .slice(0, 4);
+      setCategories(categories);
+    }
+    fetchData();
+  }, []);
 
   return (
     <BlockLayout

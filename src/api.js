@@ -243,12 +243,13 @@ export function deleteImages(variables) {
 
 export function fetchImages(variables) {
   return request(
-    `query {
-      getImages {
+    `query ($cursor: String){
+      getImages(cursor: $cursor) {
         list {
           secure_url
           public_id
         }
+        next_cursor
       }
     }`,
     variables

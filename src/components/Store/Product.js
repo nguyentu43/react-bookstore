@@ -14,7 +14,6 @@ export default function Product({
   authors,
   slug,
 }) {
-
   const style = useMemo(() => {
     if (inSlider) {
       return {

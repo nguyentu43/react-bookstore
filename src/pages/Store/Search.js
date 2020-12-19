@@ -1,12 +1,5 @@
-import {
-  Button,
-  GridItem,
-  HStack,
-  Select,
-  SimpleGrid,
-  Skeleton,
-  Stack,
-} from '@chakra-ui/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { GridItem, SimpleGrid, Skeleton, Stack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchProducts } from '../../api';
@@ -14,6 +7,7 @@ import FilterBlock from '../../components/Store/Block/FilterBlock';
 import BlockLayout from '../../components/Store/BlockLayout';
 import Product from '../../components/Store/Product';
 import InifiniteScroll from 'react-infinite-scroll-component';
+import ScrollTop from 'react-router-scroll-top';
 
 export default function Search() {
   const { location } = useHistory();
@@ -45,6 +39,7 @@ export default function Search() {
 
   return (
     <BlockLayout>
+      <ScrollTop />
       <SimpleGrid columns={[1, 1, 1, 4]} gap={8}>
         <GridItem>
           <FilterBlock />
@@ -60,7 +55,12 @@ export default function Search() {
             loader={
               <>
                 {Array.from({ length: limit }).map((_, i) => (
-                  <Stack key={i} p={2} borderRightWidth={1} borderBottomWidth={1}>
+                  <Stack
+                    key={i}
+                    p={2}
+                    borderRightWidth={1}
+                    borderBottomWidth={1}
+                  >
                     <Skeleton height="240px" />
                     <Skeleton height="20px" />
                     <Skeleton height="20px" />

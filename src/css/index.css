@@ -1,11 +1,11 @@
-.slick-dots li button:before{
-    font-size: 12px;
+.slick-dots li button:before {
+  font-size: 12px;
 }
 
-.slick-prev{
-    left: -35px;
+.slick-prev {
+  left: -35px;
 }
 
-.slick-next{
-    right: -35px;
+.slick-next {
+  right: -35px;
 }

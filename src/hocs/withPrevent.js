@@ -11,6 +11,6 @@ export default function withPrevent(Comp) {
       return <Redirect to="/store" />;
     }
 
-    return <Comp />
+    return <Comp />;
   };
 }

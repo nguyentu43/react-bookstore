@@ -3,7 +3,9 @@ import { useAppContext } from '../context';
 
 export default function withAuth(Comp, options = { checkAdmin: false }) {
   return () => {
-    const { state: { auth } } = useAppContext();
+    const {
+      state: { auth },
+    } = useAppContext();
 
     if (!auth.isLogin) {
       return <Redirect to="/store/login" />;

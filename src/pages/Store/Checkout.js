@@ -4,6 +4,7 @@ import BlockLayout from '../../components/Store/BlockLayout';
 import CheckoutForm from '../../components/Store/Form/CheckoutForm';
 import { useAppContext } from '../../context';
 import withAuth from '../../hocs/withAuth';
+import ScrollTop from 'react-router-scroll-top';
 
 export default withAuth(function Checkout() {
   const {
@@ -12,6 +13,7 @@ export default withAuth(function Checkout() {
 
   return (
     <BlockLayout blockName="Checkout">
+      <ScrollTop />
       <SimpleGrid columns={[1, 1, 3]} gap={8}>
         <GridItem colSpan={[1, 1, 2]}>
           <Heading mb={4} size="lg">

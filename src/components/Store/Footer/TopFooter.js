@@ -10,7 +10,7 @@ export default function TopFooter() {
       </Text>
 
       <form>
-        <HStack minWidth={["auto", "auto", 500]}>
+        <HStack minWidth={['auto', 'auto', 500]}>
           <Input placeholder="Enter email for weekly newsletter." />
           <Button colorScheme="blue" type="submit">
             Subscribe

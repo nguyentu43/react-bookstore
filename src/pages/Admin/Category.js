@@ -56,7 +56,6 @@ export default function Category() {
         id: 'parentID',
         Cell: table => {
           const ParentInput = customInput(Select, table);
-          console.log(table.data);
           return (
             <ParentInput>
               <option>Choose parent</option>
@@ -84,7 +83,7 @@ export default function Category() {
         ),
       },
     ],
-    []
+    [iconNameList]
   );
 
   const [categories, setCategories] = useState([]);

@@ -10,13 +10,11 @@ import LoadingData from '../../components/LoadingData';
 export default withAuth(function Wishlist() {
   const [products, setProducts] = useState(null);
 
-  async function handleRemoveWishlist(id){
-    try{
-      const {result} = await removeWishlist({id});
-      alert(result);
+  async function handleRemoveWishlist(id) {
+    try {
+      await removeWishlist({ id });
       fetchData();
-    }
-    catch(error){
+    } catch (error) {
       throw error;
     }
   }
@@ -34,15 +32,18 @@ export default withAuth(function Wishlist() {
     fetchData();
   }, []);
 
-  if (products === null) return <LoadingData />
+  if (products === null) return <LoadingData />;
 
   return (
     <BlockLayout blockName="Wishlist">
       <SimpleGrid columns={[1, 2, 4, 5]} gap={4}>
         {products.map(item => (
           <VStack key={item.id} borderWidth={1} p={2} align="stretch">
-            <ShortedProduct  {...item} />
-            <IconButton onClick={() => handleRemoveWishlist(item.id)} icon={<Icon as={FaRegTrashAlt}/>}/>
+            <ShortedProduct {...item} />
+            <IconButton
+              onClick={() => handleRemoveWishlist(item.id)}
+              icon={<Icon as={FaRegTrashAlt} />}
+            />
           </VStack>
         ))}
       </SimpleGrid>

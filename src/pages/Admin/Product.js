@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, HStack, Image } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
@@ -95,11 +96,11 @@ export default function ProductPage() {
         images: JSON.stringify(['store/200x300_rffsze']),
         price: 1,
         category: '1',
-        authors: ['1']
+        authors: ['1'],
       };
 
       await addProduct({
-        input
+        input,
       });
       fetchData();
     } catch (error) {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, HStack } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
@@ -42,7 +43,7 @@ export default function OrderPage() {
       {
         Header: 'Order Date',
         accessor: 'createdAt',
-        Cell: ({value}) => (moment(Number(value)).fromNow())
+        Cell: ({ value }) => moment(Number(value)).fromNow(),
       },
       {
         Header: 'Status',
@@ -160,7 +161,7 @@ export default function OrderPage() {
         <OrderEditForm
           order={{
             ...original,
-            user:  {value: original.user.id, label: original.user.email},
+            user: { value: original.user.id, label: original.user.email },
             status: { label: original.status, name: original.status },
           }}
           save={save}

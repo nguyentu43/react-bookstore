@@ -9678,6 +9678,11 @@ prepend-http@^1.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
+prettier@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
+  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
+
 pretty-bytes@^5.3.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.4.1.tgz#cd89f79bbcef21e3d21eb0da68ffe93f803e884b"
@@ -10064,6 +10069,11 @@ react-router-dom@^5.2.0:
     react-router "5.2.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-router-scroll-top@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-router-scroll-top/-/react-router-scroll-top-0.2.1.tgz#7fc28b9636d64b2d42a24b5b64eb4bd4219a672b"
+  integrity sha512-rseL7IqA9wt1R/QIGbTFsO5O1bIXmd0f+W208rKsAYjedSrNCsu3Q8yLJZtBmdESakfAZJRGw5A6FJwRkbvQ+A==
 
 react-router@5.2.0:
   version "5.2.0"
