@@ -40,6 +40,7 @@ export default function CarouselWrapper({ children, ...rest }) {
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
+    initialSlide: 1,
     prevArrow: <SlickArrowLeft />,
     nextArrow: <SlickArrowRight />,
     responsive: [
