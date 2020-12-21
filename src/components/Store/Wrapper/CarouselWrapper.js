@@ -64,7 +64,7 @@ export default function CarouselWrapper({ children, ...rest }) {
   };
 
   return (
-    <Slider lazyLoad="ondemand" {...settings}>
+    <Slider {...settings}>
       {children}
     </Slider>
   );
