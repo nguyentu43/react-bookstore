@@ -53,7 +53,7 @@ function Item() {
 export default function BannerCarousel() {
   return (
     <Box mb={4}>
-      <CarouselWrapper responsive={null}>
+      <CarouselWrapper lazyLoad="ondemand" responsive={null}>
         <Item />
         <Item />
       </CarouselWrapper>
