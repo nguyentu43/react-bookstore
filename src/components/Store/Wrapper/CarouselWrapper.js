@@ -35,7 +35,7 @@ const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
 export default function CarouselWrapper({ children, ...rest }) {
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     arrows: false,
     slidesToShow: 1,
