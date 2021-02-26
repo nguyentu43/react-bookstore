@@ -88,7 +88,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
     if (reset) {
       setImages([...list]);
     } else {
-      setImages([...list, ...images]);
+      setImages([...images, ...list]);
     }
   }
 
