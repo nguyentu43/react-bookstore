@@ -6,14 +6,12 @@ import {
   HStack,
   Image,
   SimpleGrid,
-  Spinner,
   Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import ConfirmButton from '../components/ConfirmButton';
 import { deleteImages, fetchImages, uploadImages } from '../api';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Item({ public_id, secure_url, onChange, isDisabled }) {
   function handleChange(e) {
@@ -44,11 +42,17 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const fileInput = useRef(null);
   const [urls, setUrls] = useState('');
 
-  async function handleUpload(e) {
-    e.preventDefault();
+  async function handleUpload() {
+    const files = Array.from(fileInput.current.files);
+    if(files.length === 0 && urls.trim() == "")
+    {
+      setError("Please choose files or enter urls");
+      return;
+    }
+
     try {
       await uploadImages({
-        files: Array.from(fileInput.current.files),
+        files,
         urls,
       });
       await fetchData(true);
@@ -56,7 +60,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
       fileInput.current.value = '';
       setUrls('');
     } catch (error) {
-      setError('Upload Error');
+      setError('Upload Error: Please check again files or urls');
     }
   }
 
@@ -110,7 +114,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
 
   return (
     <Box>
-      <form onSubmit={handleUpload}>
+      <Box>
         <input type="file" id="gallery" multiple ref={fileInput} />
         <Textarea
           placeholder="Enter url images"
@@ -118,8 +122,8 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
           value={urls}
           onChange={e => setUrls(e.target.value)}
         />
-        <Button type="submit">Upload</Button>
-      </form>
+        <Button onClick={handleUpload}>Upload</Button>
+      </Box>
 
       {error && (
         <Box mt={4} textColor="red.500">
@@ -144,11 +148,6 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         columns={dialog ? [1, 1, 2] : [1, 2, 3, 4]}
         gap={4}
         mt={4}
-        as={InfiniteScroll}
-        hasMore={cursor}
-        dataLength={images.length}
-        next={() => fetchData(false)}
-        loader={<Spinner />}
         alignItems="center"
       >
         {images.map(image => (
@@ -163,6 +162,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
             {...image}
           />
         ))}
+        <Button colorScheme="blue" disabled={!cursor} onClick={() => fetchData(false)}>Show More</Button>
       </SimpleGrid>
     </Box>
   );
