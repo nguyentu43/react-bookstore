@@ -44,7 +44,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
 
   async function handleUpload() {
     const files = Array.from(fileInput.current.files);
-    if(files.length === 0 && urls.trim() == "")
+    if(files.length === 0 && urls.trim() === "")
     {
       setError("Please choose files or enter urls");
       return;
