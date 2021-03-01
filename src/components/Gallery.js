@@ -55,7 +55,8 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         files,
         urls,
       });
-      await fetchData(false);
+      setCursor(null);
+      await fetchData(true);
       setError(null);
       fileInput.current.value = '';
       setUrls('');
