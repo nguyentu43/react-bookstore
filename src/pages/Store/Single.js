@@ -100,7 +100,7 @@ export default function Single() {
                     </>
                   )}
                 </Text>
-                <Text noOfLines={4}>{product.description}</Text>
+                <Text noOfLines={4} dangerouslySetInnerHTML={{__html: product.description}}></Text>
 
                 <AddProductForm id={product.id} />
               </VStack>
@@ -114,7 +114,7 @@ export default function Single() {
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel>{product.description}</TabPanel>
+                  <TabPanel dangerouslySetInnerHTML={{__html: product.description}}></TabPanel>
                   <TabPanel>
                     <List>
                       <ListItem>
