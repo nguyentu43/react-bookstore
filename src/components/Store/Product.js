@@ -32,7 +32,7 @@ export default function Product({
   }, [inSlider]);
   return (
     <VStack {...style}>
-      <Image objectFit="contain" w={120} src={images[0].secure_url} />
+      <Image objectFit="contain" w={120} h={200} src={images[0].secure_url} />
       <VStack align="stretch" spacing={1} pt={2}>
         <Text
           to={'/store/book/' + slug}
