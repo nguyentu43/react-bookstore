@@ -142,7 +142,7 @@ export default function Single() {
         </SimpleGrid>
       </BlockLayout>
       <BlockLayout blockName="Related Products">
-        <CarouselWrapper slidesToShow={5} dots={false} arrows={true}>
+        <CarouselWrapper slidesToShow={relatedProducts.length < 5 ? relatedProducts.length : 5} infinite={false} dots={false} arrows={true}>
           {relatedProducts.map(item => (
             <Product inSlider={true} {...item} key={item.id} />
           ))}
