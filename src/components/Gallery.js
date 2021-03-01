@@ -55,7 +55,6 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
         files,
         urls,
       });
-      setCursor(null);
       await fetchData(true);
       setError(null);
       fileInput.current.value = '';
@@ -83,7 +82,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   async function fetchData(reset) {
     const {
       getImages: { list, next_cursor },
-    } = await fetchImages({ cursor });
+    } = await fetchImages({ cursor: reset ? null : cursor });
 
     setCursor(next_cursor);
     if (reset) {
