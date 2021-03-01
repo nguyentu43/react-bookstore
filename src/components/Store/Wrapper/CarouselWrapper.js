@@ -64,6 +64,11 @@ export default function CarouselWrapper({ children, ...rest }) {
     ...rest,
   };
 
+  if(children.length < settings.slideToShow)
+  {
+    settings.slideToShow = children.length;
+  }
+
   return (
     <Slider {...settings}>
       {children}
