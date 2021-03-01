@@ -97,6 +97,7 @@ export default function ProductEditForm({
               as={Input}
               type="number"
               min={0}
+              step={0.01}
               defaultValue={1}
               rules={{ required: true }}
             />
