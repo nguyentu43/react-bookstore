@@ -41,12 +41,12 @@ export default function Single() {
     async function fetchData() {
       try {
         const { product } = await fetchProduct({ slug });
-        const { products } = await fetchProducts({
+        const { products: related_products } = await fetchProducts({
           search: 'category=' + product.category.id,
           limit: 10,
         });
         setProduct(product);
-        setProducts(products);
+        setProducts(related_products);
       } catch (error) {
         throw error;
       }
@@ -83,6 +83,7 @@ export default function Single() {
                   <CurrencyFormat
                     value={product.price * (1 - product.discount)}
                     displayType={'text'}
+                    decimalScale={2}
                     thousandSeparator={true}
                     prefix={'$'}
                   />
@@ -93,6 +94,7 @@ export default function Single() {
                         <CurrencyFormat
                           value={product.price}
                           displayType={'text'}
+                          decimalScale={2}
                           thousandSeparator={true}
                           prefix={'$'}
                         />
@@ -140,7 +142,7 @@ export default function Single() {
         </SimpleGrid>
       </BlockLayout>
       <BlockLayout blockName="Related Products">
-        <CarouselWrapper slidesToShow={null} dots={false} arrows={true}>
+        <CarouselWrapper slidesToShow={1} dots={false} arrows={true}>
           {relatedProducts.map(item => (
             <Product inSlider={true} {...item} key={item.id} />
           ))}
