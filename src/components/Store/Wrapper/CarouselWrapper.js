@@ -40,7 +40,7 @@ export default function CarouselWrapper({ children, ...rest }) {
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 1,
+    initialSlide: 0,
     prevArrow: <SlickArrowLeft />,
     nextArrow: <SlickArrowRight />,
     responsive: [
@@ -63,11 +63,6 @@ export default function CarouselWrapper({ children, ...rest }) {
     ],
     ...rest,
   };
-
-  if(children.length < settings.slideToShow)
-  {
-    settings.slideToShow = children.length;
-  }
 
   return (
     <Slider {...settings}>
