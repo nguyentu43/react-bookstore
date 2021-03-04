@@ -60,8 +60,7 @@ export default function Single() {
   }
 
   return (
-    <>
-      <ScrollTop />
+    <ScrollTop>
       <Breadcrumb category={product.category} />
       <BlockLayout>
         <SimpleGrid columns={[1, 1, 1, 3]} gap={20}>
@@ -148,6 +147,6 @@ export default function Single() {
           ))}
         </CarouselWrapper>
       </BlockLayout>
-    </>
+    </ScrollTop>
   );
 }
