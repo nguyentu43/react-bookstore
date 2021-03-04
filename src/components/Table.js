@@ -56,6 +56,7 @@ export default function Table({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
+            {page.length === 0 && <TRow><TData>Dont data</TData></TRow>}
             {page.map((row, rI) => {
               prepareRow(row);
               return (

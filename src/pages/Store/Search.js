@@ -7,7 +7,6 @@ import FilterBlock from '../../components/Store/Block/FilterBlock';
 import BlockLayout from '../../components/Store/BlockLayout';
 import Product from '../../components/Store/Product';
 import InifiniteScroll from 'react-infinite-scroll-component';
-import ScrollTop from 'react-router-scroll-top';
 import InfoEmptyList from '../../components/InfoEmptyList';
 
 export default function Search() {
@@ -40,7 +39,6 @@ export default function Search() {
 
   return (
     <BlockLayout>
-      <ScrollTop />
       <SimpleGrid columns={[1, 1, 1, 4]} gap={8}>
         <GridItem>
           <FilterBlock />

@@ -28,7 +28,6 @@ import { useParams } from 'react-router-dom';
 import { fetchProduct, fetchProducts } from '../../api';
 import { useEffect, useState } from 'react';
 import Product from '../../components/Store/Product';
-import ScrollTop from 'react-router-scroll-top';
 import LoadingData from '../../components/LoadingData';
 
 export default function Single() {
@@ -60,7 +59,7 @@ export default function Single() {
   }
 
   return (
-    <ScrollTop>
+    <>
       <Breadcrumb category={product.category} />
       <BlockLayout>
         <SimpleGrid columns={[1, 1, 1, 3]} gap={20}>
@@ -147,6 +146,6 @@ export default function Single() {
           ))}
         </CarouselWrapper>
       </BlockLayout>
-    </ScrollTop>
+    </>
   );
 }

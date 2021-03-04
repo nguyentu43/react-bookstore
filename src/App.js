@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useAppContext } from './context';
 import graphQLClient from './graphqlClient';
 import LoadingData from './components/LoadingData';
+import ScrollTop from 'react-router-scroll-top';
 
 const AdminRoute = React.lazy(() => import('./pages/Admin/Route'));
 
@@ -57,6 +58,7 @@ function App() {
       {!loading ? (
         <StripeElements stripe={stripePromise}>
           <BrowserRouter>
+            <ScrollTop/>
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route path="/store" component={StoreRoute} />
