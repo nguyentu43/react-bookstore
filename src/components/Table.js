@@ -56,7 +56,7 @@ export default function Table({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.length === 0 && <TRow><TData>Dont data</TData></TRow>}
+            {page.length === 0 && <TRow><TData>Don't have any data to show</TData></TRow>}
             {page.map((row, rI) => {
               prepareRow(row);
               return (
