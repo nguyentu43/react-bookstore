@@ -138,7 +138,7 @@ export function getWishlist() {
 
 export function getPaymentCode(variables) {
   return request(
-    'query($total: Float!){code: getPaymentCode(total: $total)}',
+    'query($total: Int!){code: getPaymentCode(total: $total)}',
     variables
   );
 }

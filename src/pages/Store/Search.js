@@ -8,6 +8,7 @@ import BlockLayout from '../../components/Store/BlockLayout';
 import Product from '../../components/Store/Product';
 import InifiniteScroll from 'react-infinite-scroll-component';
 import ScrollTop from 'react-router-scroll-top';
+import InfoEmptyList from '../../components/InfoEmptyList';
 
 export default function Search() {
   const { location } = useHistory();
@@ -73,8 +74,9 @@ export default function Search() {
           >
             {products.map(item => (
               <Product key={item.id} {...item} />
-            ))}
+            ))}  
           </SimpleGrid>
+          {products.length === 0 && <InfoEmptyList/>}
         </GridItem>
       </SimpleGrid>
     </BlockLayout>

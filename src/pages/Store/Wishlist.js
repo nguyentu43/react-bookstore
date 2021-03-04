@@ -46,7 +46,9 @@ export default withAuth(function Wishlist() {
             />
           </VStack>
         ))}
+        
       </SimpleGrid>
+      {products.length === 0 && <InfoEmptyList/>}
     </BlockLayout>
   );
 });
