@@ -6,6 +6,7 @@ import BlockLayout from '../../components/Store/BlockLayout';
 import ShortedProduct from '../../components/Store/ShortedProduct';
 import withAuth from '../../hocs/withAuth';
 import LoadingData from '../../components/LoadingData';
+import InfoEmptyList from '../../components/InfoEmptyList';
 
 export default withAuth(function Wishlist() {
   const [products, setProducts] = useState(null);
@@ -46,7 +47,9 @@ export default withAuth(function Wishlist() {
             />
           </VStack>
         ))}
+        
       </SimpleGrid>
+      {products.length === 0 && <InfoEmptyList/>}
     </BlockLayout>
   );
 });
