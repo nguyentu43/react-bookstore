@@ -54,7 +54,7 @@ export default function CheckoutForm() {
     const cardElement = elements.getElement(CardElement);
 
     try {
-      const { code } = await getPaymentCode({ total: total * 100 });
+      const { code } = await getPaymentCode({ total: Math.round(total * 100) });
       const { error, paymentIntent } = await stripe.confirmCardPayment(code, {
         payment_method: {
           card: cardElement,
