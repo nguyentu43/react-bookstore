@@ -30,7 +30,6 @@ export default function BottomNav({ categories }) {
   const [keyword, setKeyword] = useState('');
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const trimmedKeyword = useMemo(() => keyword.trim(), [keyword]);
 
   async function fetchData(keyword) {
     setLoading(true);
@@ -49,17 +48,17 @@ export default function BottomNav({ categories }) {
 
   function handleEnter(e) {
     if (e.key === 'Enter') {
-      history.push('/store/search?keyword=' + trimmedKeyword);
+      history.push('/store/search?keyword=' + keyword);
     }
   }
 
   const debounce = useCallback(_.debounce(fetchData, 300), []);
 
   function handleChangeKeyword(e) {
-    const keyword = e.target.value;
-    setKeyword(keyword);
-    if (trimmedKeyword !== '') {
-      debounce(trimmedKeyword);
+    const trimmedWord = e.target.value.trim();
+    setKeyword(trimmedWord);
+    if (trimmedWord !== '') {
+      debounce(trimmedWord);
     }
   }
 
@@ -114,7 +113,7 @@ export default function BottomNav({ categories }) {
             }
           />
         </InputGroup>
-        {trimmedKeyword !== '' && (
+        {keyword !== '' && (
           <VStack
             right={0}
             left={0}
@@ -139,7 +138,7 @@ export default function BottomNav({ categories }) {
                   color="blue.500"
                   as={Link}
                   onClick={() => setKeyword('')}
-                  to={'/store/search?keyword=' + trimmedKeyword}
+                  to={'/store/search?keyword=' + keyword}
                 >
                   See more books
                 </Text>
