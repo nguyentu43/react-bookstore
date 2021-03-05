@@ -40,6 +40,7 @@ export default function Product({
           fontWeight="bold"
           fontSize="xl"
           noOfLines={2}
+          minH="60px"
         >
           {name}
         </Text>

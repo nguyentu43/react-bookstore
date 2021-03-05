@@ -13,10 +13,10 @@ import {
   Text,
   VStack,
   Spinner,
-  InputRightElement,
+  InputRightElement
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FaAlignJustify, FaBackspace, FaSearch } from 'react-icons/fa';
+import { FaAlignJustify, FaBackspace, FaSearch, FaTimes } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchProducts } from '../../../api';
 import LeftDrawer from '../Drawer/LeftDrawer';
@@ -31,8 +31,10 @@ export default function BottomNav({ categories }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const trimmedKeyword = useMemo(() => keyword.trim(), [keyword]);
+  const [showList, setShowList] = useState(false);
 
   async function fetchData(keyword) {
+    setShowList(true);
     setLoading(true);
     try {
       const { products } = await fetchProducts({
@@ -58,7 +60,7 @@ export default function BottomNav({ categories }) {
   function handleChangeKeyword(e) {
     const value = e.target.value;
     setKeyword(value);
-    if (value.trim() !== '') {
+    if(value.trim() !== ''){
       debounce(value.trim());
     }
   }
@@ -67,7 +69,11 @@ export default function BottomNav({ categories }) {
     for (const sub of history.location.search.substr(1).split('&')) {
       const params = sub.split('=');
       if (params[0] === 'keyword') {
-        setKeyword(decodeURIComponent(params[1]));
+        const decode = decodeURIComponent(params[1].trim());
+        if(decode !== ''){
+          setKeyword(decode);
+          fetchData(decode);
+        }
       }
     }
   }, []);
@@ -114,7 +120,7 @@ export default function BottomNav({ categories }) {
             }
           />
         </InputGroup>
-        {trimmedKeyword !== '' && (
+        {showList && (
           <VStack
             right={0}
             left={0}
@@ -147,6 +153,7 @@ export default function BottomNav({ categories }) {
             ) : (
               <Text>Please change another keyword</Text>
             )}
+            <IconButton icon={<Icon as={FaTimes}/>} onClick={() => setShowList(false)}/>
           </VStack>
         )}
       </Box>

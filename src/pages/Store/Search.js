@@ -17,8 +17,8 @@ export default function Search() {
 
   async function fetchData(init = false) {
     const data = await fetchProducts({
-      search: location.search && location.search.substr(1),
-      offset: products.length,
+      search: location.search && decodeURIComponent(location.search.substr(1)),
+      offset: init ? 0 : products.length,
       limit,
     });
     if (init) {
@@ -33,9 +33,9 @@ export default function Search() {
     fetchData(true);
   }, [location]);
 
-  useEffect(() => {
-    fetchData(true);
-  }, []);
+  // useEffect(() => {
+  //   fetchData(true);
+  // });
 
   return (
     <BlockLayout>
