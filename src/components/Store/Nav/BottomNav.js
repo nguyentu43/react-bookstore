@@ -15,7 +15,7 @@ import {
   Spinner,
   InputRightElement,
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FaAlignJustify, FaBackspace, FaSearch } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchProducts } from '../../../api';
@@ -30,6 +30,7 @@ export default function BottomNav({ categories }) {
   const [keyword, setKeyword] = useState('');
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const trimmedKeyword = useMemo(() => keyword.trim(), [keyword]);
 
   async function fetchData(keyword) {
     setLoading(true);
@@ -48,17 +49,17 @@ export default function BottomNav({ categories }) {
 
   function handleEnter(e) {
     if (e.key === 'Enter') {
-      history.push('/store/search?keyword=' + keyword);
+      history.push('/store/search?keyword=' + trimmedKeyword);
     }
   }
 
   const debounce = useCallback(_.debounce(fetchData, 300), []);
 
   function handleChangeKeyword(e) {
-    const trimmedWord = e.target.value.trim();
-    setKeyword(trimmedWord);
-    if (trimmedWord !== '') {
-      debounce(trimmedWord);
+    const value = e.target.value;
+    setKeyword(value);
+    if (value.trim() !== '') {
+      debounce(value.trim());
     }
   }
 
@@ -113,7 +114,7 @@ export default function BottomNav({ categories }) {
             }
           />
         </InputGroup>
-        {keyword !== '' && (
+        {trimmedKeyword !== '' && (
           <VStack
             right={0}
             left={0}
@@ -138,7 +139,7 @@ export default function BottomNav({ categories }) {
                   color="blue.500"
                   as={Link}
                   onClick={() => setKeyword('')}
-                  to={'/store/search?keyword=' + keyword}
+                  to={'/store/search?keyword=' + trimmedKeyword}
                 >
                   See more books
                 </Text>
