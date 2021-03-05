@@ -67,7 +67,7 @@ export default function BottomNav({ categories }) {
     for (const sub of history.location.search.substr(1).split('&')) {
       const params = sub.split('=');
       if (params[0] === 'keyword') {
-        setKeyword(params[1]);
+        setKeyword(decodeURIComponent(params[1]));
       }
     }
   }, []);
