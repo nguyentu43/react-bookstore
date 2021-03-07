@@ -10,14 +10,14 @@ import InifiniteScroll from 'react-infinite-scroll-component';
 import InfoEmptyList from '../../components/InfoEmptyList';
 
 export default function Search() {
-  const history = useHistory();
+  const { location } = useHistory();
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const limit = 12;
 
   async function fetchData(init = false) {
     const data = await fetchProducts({
-      search: history.location.search && decodeURIComponent(history.location.search.substr(1)),
+      search: location.search && decodeURIComponent(location.search.substr(1)),
       offset: init ? 0 : products.length,
       limit,
     });
@@ -31,7 +31,7 @@ export default function Search() {
 
   useEffect(() => {
     fetchData(true);
-  }, [history]);
+  }, [location]);
 
   return (
     <BlockLayout>
