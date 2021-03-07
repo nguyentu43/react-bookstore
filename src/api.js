@@ -56,7 +56,7 @@ export function removeItemFromCart(variables) {
 
 export function fetchProduct(variables) {
   return request(
-    'query ($slug: String!){product: getProduct(slug: $slug){id, price, images{public_id, secure_url},discount,description,name, slug, authors{id, name}, category{id, name, parent{id, name, parent{id, name}}}}}',
+    'query ($slug: String!){product: getProduct(slug: $slug){id, price, ratings{id, title, user{id, name}, comment, rate, createdAt} images{public_id, secure_url},discount,description,name, slug, authors{id, name}, category{id, name, parent{id, name, parent{id, name}}}}}',
     variables
   );
 }
@@ -241,6 +241,43 @@ export function deleteImages(variables) {
   );
 }
 
+export function addRating(variables){
+  return request(
+    `
+      mutation($input: RatingData, $userID: ID!, $productID: ID!) {
+        addRating(input: $input, userID: $userID, productID: $productID){
+          title, rate, comment
+        }
+      }
+    `,
+    variables
+  );
+}
+
+export function updateRating(variables){
+  return request(
+    `
+      mutation($input: RatingData, $userID: ID!, $id: ID!) {
+        updateRating(input: $input, userID: $userID, id: $id){
+          title, rate, comment
+        }
+      }
+    `,
+    variables
+  );
+}
+
+export function removeRating(variables){
+  return request(
+    `
+      mutation($id: ID!) {
+        removeRating(id: $id)
+      }
+    `,
+    variables
+  );
+}
+
 export function fetchImages(variables) {
   return request(
     `query ($cursor: String){
@@ -254,6 +291,16 @@ export function fetchImages(variables) {
     }`,
     variables
   );
+}
+
+export function getDashboardData(variables){
+  return request(
+    `
+      query($year: Int){
+        data:getDashboardData(year: $year)
+      }
+    `
+  , variables)
 }
 
 export function logout() {
