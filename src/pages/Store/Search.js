@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { GridItem, SimpleGrid, Skeleton, Stack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchProducts } from '../../api';
 import FilterBlock from '../../components/Store/Block/FilterBlock';
@@ -8,6 +8,7 @@ import BlockLayout from '../../components/Store/BlockLayout';
 import Product from '../../components/Store/Product';
 import InifiniteScroll from 'react-infinite-scroll-component';
 import InfoEmptyList from '../../components/InfoEmptyList';
+import _ from 'lodash';
 
 export default function Search() {
   const { location } = useHistory();
@@ -23,15 +24,16 @@ export default function Search() {
     });
     if (init) {
       setProducts(data.products);
-      console.log(data.products);
     } else {
       setProducts(products.concat(data.products));
     }
     setHasMore(data.products.length === limit);
   }
 
+  const debounce = useCallback(_.debounce(fetchData, 500), []);
+
   useEffect(() => {
-    fetchData(true);
+    debounce(true);
   }, [location]);
 
   return (
