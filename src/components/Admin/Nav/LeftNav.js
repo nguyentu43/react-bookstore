@@ -9,20 +9,21 @@ import {
   FcReading,
 } from 'react-icons/fc';
 import { useHistory } from 'react-router-dom';
+import { useAppContext } from '../../../context';
 
 const menu = [
   { name: 'Dashboard', icon: FcRatings, path: 'dashboard' },
+  { name: 'Order', icon: FcNews, path: 'order' },
   { name: 'Gallery', icon: FcFolder, path: 'gallery' },
-  { name: 'Book', icon: FcReading, path: 'book' },
   { name: 'Category', icon: FcFolder, path: 'category' },
   { name: 'Author', icon: FcBusinesswoman, path: 'author' },
-  { name: 'Order', icon: FcNews, path: 'order' },
+  { name: 'Book', icon: FcReading, path: 'book' },
   { name: 'User', icon: FcManager, path: 'user' },
 ];
 
 export default function LeftNav({ onClose }) {
   const history = useHistory();
-
+  const { state: { auth } } = useAppContext();
   return (
     <VStack
       borderRightWidth={[0, 0, 1]}
@@ -34,7 +35,7 @@ export default function LeftNav({ onClose }) {
       <HStack px={4} pb={2}>
         <Avatar mr={4} size="lg" />
         <Text fontSize="lg" fontWeight="bold">
-          Pikachu
+          { auth.name }
         </Text>
       </HStack>
       <Box borderTopWidth={1}>

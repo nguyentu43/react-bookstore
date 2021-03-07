@@ -26,15 +26,34 @@ import FeaturedShortedProductBlock from '../../components/Store/Block/FeaturedSh
 import SupportInfoBlock from '../../components/Store/Block/SupportInfoBlock';
 import { useParams } from 'react-router-dom';
 import { fetchProduct, fetchProducts } from '../../api';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Product from '../../components/Store/Product';
 import LoadingData from '../../components/LoadingData';
+import CommentForm from '../../components/Store/Form/CommentForm';
+import Comment from '../../components/Store/Comment';
+import Rating from '../../components/Store/Rating';
 
 export default function Single() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
 
   const [relatedProducts, setProducts] = useState([]);
+
+  async function reloadRatings() {
+    const {
+      product: { ratings },
+    } = await fetchProduct({ slug });
+    setProduct({ ...product, ratings });
+  }
+
+  const rateValue = useMemo(
+    () =>
+      product !== null ? product.ratings.reduce(
+        (prev, { rate }) => (prev + rate),
+        0
+      )/product.ratings.length : 0,
+    [product]
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -67,16 +86,23 @@ export default function Single() {
             <SimpleGrid columns={[1, 1, 1, 2]} gap={8} mb={12}>
               <Stack width={[200, 250, 350]} justifySelf="center">
                 <CarouselWrapper responsive={null}>
-                  {product.images.map(image => (
-                    <Image src={image.secure_url} objectFit="contain" />
+                  {product.images.map((image, index) => (
+                    <Image
+                      key={index}
+                      src={image.secure_url}
+                      objectFit="contain"
+                    />
                   ))}
                 </CarouselWrapper>
               </Stack>
-              <VStack spacing={4} align="stretch" textAlign="left">
+              <VStack spacing={2} align="flex-start">
                 <Heading>{product.name}</Heading>
                 <Text>
                   By (author) {product.authors.map(a => a.name).join(', ')}
                 </Text>
+                {product.ratings.length > 0 && (
+                  <Rating size={8} readonly={true} value={rateValue} />
+                )}
                 <Text fontSize="3xl">
                   <CurrencyFormat
                     value={product.price * (1 - product.discount)}
@@ -100,8 +126,10 @@ export default function Single() {
                     </>
                   )}
                 </Text>
-                <Text noOfLines={4} dangerouslySetInnerHTML={{__html: product.description}}></Text>
-
+                <Text
+                  noOfLines={4}
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                ></Text>
                 <AddProductForm id={product.id} />
               </VStack>
             </SimpleGrid>
@@ -111,10 +139,13 @@ export default function Single() {
                 <TabList>
                   <Tab>Description</Tab>
                   <Tab>Product Details</Tab>
+                  <Tab>Ratings</Tab>
                 </TabList>
 
                 <TabPanels>
-                  <TabPanel dangerouslySetInnerHTML={{__html: product.description}}></TabPanel>
+                  <TabPanel
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  ></TabPanel>
                   <TabPanel>
                     <List>
                       <ListItem>
@@ -126,6 +157,21 @@ export default function Single() {
                         Author: {product.authors.map(a => a.name).join(', ')}
                       </ListItem>
                     </List>
+                  </TabPanel>
+                  <TabPanel>
+                    <CommentForm
+                      onPost={reloadRatings}
+                      productID={product.id}
+                    />
+                    {product.ratings.map(rating => (
+                      <Comment
+                        data={rating}
+                        key={rating.id}
+                        productID={product.id}
+                        onRemove={reloadRatings}
+                        onPost={reloadRatings}
+                      />
+                    ))}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
@@ -140,7 +186,12 @@ export default function Single() {
         </SimpleGrid>
       </BlockLayout>
       <BlockLayout blockName="Related Products">
-        <CarouselWrapper slidesToShow={relatedProducts.length < 5 ? relatedProducts.length : 5} infinite={false} dots={false} arrows={true}>
+        <CarouselWrapper
+          slidesToShow={relatedProducts.length < 5 ? relatedProducts.length : 5}
+          infinite={false}
+          dots={false}
+          arrows={true}
+        >
           {relatedProducts.map(item => (
             <Product inSlider={true} {...item} key={item.id} />
           ))}
