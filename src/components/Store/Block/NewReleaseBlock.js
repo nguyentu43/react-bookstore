@@ -17,6 +17,7 @@ import Product from '../Product';
 import Book from '../../../imgs/books.png';
 import { useEffect, useState } from 'react';
 import { fetchCategories, fetchProducts } from '../../../api';
+import InfoEmptyList from '../../InfoEmptyList';
 
 export default function NewReleaseBlock() {
   const bg = useColorModeValue('pink.50', 'pink.500');
@@ -70,15 +71,19 @@ export default function NewReleaseBlock() {
             <TabPanels>
               {categories.map(category => (
                 <TabPanel key={category.id} px={0} pb={0}>
-                  <SimpleGrid
-                    borderTopWidth={1}
-                    borderLeftWidth={1}
-                    columns={[1, 2, 2, 3]}
-                  >
-                    {category.products.map(item => (
-                      <Product key={item.id} {...item} />
-                    ))}
-                  </SimpleGrid>
+                  {category.products.length > 0 ? (
+                    <SimpleGrid
+                      borderTopWidth={1}
+                      borderLeftWidth={1}
+                      columns={[1, 2, 2, 3]}
+                    >
+                      {category.products.map(item => (
+                        <Product key={item.id} {...item} />
+                      ))}
+                    </SimpleGrid>
+                  ) : (
+                    <InfoEmptyList />
+                  )}
                 </TabPanel>
               ))}
             </TabPanels>
