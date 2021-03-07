@@ -19,7 +19,12 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   const {
     state: {
       auth: { id, isLogin },
+<<<<<<< HEAD
     }
+=======
+    },
+    dispatch,
+>>>>>>> 3fb956d22ab1217ddbf90b2fff4ee72f5c231e68
   } = useAppContext();
 
   async function saveComment(input) {
