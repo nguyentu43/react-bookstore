@@ -18,7 +18,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   });
   const {
     state: {
-      auth: { id, isLogin },
+      auth: { id, isLogin }
     }
   } = useAppContext();
 

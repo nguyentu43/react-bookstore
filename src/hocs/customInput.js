@@ -78,11 +78,11 @@ export default function hocInput(
       >
         <HStack>
           {children ? (
-            <Comp {...rest} {...props} isDisabled={!isEdit}>
+            <Comp {...rest} minW={200} {...props} isDisabled={!isEdit}>
               {children}
             </Comp>
           ) : (
-            <Comp {...rest} {...props} isDisabled={!isEdit} />
+            <Comp {...rest} minW={200} {...props} isDisabled={!isEdit} />
           )}
           {clickToEdit && !isEdit && (
             <IconButton
