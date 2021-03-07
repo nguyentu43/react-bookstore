@@ -23,6 +23,7 @@ export default function Search() {
     });
     if (init) {
       setProducts(data.products);
+      console.log(data.products);
     } else {
       setProducts(products.concat(data.products));
     }
