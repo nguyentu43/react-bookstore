@@ -32,12 +32,15 @@ import LoadingData from '../../components/LoadingData';
 import CommentForm from '../../components/Store/Form/CommentForm';
 import Comment from '../../components/Store/Comment';
 import Rating from '../../components/Store/Rating';
+import { useAppContext } from '../../context';
 
 export default function Single() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
-
   const [relatedProducts, setProducts] = useState([]);
+  const {
+    state: { auth },
+  } = useAppContext();
 
   async function reloadRatings() {
     const {
@@ -48,12 +51,17 @@ export default function Single() {
 
   const rateValue = useMemo(
     () =>
-      product !== null ? product.ratings.reduce(
-        (prev, { rate }) => (prev + rate),
-        0
-      )/product.ratings.length : 0,
+      product !== null
+        ? product.ratings.reduce((prev, { rate }) => prev + rate, 0) /
+          product.ratings.length
+        : 0,
     [product]
   );
+
+  const hasRate = useMemo(() => {
+    if (!auth.isLogin) return false;
+    return product && product.ratings.some(rating => rating.user.id === auth.id);
+  }, [product, auth]);
 
   useEffect(() => {
     async function fetchData() {
@@ -159,10 +167,26 @@ export default function Single() {
                     </List>
                   </TabPanel>
                   <TabPanel>
-                    <CommentForm
-                      onPost={reloadRatings}
-                      productID={product.id}
-                    />
+                    {!auth.isLogin ? (
+                      <VStack
+                        align="flex-start"
+                        p={4}
+                        borderWidth={1}
+                        borderRadius="md"
+                        mb={4}
+                      >
+                        <Heading size="md">
+                          Login to leave some feedback
+                        </Heading>
+                      </VStack>
+                    ) : (
+                      !hasRate && (
+                        <CommentForm
+                          onPost={reloadRatings}
+                          productID={product.id}
+                        />
+                      )
+                    )}
                     {product.ratings.map(rating => (
                       <Comment
                         data={rating}

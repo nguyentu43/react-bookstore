@@ -18,7 +18,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   });
   const {
     state: {
-      auth: { id, isLogin }
+      auth: { id }
     }
   } = useAppContext();
 
@@ -30,15 +30,6 @@ export default function CommentForm({ data = {}, productID, onPost }) {
       await updateRating({ input, userID: id, id: data.id });
     }
     onPost();
-  }
-
-  if(!isLogin)
-  {
-    return (
-      <VStack align="flex-start" p={4} borderWidth={1} borderRadius="md" mb={4}>
-        <Heading size="md">Login to leave some feedback</Heading>
-      </VStack>
-    )
   }
 
   return (
