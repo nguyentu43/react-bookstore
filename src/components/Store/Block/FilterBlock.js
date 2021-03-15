@@ -206,7 +206,7 @@ export default function FilterBlock() {
               value={range[1]}
               onChange={v => handleChangeRange(v, 'max')}
               min={0}
-              max={100}
+              max={500}
             >
               <NumberInputField />
               <NumberInputStepper>
