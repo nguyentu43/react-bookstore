@@ -138,7 +138,7 @@ export default function FilterBlock() {
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={2} textAlign="left">
-              <Heading size="md">Categories </Heading>
+              <Heading size="md">Categories</Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -163,7 +163,7 @@ export default function FilterBlock() {
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" py={2} textAlign="left">
-              <Heading size="md">Author </Heading>
+              <Heading size="md">Author</Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -206,7 +206,7 @@ export default function FilterBlock() {
               value={range[1]}
               onChange={v => handleChangeRange(v, 'max')}
               min={0}
-              max={500}
+              max={100}
             >
               <NumberInputField />
               <NumberInputStepper>
