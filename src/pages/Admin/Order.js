@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, HStack } from '@chakra-ui/react';
+import { Button, HStack, useToast } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import BlockLayout from '../../components/Admin/BlockLayout';
@@ -81,6 +81,7 @@ export default function OrderPage() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [skipPageReset, setSkipPage] = useState(false);
+  const toast = useToast();
 
   async function fetchData() {
     try {
@@ -99,6 +100,7 @@ export default function OrderPage() {
     try {
       setSkipPage(true);
       await updateOrder(data);
+      toast({ status: 'info', title: 'Order has been updated' });
       fetchData();
     } catch (error) {
       throw error;
@@ -128,6 +130,7 @@ export default function OrderPage() {
     try {
       setSkipPage(true);
       await removeOrder({ id });
+      toast({ status: 'info', title: 'Order has been deleted' });
       fetchData();
     } catch (error) {
       throw error;

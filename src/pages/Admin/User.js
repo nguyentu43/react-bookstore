@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
-import { Button, Checkbox, Input } from '@chakra-ui/react';
+import { Button, Checkbox, Input, useToast } from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
 import { fetchUsers, updateUser, addUser, removeUser } from '../../api';
@@ -75,12 +75,14 @@ export default function User() {
 
   const [users, setUsers] = useState([]);
   const [skipPageReset, setSkipReset] = useState(false);
+  const toast = useToast();
 
   const action = {
     async save({ id, name, email, password }) {
       try {
         setSkipReset(true);
         await updateUser({ id, input: { name, email, password } });
+        toast({ status: 'info', title: 'User has been updated' });
         fetchData();
       } catch (error) {
         throw error;

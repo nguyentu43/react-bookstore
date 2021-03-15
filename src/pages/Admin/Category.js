@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
 import * as FcIcon from 'react-icons/fc';
-import { Button, Input, Select } from '@chakra-ui/react';
+import { Button, Input, Select, useToast } from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
 import {
@@ -87,8 +87,8 @@ export default function Category() {
   );
 
   const [categories, setCategories] = useState([]);
-
   const [skipPageReset, setSkipPage] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     fetchData();
@@ -103,6 +103,7 @@ export default function Category() {
       try {
         setSkipPage(true);
         await updateCategory({ id, input: { name, parentID, icon } });
+        toast({ status: 'info', title: 'Category has been updated' });
         fetchData();
       } catch (error) {
         throw error;

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, HStack, Image } from '@chakra-ui/react';
+import { Button, HStack, Image, useToast } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import {
@@ -87,6 +87,7 @@ export default function ProductPage() {
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
   const [skipPageReset, setSkipPage] = useState(false);
+  const toast = useToast();
 
   async function add() {
     try {
@@ -112,6 +113,7 @@ export default function ProductPage() {
     try {
       setSkipPage(true);
       await updateProduct({ id, input });
+      toast({ status: 'info', title: 'Book has been updated' });
       fetchData();
     } catch (error) {
       throw error;
@@ -148,6 +150,7 @@ export default function ProductPage() {
         setSkipPage(true);
         await removeProduct({ id });
         fetchData();
+        toast({ status: 'info', title: 'Book has been deleted' });
       } catch (error) {
         throw error;
       }

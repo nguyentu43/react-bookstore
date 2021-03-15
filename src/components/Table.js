@@ -34,6 +34,7 @@ export default function Table({
       columns,
       data,
       autoResetPage: !skipPageReset,
+      autoResetExpanded: false,
       ...action,
     },
     useExpanded,
@@ -56,7 +57,11 @@ export default function Table({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.length === 0 && <TRow><TData>Don't have any data to show</TData></TRow>}
+            {page.length === 0 && (
+              <TRow>
+                <TData>Don't have any data to show</TData>
+              </TRow>
+            )}
             {page.map((row, rI) => {
               prepareRow(row);
               return (

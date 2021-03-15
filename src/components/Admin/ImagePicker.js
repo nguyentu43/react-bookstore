@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import GalleryModal from './GalleryModal';
+import { ReactSortable } from 'react-sortablejs';
 
 export default function ImagePicker({ images = [], onChange }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +35,15 @@ export default function ImagePicker({ images = [], onChange }) {
         Add Image
       </Button>
       {images.length > 0 && (
-        <HStack borderWidth={1} borderRadius="md" p={2} wrap="wrap">
+        <HStack
+          borderWidth={1}
+          borderRadius="md"
+          p={2}
+          wrap="wrap"
+          as={ReactSortable}
+          list={images}
+          setList={onChange}
+        >
           {images.map(item => (
             <VStack key={item.public_id} mb={4}>
               <Image src={item.secure_url} h={40} objectFit="contain" />

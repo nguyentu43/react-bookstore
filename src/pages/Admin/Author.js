@@ -7,6 +7,7 @@ import {
   Input,
   Textarea,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
@@ -16,6 +17,7 @@ import { addAuthor, fetchAuthors, removeAuthor, updateAuthor } from '../../api';
 export default function Author() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [avatarData, setAvatarData] = useState(null);
+  const toast = useToast();
 
   const openModal = useCallback(
     data => {
@@ -106,6 +108,7 @@ export default function Author() {
       try {
         setSkipPage(true);
         await updateAuthor({ id, input: { name, avatar, description } });
+        toast({ status: 'info', title: 'Author has been updated' });
         fetchData();
       } catch (error) {
         throw error;
