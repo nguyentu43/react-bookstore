@@ -30,7 +30,7 @@ export default function Search() {
     setHasMore(data.products.length === limit);
   }
 
-  const debounce = useCallback(_.debounce(fetchData, 500), []);
+  const debounce = useCallback(_.debounce(fetchData, 500), [location]);
 
   useEffect(() => {
     debounce(true);
@@ -71,9 +71,9 @@ export default function Search() {
           >
             {products.map(item => (
               <Product key={item.id} {...item} />
-            ))}  
+            ))}
           </SimpleGrid>
-          {products.length === 0 && <InfoEmptyList/>}
+          {products.length === 0 && <InfoEmptyList />}
         </GridItem>
       </SimpleGrid>
     </BlockLayout>
