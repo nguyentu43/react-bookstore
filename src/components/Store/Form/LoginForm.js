@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { fetchUserInfo, login } from '../../../api';
 import { useAppContext } from '../../../context';
 import graphQLClient from '../../../graphqlClient';
+import { setCart, setAuth } from '../../../context/actions';
 
 export default function LoginForm({ inDrawer }) {
   const { handleSubmit, errors, control } = useForm();
@@ -31,8 +32,8 @@ export default function LoginForm({ inDrawer }) {
       localStorage.setItem('token', token);
       graphQLClient.setHeader('authorization', 'Bearer ' + token);
       const { user, cart } = await fetchUserInfo();
-      dispatch({ type: 'SET_AUTH', payload: { ...user, isLogin: true } });
-      dispatch({ type: 'SET_CART', payload: cart });
+      dispatch(setAuth({ ...user, isLogin: true }));
+      dispatch(setCart(cart));
     } catch ({ response }) {
       toast({ title: response.errors[0].message, status: 'error' });
     }

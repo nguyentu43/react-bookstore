@@ -14,6 +14,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useAppContext } from '../../../context';
 import { checkout, getPaymentCode } from '../../../api';
 import { useHistory } from 'react-router-dom';
+import { setCart } from '../../../context/actions';
 
 const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
 
@@ -83,7 +84,7 @@ export default function CheckoutForm() {
             })),
           },
         });
-        dispatch({ type: 'SET_CART', payload: [] });
+        dispatch(setCart([]));
         push('/store');
         toast({ title: 'Your order will be processed as soon as possible' });
       }

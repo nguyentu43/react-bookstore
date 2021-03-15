@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
 import { addItemToCart, addWishlist } from '../../../api';
 import { useAppContext } from '../../../context';
+import { setCart } from '../../../context/actions';
 
 export default function AddProductForm({ id }) {
   const {
@@ -42,7 +43,7 @@ export default function AddProductForm({ id }) {
 
     try {
       const { cart } = await addItemToCart({ input });
-      dispatch({ type: 'SET_CART', payload: cart });
+      dispatch(setCart(cart));
       toast({ title: 'A book is added to cart' });
     } catch (error) {
       throw error;

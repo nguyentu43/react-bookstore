@@ -13,6 +13,7 @@ import { useAppContext } from './context';
 import graphQLClient from './graphqlClient';
 import LoadingData from './components/LoadingData';
 import ScrollTop from 'react-router-scroll-top';
+import { setCart, setAuth } from './context/actions';
 
 const AdminRoute = React.lazy(() => import('./pages/Admin/Route'));
 
@@ -36,8 +37,8 @@ function App() {
     async function fetchData() {
       try {
         const { user, cart } = await fetchUserInfo();
-        dispatch({ type: 'SET_AUTH', payload: { ...user, isLogin: true } });
-        dispatch({ type: 'SET_CART', payload: cart });
+        dispatch(setAuth({ ...user, isLogin: true }));
+        dispatch(setCart(cart));
       } catch (error) {
         graphQLClient.setHeader('authorization', '');
         localStorage.removeItem('token');
@@ -58,7 +59,7 @@ function App() {
       {!loading ? (
         <StripeElements stripe={stripePromise}>
           <BrowserRouter>
-            <ScrollTop/>
+            <ScrollTop />
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 <Route path="/store" component={StoreRoute} />

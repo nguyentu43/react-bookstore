@@ -20,6 +20,7 @@ import ShortedProduct from '../../components/Store/ShortedProduct';
 import Table from '../../components/Table';
 import { useAppContext } from '../../context';
 import withAuth from '../../hocs/withAuth';
+import { setCart } from '../../context/actions';
 
 function QuantityInput({ quantity, id, changeQuantity }) {
   const [value, setValue] = useState(quantity);
@@ -62,14 +63,10 @@ export default withAuth(function Cart() {
     dispatch,
   } = useAppContext();
 
-  function setCart(items) {
-    dispatch({ type: 'SET_CART', payload: items });
-  }
-
   async function changeQuantity(quantity, id) {
     try {
       const { cart } = await addItemToCart({ input: { quantity, id } });
-      setCart(cart);
+      dispatch(setCart(cart));
     } catch (error) {
       throw error;
     }
@@ -78,7 +75,7 @@ export default withAuth(function Cart() {
   async function deleteProduct(productID) {
     try {
       const { cart } = await removeItemFromCart({ productID });
-      setCart(cart);
+      dispatch(setCart(cart));
     } catch (error) {
       throw error;
     }
