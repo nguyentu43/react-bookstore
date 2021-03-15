@@ -24,10 +24,10 @@ import { fetchAuthors, fetchCategories } from '../../../api';
 import FeaturedShortedProductBlock from './FeaturedShortedProductBlock';
 
 export default function FilterBlock() {
-  const { location, push } = useHistory();
+  const { location, replace } = useHistory();
   const [data, setData] = useState({ categories: [], authors: [] });
-  const [category, setCategory] = useState(null);
-  const [author, setAuthor] = useState(null);
+  const [category, setCategory] = useState('all');
+  const [author, setAuthor] = useState('all');
   const [range, setRange] = useState([0, 500]);
   const [order, setOrder] = useState(0);
   const orderOptions = [
@@ -78,7 +78,7 @@ export default function FilterBlock() {
     handleChangeLocation();
   }, [location]);
 
-  useEffect(() => {
+  function handleFilter() {
     let query = [];
     for (const sub of location.search.substr(1).split('&')) {
       const params = sub.split('=');
@@ -86,17 +86,17 @@ export default function FilterBlock() {
         query.push(sub);
       }
     }
-    if (category) {
+    if (category !== 'all') {
       query.push('category=' + category);
     }
-    if (author) {
+    if (author !== 'all') {
       query.push('author=' + author);
     }
     query.push('range=' + range.join('-'));
     query.push('order=' + order);
 
-    push('/store/search?' + query.join('&'));
-  }, [category, author, range, order]);
+    replace('/store/search?' + query.join('&'));
+  }
 
   function handleChangeRange(v, type) {
     if (type === 'min') {
@@ -115,7 +115,7 @@ export default function FilterBlock() {
       <Accordion defaultIndex={[0, 1, 2, 3, 4]} allowToggle allowMultiple>
         <AccordionItem>
           <AccordionButton>
-            <Box flex="1" py={4} textAlign="left">
+            <Box flex="1" py={2} textAlign="left">
               <Heading size="md">Order by</Heading>
             </Box>
             <AccordionIcon />
@@ -137,23 +137,22 @@ export default function FilterBlock() {
         </AccordionItem>
         <AccordionItem>
           <AccordionButton>
-            <Box flex="1" py={4} textAlign="left">
+            <Box flex="1" py={2} textAlign="left">
               <Heading size="md">Categories </Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            <Button size="sm" onClick={() => setCategory(null)}>
-              Clear
-            </Button>
             <RadioGroup
               onChange={v => {
                 setCategory(v);
               }}
+              value={category}
             >
               <VStack align="stretch">
+                <Radio value="all">All</Radio>
                 {data.categories.map(c => (
-                  <Radio value={c.id} key={c.id} isChecked={c.id === category}>
+                  <Radio value={c.id} key={c.id}>
                     {(c.parent ? c.parent.name + '/' : '') + c.name}
                   </Radio>
                 ))}
@@ -163,23 +162,17 @@ export default function FilterBlock() {
         </AccordionItem>
         <AccordionItem>
           <AccordionButton>
-            <Box flex="1" py={4} textAlign="left">
+            <Box flex="1" py={2} textAlign="left">
               <Heading size="md">Author </Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            <Button size="sm" onClick={() => setAuthor(null)}>
-              Clear
-            </Button>
-            <RadioGroup onChange={v => setAuthor(v)}>
+            <RadioGroup onChange={v => setAuthor(v)} value={author}>
               <VStack align="stretch">
+                <Radio value="all">All</Radio>
                 {data.authors.map(item => (
-                  <Radio
-                    isChecked={item.id === author}
-                    key={item.id}
-                    value={item.id}
-                  >
+                  <Radio key={item.id} value={item.id}>
                     {item.name}
                   </Radio>
                 ))}
@@ -189,8 +182,8 @@ export default function FilterBlock() {
         </AccordionItem>
         <AccordionItem>
           <AccordionButton>
-            <Box flex="1" py={4} textAlign="left">
-              <Heading size="md">Filter by price</Heading>
+            <Box flex="1" py={2} textAlign="left">
+              <Heading size="md">Price</Heading>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -223,9 +216,14 @@ export default function FilterBlock() {
             </NumberInput>
           </AccordionPanel>
         </AccordionItem>
+        <AccordionItem px={4} py={2}>
+          <Button colorScheme="blue" onClick={handleFilter}>
+            Filter
+          </Button>
+        </AccordionItem>
         <AccordionItem>
           <AccordionButton>
-            <Box flex="1" py={4} textAlign="left">
+            <Box flex="1" py={2} textAlign="left">
               <Heading size="md">Featured Books</Heading>
             </Box>
             <AccordionIcon />
