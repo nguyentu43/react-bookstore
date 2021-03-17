@@ -21,10 +21,9 @@ export default function TopNav() {
     },
   } = useAppContext();
 
-  const bookTotal = useMemo(
-    () => items.reduce((prev, item) => prev + item.quantity, 0),
-    [items]
-  );
+  const bookTotal = useMemo(() => {
+    return items.reduce((prev, item) => prev + item.quantity, 0);
+  }, [items]);
 
   return (
     <HStack
@@ -57,7 +56,7 @@ export default function TopNav() {
         </Text>
         <Link to="/store/cart">
           <Icon as={FaShoppingBag} />
-          {items.length === 0 ? '' : bookTotal}
+          {bookTotal === 0 ? '' : bookTotal}
         </Link>
         <Text>
           <ColorModeSwitcher />

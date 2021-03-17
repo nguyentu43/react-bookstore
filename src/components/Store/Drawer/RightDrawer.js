@@ -15,7 +15,7 @@ import { forwardRef } from 'react';
 import { logout } from '../../../api';
 import { useHistory, Link } from 'react-router-dom';
 import { useAppContext } from '../../../context';
-import { setAuth } from '../../../context/actions';
+import { setAuth, setCart } from '../../../context/actions';
 
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
   const {
@@ -27,6 +27,7 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
   function handleLogout() {
     logout();
     dispatch(setAuth({ isLogin: false }));
+    dispatch(setCart([]));
     history.push('/store');
   }
 
