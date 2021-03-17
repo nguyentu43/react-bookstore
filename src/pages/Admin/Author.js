@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import BlockLayout from '../../components/Admin/BlockLayout';
 import Table from '../../components/Table';
