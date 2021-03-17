@@ -1,4 +1,10 @@
-import { VStack, Icon, IconButton, SimpleGrid } from '@chakra-ui/react';
+import {
+  VStack,
+  Icon,
+  IconButton,
+  SimpleGrid,
+  useToast,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { getWishlist, removeWishlist } from '../../api';
@@ -10,13 +16,14 @@ import InfoEmptyList from '../../components/InfoEmptyList';
 
 export default withAuth(function Wishlist() {
   const [products, setProducts] = useState(null);
+  const toast = useToast();
 
   async function handleRemoveWishlist(id) {
     try {
       await removeWishlist({ id });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -25,7 +32,7 @@ export default withAuth(function Wishlist() {
       const { products } = await getWishlist();
       setProducts(products);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -47,9 +54,8 @@ export default withAuth(function Wishlist() {
             />
           </VStack>
         ))}
-        
       </SimpleGrid>
-      {products.length === 0 && <InfoEmptyList/>}
+      {products.length === 0 && <InfoEmptyList />}
     </BlockLayout>
   );
 });

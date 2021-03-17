@@ -10,9 +10,21 @@ import {
 import RightDrawer from '../Drawer/RightDrawer';
 import ColorModeSwitcher from '../../ColorModeSwitcher';
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../../../context';
+import { useMemo } from 'react';
 
 export default function TopNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    state: {
+      cart: { items },
+    },
+  } = useAppContext();
+
+  const bookTotal = useMemo(
+    () => items.reduce((prev, item) => prev + item.quantity, 0),
+    [items]
+  );
 
   return (
     <HStack
@@ -45,6 +57,7 @@ export default function TopNav() {
         </Text>
         <Link to="/store/cart">
           <Icon as={FaShoppingBag} />
+          {items.length === 0 ? '' : bookTotal}
         </Link>
         <Text>
           <ColorModeSwitcher />

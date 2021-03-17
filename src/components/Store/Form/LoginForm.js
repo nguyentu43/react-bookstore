@@ -15,7 +15,7 @@ import { useAppContext } from '../../../context';
 import graphQLClient from '../../../graphqlClient';
 import { setCart, setAuth } from '../../../context/actions';
 
-export default function LoginForm({ inDrawer }) {
+export default function LoginForm({ inDrawer, onCloseDraw }) {
   const { handleSubmit, errors, control } = useForm();
   const { dispatch } = useAppContext();
   const toast = useToast();
@@ -34,6 +34,7 @@ export default function LoginForm({ inDrawer }) {
       const { user, cart } = await fetchUserInfo();
       dispatch(setAuth({ ...user, isLogin: true }));
       dispatch(setCart(cart));
+      toast({ title: 'Login successfully', status: 'success' });
     } catch ({ response }) {
       toast({ title: response.errors[0].message, status: 'error' });
     }
@@ -72,10 +73,15 @@ export default function LoginForm({ inDrawer }) {
         <Button type="submit" colorScheme="blue">
           Login
         </Button>
-        <Button as={Link} to="/store/register" colorScheme="green">
-          Create an account
+        <Button
+          as={Link}
+          to="/store/register"
+          onClick={onCloseDraw}
+          colorScheme="green"
+        >
+          Register
         </Button>
-        <Link to="/store/forgot-password">
+        <Link to="/store/forgot-password" onClick={onCloseDraw}>
           <Text as="u" color="blue.500">
             Forgot your password?
           </Text>

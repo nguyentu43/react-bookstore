@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Breadcrumb from '../../components/Store/Nav/Breadcrumb';
 import BlockLayout from '../../components/Store/BlockLayout';
 import {
@@ -16,6 +17,7 @@ import {
   TabPanels,
   Tabs,
   Text,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { FcContacts, FcBookmark } from 'react-icons/fc';
@@ -38,6 +40,8 @@ export default function Single() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setProducts] = useState([]);
+  const toast = useToast();
+
   const {
     state: { auth },
   } = useAppContext();
@@ -60,7 +64,9 @@ export default function Single() {
 
   const hasRate = useMemo(() => {
     if (!auth.isLogin) return false;
-    return product && product.ratings.some(rating => rating.user.id === auth.id);
+    return (
+      product && product.ratings.some(rating => rating.user.id === auth.id)
+    );
   }, [product, auth]);
 
   useEffect(() => {
@@ -74,7 +80,7 @@ export default function Single() {
         setProduct(product);
         setProducts(related_products);
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     }
 

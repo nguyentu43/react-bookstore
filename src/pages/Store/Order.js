@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { fetchUserOrder } from '../../api';
@@ -12,6 +13,7 @@ import {
   ListItem,
   Box,
   Heading,
+  useToast,
 } from '@chakra-ui/react';
 import { FaRegSmile } from 'react-icons/fa';
 import ShortedOrderBlock from '../../components/Store/Block/ShortedOrderBlock';
@@ -20,6 +22,8 @@ import LoadingData from '../../components/LoadingData';
 
 export default withAuth(function Order() {
   const [orders, setOrders] = useState(null);
+  const toast = useToast();
+
   const columns = [
     {
       Header: 'Detail',
@@ -61,7 +65,7 @@ export default withAuth(function Order() {
         const { orders } = await fetchUserOrder();
         setOrders(orders);
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     }
     fetchData();

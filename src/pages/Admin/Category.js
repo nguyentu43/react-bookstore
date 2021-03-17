@@ -20,7 +20,7 @@ export default function Category() {
       const { categories } = await fetchCategories();
       setCategories(categories);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -106,7 +106,7 @@ export default function Category() {
         toast({ status: 'info', title: 'Category has been updated' });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
     remove: async ({ id }) => {
@@ -115,7 +115,7 @@ export default function Category() {
         await removeCategory({ id });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
   };
@@ -126,7 +126,7 @@ export default function Category() {
       await addCategory({ input: { name: 'New Category' } });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

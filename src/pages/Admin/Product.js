@@ -105,7 +105,7 @@ export default function ProductPage() {
       });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -116,7 +116,7 @@ export default function ProductPage() {
       toast({ status: 'info', title: 'Book has been updated' });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -152,7 +152,7 @@ export default function ProductPage() {
         fetchData();
         toast({ status: 'info', title: 'Book has been deleted' });
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
   };
@@ -173,7 +173,7 @@ export default function ProductPage() {
         }))
       );
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

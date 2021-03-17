@@ -85,7 +85,7 @@ export default function User() {
         toast({ status: 'info', title: 'User has been updated' });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
     async remove({ id }) {
@@ -94,7 +94,7 @@ export default function User() {
         await removeUser({ id });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
   };
@@ -104,7 +104,7 @@ export default function User() {
       const { users } = await fetchUsers();
       setUsers(users);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -120,7 +120,7 @@ export default function User() {
       });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

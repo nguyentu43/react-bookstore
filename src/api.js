@@ -241,7 +241,7 @@ export function deleteImages(variables) {
   );
 }
 
-export function addRating(variables){
+export function addRating(variables) {
   return request(
     `
       mutation($input: RatingData, $userID: ID!, $productID: ID!) {
@@ -254,7 +254,7 @@ export function addRating(variables){
   );
 }
 
-export function updateRating(variables){
+export function updateRating(variables) {
   return request(
     `
       mutation($input: RatingData, $userID: ID!, $id: ID!) {
@@ -267,7 +267,7 @@ export function updateRating(variables){
   );
 }
 
-export function removeRating(variables){
+export function removeRating(variables) {
   return request(
     `
       mutation($id: ID!) {
@@ -293,14 +293,15 @@ export function fetchImages(variables) {
   );
 }
 
-export function getDashboardData(variables){
+export function getDashboardData(variables) {
   return request(
     `
       query($year: Int){
         data:getDashboardData(year: $year)
       }
-    `
-  , variables)
+    `,
+    variables
+  );
 }
 
 export function logout() {

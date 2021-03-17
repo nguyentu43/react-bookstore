@@ -83,7 +83,6 @@ export default function Author() {
   );
 
   const [authors, setAuthors] = useState([]);
-
   const [skipPageReset, setSkipPage] = useState(false);
 
   useEffect(() => {
@@ -99,7 +98,7 @@ export default function Author() {
       const { authors } = await fetchAuthors();
       setAuthors(authors);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -111,7 +110,7 @@ export default function Author() {
         toast({ status: 'info', title: 'Author has been updated' });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
     remove: async ({ id }) => {
@@ -120,7 +119,7 @@ export default function Author() {
         await removeAuthor({ id });
         fetchData();
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     },
   };
@@ -131,7 +130,7 @@ export default function Author() {
       await addAuthor({ input: { name: 'New Author' } });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

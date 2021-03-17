@@ -92,7 +92,7 @@ export default function OrderPage() {
       const { users } = await fetchUsers();
       setUsers(users);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -103,7 +103,7 @@ export default function OrderPage() {
       toast({ status: 'info', title: 'Order has been updated' });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -122,7 +122,7 @@ export default function OrderPage() {
       });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -133,7 +133,7 @@ export default function OrderPage() {
       toast({ status: 'info', title: 'Order has been deleted' });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

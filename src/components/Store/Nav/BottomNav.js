@@ -13,7 +13,8 @@ import {
   Text,
   VStack,
   Spinner,
-  InputRightElement
+  InputRightElement,
+  useToast,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FaAlignJustify, FaBackspace, FaSearch, FaTimes } from 'react-icons/fa';
@@ -32,6 +33,7 @@ export default function BottomNav({ categories }) {
   const [loading, setLoading] = useState(false);
   const trimmedKeyword = useMemo(() => keyword.trim(), [keyword]);
   const [showList, setShowList] = useState(false);
+  const toast = useToast();
 
   async function fetchData(keyword) {
     setShowList(true);
@@ -43,7 +45,7 @@ export default function BottomNav({ categories }) {
       });
       setBooks(products);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ export default function BottomNav({ categories }) {
   function handleChangeKeyword(e) {
     const value = e.target.value;
     setKeyword(value);
-    if(value.trim() !== ''){
+    if (value.trim() !== '') {
       debounce(value.trim());
     }
   }
@@ -70,7 +72,7 @@ export default function BottomNav({ categories }) {
       const params = sub.split('=');
       if (params[0] === 'keyword') {
         const decode = decodeURIComponent(params[1].trim());
-        if(decode !== ''){
+        if (decode !== '') {
           setKeyword(decode);
           fetchData(decode);
         }
@@ -153,7 +155,10 @@ export default function BottomNav({ categories }) {
             ) : (
               <Text>Please change another keyword</Text>
             )}
-            <IconButton icon={<Icon as={FaTimes}/>} onClick={() => setShowList(false)}/>
+            <IconButton
+              icon={<Icon as={FaTimes} />}
+              onClick={() => setShowList(false)}
+            />
           </VStack>
         )}
       </Box>
