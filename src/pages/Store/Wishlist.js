@@ -16,7 +16,7 @@ export default withAuth(function Wishlist() {
       await removeWishlist({ id });
       fetchData();
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -25,7 +25,7 @@ export default withAuth(function Wishlist() {
       const { products } = await getWishlist();
       setProducts(products);
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -47,9 +47,8 @@ export default withAuth(function Wishlist() {
             />
           </VStack>
         ))}
-        
       </SimpleGrid>
-      {products.length === 0 && <InfoEmptyList/>}
+      {products.length === 0 && <InfoEmptyList />}
     </BlockLayout>
   );
 });

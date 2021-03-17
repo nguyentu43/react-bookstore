@@ -44,9 +44,9 @@ export default function AddProductForm({ id }) {
     try {
       const { cart } = await addItemToCart({ input });
       dispatch(setCart(cart));
-      toast({ title: 'A book is added to cart' });
+      toast({ title: 'The book is added to cart' });
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -57,9 +57,9 @@ export default function AddProductForm({ id }) {
     }
     try {
       await addWishlist({ id });
-      toast({ title: 'A book is added to wishlist' });
+      toast({ title: 'The book is added to wishlist' });
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 

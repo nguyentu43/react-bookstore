@@ -7,6 +7,7 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { fetchUserInfo, register } from '../../../api';
 import { useAppContext } from '../../../context';
@@ -26,6 +27,7 @@ export default function RegisterForm() {
       const { user, cart } = await fetchUserInfo();
       dispatch(setAuth({ ...user, isLogin: true }));
       dispatch(setCart(cart));
+      toast({ title: 'Register successfully', status: 'success' });
     } catch ({ response }) {
       toast({ title: response.errors[0].message, status: 'error' });
     }
@@ -75,7 +77,10 @@ export default function RegisterForm() {
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
         <Button type="submit" colorScheme="green">
-          Register
+          Create account
+        </Button>
+        <Button as={Link} to="/store/login" colorScheme="blue">
+          Login
         </Button>
       </VStack>
     </form>

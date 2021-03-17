@@ -60,7 +60,7 @@ function App() {
         <StripeElements stripe={stripePromise}>
           <BrowserRouter>
             <ScrollTop />
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoadingData />}>
               <Switch>
                 <Route path="/store" component={StoreRoute} />
                 <Route path="/admin" component={AdminRoute} />

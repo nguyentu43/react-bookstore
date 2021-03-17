@@ -56,7 +56,7 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
                 </Button>
               </VStack>
             ) : (
-              <LoginForm inDrawer={true} />
+              <LoginForm onCloseDraw={onClose} inDrawer={true} />
             )}
           </DrawerBody>
         </DrawerContent>

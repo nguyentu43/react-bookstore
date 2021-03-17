@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, useToast } from '@chakra-ui/react';
 import BottomFooter from '../../components/Store/Footer/BottomFooter';
 import BottomNav from '../../components/Store/Nav/BottomNav';
 import TopFooter from '../../components/Store/Footer/TopFooter';
@@ -8,6 +9,7 @@ import { fetchCategories } from '../../api';
 
 export default function Layout({ children }) {
   const [categories, setCategories] = useState([]);
+  const toast = useToast();
 
   useEffect(() => {
     async function fetchData() {
@@ -15,7 +17,7 @@ export default function Layout({ children }) {
         const { categories } = await fetchCategories();
         setCategories(categories.filter(c => !c.parent));
       } catch (error) {
-        throw error;
+        toast({ status: 'error', title: 'System Error. Try again' });
       }
     }
     fetchData();

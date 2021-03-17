@@ -9,6 +9,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  useToast,
 } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
@@ -62,13 +63,14 @@ export default withAuth(function Cart() {
     },
     dispatch,
   } = useAppContext();
+  const toast = useToast();
 
   async function changeQuantity(quantity, id) {
     try {
       const { cart } = await addItemToCart({ input: { quantity, id } });
       dispatch(setCart(cart));
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
@@ -77,7 +79,7 @@ export default withAuth(function Cart() {
       const { cart } = await removeItemFromCart({ productID });
       dispatch(setCart(cart));
     } catch (error) {
-      throw error;
+      toast({ status: 'error', title: 'System Error. Try again' });
     }
   }
 
