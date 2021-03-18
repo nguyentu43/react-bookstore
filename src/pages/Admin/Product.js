@@ -92,12 +92,21 @@ export default function ProductPage() {
   async function add() {
     try {
       setSkipPage(true);
+
+      if (authors.length === 0 || categories.length === 0) {
+        toast({
+          title: 'You must create some authors and catetories',
+          state: 'info',
+        });
+        return;
+      }
+
       const input = {
         name: 'New book',
         images: JSON.stringify(['store/200x300_rffsze']),
         price: 1,
-        category: '1',
-        authors: ['1'],
+        category: categories[0].id,
+        authors: authors[0].id,
       };
 
       await addProduct({
