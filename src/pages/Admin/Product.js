@@ -105,14 +105,15 @@ export default function ProductPage() {
         name: 'New book',
         images: JSON.stringify(['store/200x300_rffsze']),
         price: 1,
-        category: categories[0].id,
-        authors: authors[0].id,
+        category: categories[0].value,
+        authors: authors[0].value,
       };
 
       await addProduct({
         input,
       });
       fetchData();
+      toast({ status: 'info', title: 'Book has been added' });
     } catch (error) {
       toast({ status: 'error', title: 'System Error. Try again' });
     }

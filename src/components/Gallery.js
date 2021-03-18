@@ -7,6 +7,7 @@ import {
   Image,
   SimpleGrid,
   Textarea,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
@@ -41,12 +42,12 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const [error, setError] = useState('');
   const fileInput = useRef(null);
   const [urls, setUrls] = useState('');
+  const toast = useToast();
 
   async function handleUpload() {
     const files = Array.from(fileInput.current.files);
-    if(files.length === 0 && urls.trim() === "")
-    {
-      setError("Please choose files or enter urls");
+    if (files.length === 0 && urls.trim() === '') {
+      setError('Please choose files or enter urls');
       return;
     }
 
@@ -59,6 +60,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
       setError(null);
       fileInput.current.value = '';
       setUrls('');
+      toast({ title: 'Images has been uploaded', info: 'success' });
     } catch (error) {
       setError('Upload Error: Please check again files or urls');
     }
@@ -162,7 +164,13 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
             {...image}
           />
         ))}
-        <Button colorScheme="blue" disabled={!cursor} onClick={() => fetchData(false)}>Show More</Button>
+        <Button
+          colorScheme="blue"
+          disabled={!cursor}
+          onClick={() => fetchData(false)}
+        >
+          Show More
+        </Button>
       </SimpleGrid>
     </Box>
   );

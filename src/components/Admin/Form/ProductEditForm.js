@@ -33,7 +33,7 @@ export default function ProductEditForm({
   }
 
   return (
-    <Box maxW={450}>
+    <Box maxW={600}>
       <form onSubmit={handleSubmit(data => handleSave(data))}>
         <VStack align="flex-start">
           <FormControl isInvalid={errors.name}>
@@ -144,7 +144,21 @@ export default function ProductEditForm({
               control={control}
               rules={{ required: true }}
               render={({ onChange, value }) => (
-                <Editor initialValue={value} onEditorChange={onChange} />
+                <Editor
+                  init={{
+                    height: 500,
+                    menubar: true,
+                    plugins: [
+                      'advlist autolink lists link image charmap print preview anchor',
+                      'searchreplace visualblocks code fullscreen',
+                      'insertdatetime media table paste code help wordcount',
+                    ],
+                    toolbar:
+                      'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                  }}
+                  initialValue={value}
+                  onEditorChange={onChange}
+                />
               )}
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
