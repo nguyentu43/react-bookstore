@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import { getWishlist, removeWishlist } from '../../api';
+import { fetchRecommendationProducts } from '../../api';
 import BlockLayout from '../../components/Store/BlockLayout';
 import ShortedProduct from '../../components/Store/Product';
 import withAuth from '../../hocs/withAuth';
