@@ -6,10 +6,10 @@ import FeaturedCategoryBlock from '../../components/Store/Block/FeaturedCategory
 import NewReleaseBlock from '../../components/Store/Block/NewReleaseBlock';
 import RecommendationBlock from '../../components/Store/Block/RecommendationBlock';
 import WeekDealBlock from '../../components/Store/Block/WeekDealBlock';
-import useAppContext from '../../context';
+import { useAppContext } from '../../context';
 
 export default function Index() {
-  const {state:{auth}} = useAppContext();
+  const { state:{ auth } } = useAppContext();
   return (
     <>
       <BannerCarousel />

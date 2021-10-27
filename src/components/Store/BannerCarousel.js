@@ -44,7 +44,7 @@ function Item() {
         </FadeIn>
       </VStack>
       <FadeIn delay={500}>
-        <Image w="auto" h={['auto', 'auto', 180, 240]} src={Book} />
+        <Image loading="lazy" w="auto" h={['auto', 'auto', 180, 240]} src={Book} />
       </FadeIn>
     </Stack>
   );

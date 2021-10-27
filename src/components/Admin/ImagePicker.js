@@ -46,7 +46,7 @@ export default function ImagePicker({ images = [], onChange }) {
         >
           {images.map(item => (
             <VStack key={item.public_id} mb={4}>
-              <Image src={item.secure_url} h={40} objectFit="contain" />
+              <Image loading="lazy" src={item.secure_url} h={40} objectFit="contain" />
               <IconButton
                 size="sm"
                 colorScheme="red"

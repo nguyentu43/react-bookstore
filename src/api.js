@@ -9,7 +9,7 @@ export function login(variables) {
 
 export function register(variables) {
   return request(
-    'mutation($input: UserData){token: register(input: $input)}',
+    'mutation($input: RegisterData!){token: register(input: $input)}',
     variables
   );
 }

@@ -25,7 +25,7 @@ function Item({ public_id, secure_url, onChange, isDisabled }) {
 
   return (
     <VStack p={4} borderWidth={1} borderRadius="md">
-      <Image objectFit="contain" h={150} src={secure_url} />
+      <Image loading="lazy" objectFit="contain" h={150} src={secure_url} />
       <Checkbox
         onChange={handleChange}
         colorScheme="green"

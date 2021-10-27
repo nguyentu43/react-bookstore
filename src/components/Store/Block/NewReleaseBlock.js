@@ -47,7 +47,7 @@ export default function NewReleaseBlock() {
       <SimpleGrid columns={[1, 1, 3]} gap={4}>
         <GridItem colSpan={1} bg={bg} borderRadius="md">
           <VStack align="stretch" p={8} justify="center">
-            <Image objectFit="contain" src={Book} />
+            <Image loading="lazy" objectFit="contain" src={Book} />
             <VStack align="flex-start">
               <Text fontSize="4xl">Get Extra</Text>
               <Text fontSize="5xl" textColor="red.500">

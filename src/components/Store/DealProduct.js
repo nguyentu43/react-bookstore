@@ -31,11 +31,11 @@ export default function DealProduct({
       spacing={5}
       bg={bg}
     >
-      <Image h={60} objectFit="contain" src={images[0].secure_url} />
+      <Image loading="lazy" h={60} objectFit="contain" src={images[0].secure_url} />
       <VStack align="stretch" spacing={1}>
         <Text
           as={Link}
-          to={'/store/book' + slug}
+          to={'/store/book/' + slug}
           fontWeight="bold"
           fontSize="xl"
           noOfLines={2}

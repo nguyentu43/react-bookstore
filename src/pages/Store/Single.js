@@ -102,6 +102,7 @@ export default function Single() {
                 <CarouselWrapper responsive={null}>
                   {product.images.map((image, index) => (
                     <Image
+                      loading="lazy"
                       key={index}
                       src={image.secure_url}
                       objectFit="contain"

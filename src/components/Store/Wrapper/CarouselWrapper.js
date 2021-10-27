@@ -1,6 +1,7 @@
 import Slider from 'react-slick';
-import { Icon } from '@chakra-ui/react';
+import { Icon, SimpleGrid } from '@chakra-ui/react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import React from 'react';
 
 const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
   <Icon
@@ -63,6 +64,18 @@ export default function CarouselWrapper({ children, ...rest }) {
     ],
     ...rest,
   };
+
+  const childrenCount = React.Children.count(children);
+
+  if(childrenCount < settings.slidesToShow)
+  {
+    return (
+      <SimpleGrid
+        columns={[1, 2, 3, 5]}
+      >
+        {children}
+      </SimpleGrid>);
+  }
 
   return (
     <Slider {...settings}>

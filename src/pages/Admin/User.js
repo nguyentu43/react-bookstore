@@ -79,10 +79,10 @@ export default function User() {
   const toast = useToast();
 
   const action = {
-    async save({ id, name, email, password }) {
+    async save({ id, name, email, password, isAdmin }) {
       try {
         setSkipReset(true);
-        await updateUser({ id, input: { name, email, password } });
+        await updateUser({ id, input: { name, email, password, isAdmin } });
         toast({ status: 'info', title: 'User has been updated' });
         fetchData();
       } catch (error) {
@@ -117,6 +117,7 @@ export default function User() {
           name: 'New User',
           email: random({ length: 10 }) + '@example.xyz',
           password: '123123',
+          isAdmin:false
         },
       });
       fetchData();
