@@ -68,6 +68,13 @@ export function fetchProducts(variables) {
   );
 }
 
+export function fetchRecommendationProducts(variables) {
+  return request(
+    'query ($offset: Int=0, $limit: Int=10){products: getRecommendationProducts(offset: $offset, limit: $limit){id, price, images{public_id, secure_url},discount,description,name, slug, authors{id, name}, category{id, name, parent{id, name, parent{id, name}}}}}',
+    variables
+  );
+}
+
 export function fetchCategories() {
   return request(
     'query {categories: getCategories{id, name, icon, children{id, name, icon, children{id}}, parent{id, name}}}'
