@@ -50,7 +50,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
             name="email"
             as={Input}
             placeholder="Please enter your email"
-            defaultValue=""
+            defaultValue="admin@example.com"
             rules={{ required: true, min: 6 }}
             control={control}
           />
@@ -63,7 +63,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
             name="password"
             as={Input}
             type="password"
-            defaultValue=""
+            defaultValue="12345678"
             placeholder="Please enter your password"
             rules={{ required: true }}
             control={control}
