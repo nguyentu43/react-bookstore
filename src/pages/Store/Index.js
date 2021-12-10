@@ -6,10 +6,10 @@ import FeaturedCategoryBlock from '../../components/Store/Block/FeaturedCategory
 import NewReleaseBlock from '../../components/Store/Block/NewReleaseBlock';
 import RecommendationBlock from '../../components/Store/Block/RecommendationBlock';
 import WeekDealBlock from '../../components/Store/Block/WeekDealBlock';
-import { useAppContext } from '../../context';
+import {useSelector} from 'react-redux';
 
 export default function Index() {
-  const { state:{ auth } } = useAppContext();
+  const auth = useSelector(state => state.auth);
   return (
     <>
       <BannerCarousel />

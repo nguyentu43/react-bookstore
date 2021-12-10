@@ -10,16 +10,12 @@ import {
 import RightDrawer from '../Drawer/RightDrawer';
 import ColorModeSwitcher from '../../ColorModeSwitcher';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../../../context';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function TopNav() {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const {
-    state: {
-      cart: { items },
-    },
-  } = useAppContext();
+  const { items } = useSelector(state => state.cart);
 
   const bookTotal = useMemo(() => {
     return items.reduce((prev, item) => prev + item.quantity, 0);

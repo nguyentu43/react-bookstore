@@ -14,14 +14,12 @@ import LoginForm from '../Form/LoginForm';
 import { forwardRef } from 'react';
 import { logout } from '../../../api';
 import { useHistory, Link } from 'react-router-dom';
-import { useAppContext } from '../../../context';
-import { setAuth, setCart } from '../../../context/actions';
+import { setAuth, setCart } from '../../../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
-  const {
-    state: { auth },
-    dispatch,
-  } = useAppContext();
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   function handleLogout() {

@@ -11,10 +11,10 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useAppContext } from '../../../context';
 import { checkout, getPaymentCode } from '../../../api';
 import { useHistory } from 'react-router-dom';
-import { setCart } from '../../../context/actions';
+import { setCart } from '../../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
 
@@ -22,13 +22,11 @@ export default function CheckoutForm() {
   const { handleSubmit, errors, control } = useForm();
   const [cardError, setCardError] = useState(false);
   const { push } = useHistory();
-  const {
-    state: {
-      cart: { total, items },
-      auth: { email },
-    },
-    dispatch,
-  } = useAppContext();
+
+  const { items, total } = useSelector(state => state.cart);
+  const {email} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
   const toast = useToast();
 
   const stripe = useStripe();
@@ -69,6 +67,9 @@ export default function CheckoutForm() {
       if (error) {
         if (error.type === 'validation_error') {
           setCardError(true);
+        }
+        else{
+          toast({ status: 'error', title: 'Stripe error' });
         }
       } else {
         await checkout({

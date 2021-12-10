@@ -9,11 +9,11 @@ import { Elements as StripeElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { fetchUserInfo } from './api';
 import { useEffect } from 'react';
-import { useAppContext } from './context';
 import graphQLClient from './graphqlClient';
 import LoadingData from './components/LoadingData';
 import ScrollTop from 'react-router-scroll-top';
-import { setCart, setAuth } from './context/actions';
+import { setCart, setAuth } from './redux/actions';
+import { useDispatch } from 'react-redux';
 
 const AdminRoute = React.lazy(() => import('./pages/Admin/Route'));
 
@@ -31,7 +31,7 @@ const stripePromise = loadStripe(publicKey);
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const { dispatch } = useAppContext();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {

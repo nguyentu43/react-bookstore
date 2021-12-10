@@ -11,18 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, addWishlist } from '../../../api';
-import { useAppContext } from '../../../context';
-import { setCart } from '../../../context/actions';
+import { setCart } from '../../../redux/actions';
 
 export default function AddProductForm({ id }) {
-  const {
-    state: {
-      cart: { items },
-      auth: { isLogin },
-    },
-    dispatch,
-  } = useAppContext();
+  const { items } = useSelector(state => state.cart);
+  const { isLogin } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
   const toast = useToast();
 

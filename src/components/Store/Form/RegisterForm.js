@@ -10,13 +10,13 @@ import {
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { fetchUserInfo, register } from '../../../api';
-import { useAppContext } from '../../../context';
 import graphQLClient from '../../../graphqlClient';
-import { setCart, setAuth } from '../../../context/actions';
+import {useDispatch} from 'react-redux';
+import { setCart, setAuth } from '../../../redux/actions';
 
 export default function RegisterForm() {
   const { handleSubmit, errors, control } = useForm();
-  const { dispatch } = useAppContext();
+  const dispatch = useDispatch();
   const toast = useToast();
 
   async function handleRegister(data) {

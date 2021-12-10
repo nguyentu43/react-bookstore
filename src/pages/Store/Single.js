@@ -34,7 +34,7 @@ import LoadingData from '../../components/LoadingData';
 import CommentForm from '../../components/Store/Form/CommentForm';
 import Comment from '../../components/Store/Comment';
 import Rating from '../../components/Store/Rating';
-import { useAppContext } from '../../context';
+import { useSelector } from 'react-redux';
 
 export default function Single() {
   const { slug } = useParams();
@@ -42,9 +42,7 @@ export default function Single() {
   const [relatedProducts, setProducts] = useState([]);
   const toast = useToast();
 
-  const {
-    state: { auth },
-  } = useAppContext();
+  const auth = useSelector(state => state.auth);
 
   async function reloadRatings() {
     const {

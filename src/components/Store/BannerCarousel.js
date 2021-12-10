@@ -55,7 +55,6 @@ export default function BannerCarousel() {
     <Box mb={4}>
       <CarouselWrapper lazyLoad="ondemand" responsive={null}>
         <Item />
-        <Item />
       </CarouselWrapper>
     </Box>
   );

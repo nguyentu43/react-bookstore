@@ -9,7 +9,7 @@ import {
   FcReading,
 } from 'react-icons/fc';
 import { useHistory } from 'react-router-dom';
-import { useAppContext } from '../../../context';
+import { useSelector } from 'react-redux';
 
 const menu = [
   { name: 'Dashboard', icon: FcRatings, path: 'dashboard' },
@@ -23,7 +23,7 @@ const menu = [
 
 export default function LeftNav({ onClose }) {
   const history = useHistory();
-  const { state: { auth } } = useAppContext();
+  const auth = useSelector(state => state.auth);
   return (
     <VStack
       borderRightWidth={[0, 0, 1]}

@@ -7,12 +7,13 @@ import * as serviceWorker from './serviceWorker';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './css/index.css';
-import { Provider } from './context';
+import { Provider } from 'react-redux';
+import store from './redux';
 
 ReactDOM.render(
   <StrictMode>
     <ColorModeScript />
-    <Provider>
+    <Provider store={store}>
       <App />
     </Provider>
   </StrictMode>,

@@ -8,16 +8,19 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { verifyTokenAndResetPassword } from '../../../api';
 
 export default function RequestPasswordForm({ token }) {
   const { handleSubmit, errors, control } = useForm();
   const toast = useToast();
+  const history = useHistory();
 
   async function handleReset({ password }) {
     try {
       await verifyTokenAndResetPassword({ password, token });
       toast({ title: 'Password has been reset', status: 'success' });
+      history.replace('/store/login');
     } catch (error) {
       toast({ title: 'Reset password error', status: 'error' });
     }

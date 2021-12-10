@@ -1,17 +1,15 @@
 import { Heading, VStack, Text, Button, HStack } from '@chakra-ui/react';
-import { useAppContext } from '../../context';
 import moment from 'moment';
 import CommentForm from '../Store/Form/CommentForm';
 import { useState } from 'react';
 import { removeRating } from '../../api';
 import ConfirmButton from '../ConfirmButton';
 import Rating from './Rating';
+import { useSelector } from 'react-redux';
 
 export default function Comment({ data, onRemove, onPost, productID }) {
   const [edit, setEdit] = useState(false);
-  const {
-    state: { auth },
-  } = useAppContext();
+  const auth = useSelector(state => state.auth);
 
   async function remove() {
     await removeRating({ id: data.id });

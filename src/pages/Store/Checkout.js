@@ -1,14 +1,12 @@
 import { GridItem, Heading, SimpleGrid } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import ShortedOrderBlock from '../../components/Store/Block/ShortedOrderBlock';
 import BlockLayout from '../../components/Store/BlockLayout';
 import CheckoutForm from '../../components/Store/Form/CheckoutForm';
-import { useAppContext } from '../../context';
 import withAuth from '../../hocs/withAuth';
 
 export default withAuth(function Checkout() {
-  const {
-    state: { cart },
-  } = useAppContext();
+  const cart = useSelector(state => state.cart);
 
   return (
     <BlockLayout blockName="Checkout">

@@ -1,6 +1,11 @@
 import { SET_AUTH, SET_CART } from './actionTypes';
 
-export default function reducer(state, action) {
+const initialsState = {
+  cart: { total: 0, items: [] },
+  auth: { isLogin: false },
+};
+
+export default function reducer(state = initialsState, action) {
   switch (action.type) {
     case SET_AUTH:
       return {
@@ -20,6 +25,6 @@ export default function reducer(state, action) {
         },
       };
     default:
-      throw new Error('action type not found');
+      return state;
   }
 }

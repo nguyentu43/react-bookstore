@@ -19,9 +19,9 @@ import { addItemToCart, removeItemFromCart } from '../../api';
 import BlockLayout from '../../components/Store/BlockLayout';
 import ShortedProduct from '../../components/Store/ShortedProduct';
 import Table from '../../components/Table';
-import { useAppContext } from '../../context';
 import withAuth from '../../hocs/withAuth';
-import { setCart } from '../../context/actions';
+import { setCart } from '../../redux/actions';
+import { useDispatch, useSelector} from 'react-redux';
 
 function QuantityInput({ quantity, id, changeQuantity }) {
   const [value, setValue] = useState(quantity);
@@ -57,12 +57,8 @@ function QuantityInput({ quantity, id, changeQuantity }) {
 }
 
 export default withAuth(function Cart() {
-  const {
-    state: {
-      cart: { items, total },
-    },
-    dispatch,
-  } = useAppContext();
+  const { items, total } = useSelector(state => state.cart);
+  const dispatch = useDispatch();
   const toast = useToast();
 
   async function changeQuantity(quantity, id) {

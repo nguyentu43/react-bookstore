@@ -9,15 +9,15 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchUserInfo, login } from '../../../api';
-import { useAppContext } from '../../../context';
 import graphQLClient from '../../../graphqlClient';
-import { setCart, setAuth } from '../../../context/actions';
+import { setCart, setAuth } from '../../../redux/actions';
 
 export default function LoginForm({ inDrawer, onCloseDraw }) {
   const { handleSubmit, errors, control } = useForm();
-  const { dispatch } = useAppContext();
+  const dispatch = useDispatch();
   const toast = useToast();
 
   const style = {};

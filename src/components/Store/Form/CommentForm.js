@@ -8,7 +8,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { useAppContext } from '../../../context';
+import { useSelector } from 'react-redux';
 import { addRating, updateRating } from '../../../api';
 import Rating from '../Rating';
 
@@ -16,11 +16,8 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   const { handleSubmit, errors, control, reset } = useForm({
     defaultValues: data,
   });
-  const {
-    state: {
-      auth: { id }
-    }
-  } = useAppContext();
+
+  const {id} = useSelector(state => state.auth);
 
   async function saveComment(input) {
     if (!data.id) {
