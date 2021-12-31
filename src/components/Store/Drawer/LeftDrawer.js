@@ -22,7 +22,7 @@ const LeftDrawer = forwardRef(({ isOpen, onClose, categories }, ref) => {
           <DrawerCloseButton />
           <DrawerHeader>MENU</DrawerHeader>
           <DrawerBody>
-            <LeftMenu categories={categories} />
+            <LeftMenu categories={categories} onClickItem={onClose}/>
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

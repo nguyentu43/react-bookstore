@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 const stack = [];
 const prevItemStack = [];
 
-export default function LeftMenu({ categories }) {
+export default function LeftMenu({ categories, onClickItem }) {
   const [items, setItems] = useState([...categories]);
   const [prevItem, setPrevItem] = useState(null);
   const { push } = useHistory();
@@ -19,6 +19,7 @@ export default function LeftMenu({ categories }) {
       setPrevItem(item);
     } else {
       push('/store/search?category=' + item.id);
+      onClickItem();
     }
   }
 
@@ -69,7 +70,7 @@ export default function LeftMenu({ categories }) {
           align="center"
           justify="space-between"
         >
-          <Text>Rest</Text>
+          <Text>All</Text>
         </Flex>
       )}
     </VStack>

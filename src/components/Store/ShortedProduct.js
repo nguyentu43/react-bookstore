@@ -32,7 +32,7 @@ export default function ShortedProduct({
             prefix={'$'}
           />
           {discount > 0 && (
-            <Text as="s" fontSize="sm">
+            <Text as="s" fontSize="sm" marginLeft={2}>
               <CurrencyFormat
                 value={price}
                 displayType={'text'}

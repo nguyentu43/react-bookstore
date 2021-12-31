@@ -117,7 +117,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   return (
     <Box>
       <Box>
-        <input type="file" id="gallery" multiple ref={fileInput} />
+        <input type="file" id="gallery" multiple ref={fileInput} accept='.jpg,.png'/>
         <Textarea
           placeholder="Enter url images"
           mt={2}

@@ -20,7 +20,6 @@ export default function ShortedOrderBlock({ items, total }) {
             </Link>
             <Text as="small">x{quantity}</Text>
           </Box>
-
           <Text>
             <CurrencyFormat
               value={price * (1 - discount) * quantity}

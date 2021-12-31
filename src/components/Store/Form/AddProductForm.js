@@ -29,12 +29,13 @@ export default function AddProductForm({ id }) {
     }
 
     const exists = items.find(item => item.id === id);
+    const quantity = Number(data.quantity);
     const input = {
-      quantity: 1,
+      quantity,
       id,
     };
     if (exists) {
-      input.quantity = Number(data.quantity) + exists.quantity;
+      input.quantity += exists.quantity;
     }
 
     try {

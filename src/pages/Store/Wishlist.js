@@ -48,11 +48,11 @@ export default withAuth(function Wishlist() {
       <SimpleGrid columns={[1, 2, 4, 5]} gap={4}>
         {products.map(item => (
           <VStack key={item.id} borderWidth={1} p={2} align="stretch">
-            <ShortedProduct {...item} />
             <IconButton
               onClick={() => handleRemoveWishlist(item.id)}
               icon={<Icon as={FaRegTrashAlt} />}
             />
+            <ShortedProduct {...item} />
           </VStack>
         ))}
       </SimpleGrid>

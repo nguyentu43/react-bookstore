@@ -41,7 +41,7 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
           <DrawerCloseButton />
           <DrawerHeader>
             <Icon mr={2} as={FaUserAlt} />
-            Account
+            { auth.name }
           </DrawerHeader>
 
           <DrawerBody>

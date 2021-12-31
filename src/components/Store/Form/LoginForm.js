@@ -11,14 +11,34 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchUserInfo, login } from '../../../api';
+import { fetchUserInfo, login, loginWithProvider } from '../../../api';
 import graphQLClient from '../../../graphqlClient';
 import { setCart, setAuth } from '../../../redux/actions';
+import { useGoogleLogin } from 'react-google-login';
 
 export default function LoginForm({ inDrawer, onCloseDraw }) {
   const { handleSubmit, errors, control } = useForm();
   const dispatch = useDispatch();
   const toast = useToast();
+  const { signIn } = useGoogleLogin({ 
+    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID, 
+    async onSuccess({profileObj: { name, email }}){
+      try {
+        const { token } = await loginWithProvider({ name, email });
+        localStorage.setItem('token', token);
+        graphQLClient.setHeader('authorization', 'Bearer ' + token);
+        const { user, cart } = await fetchUserInfo();
+        dispatch(setAuth({ ...user, isLogin: true }));
+        dispatch(setCart(cart));
+        toast({ title: 'Login successfully', status: 'success' });
+      } catch ({ response }) {
+        toast({ title: response.errors[0].message, status: 'error' });
+      }
+    },
+    onFailure(_){
+      toast({ title: "Login with Google Error", status: "error" });
+    }
+  });
 
   const style = {};
   if (!inDrawer) {
@@ -72,6 +92,9 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
         </FormControl>
         <Button type="submit" colorScheme="blue">
           Login
+        </Button>
+        <Button type="button" colorScheme="red" onClick={signIn}>
+          Login with Google
         </Button>
         <Button
           as={Link}

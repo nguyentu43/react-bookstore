@@ -8,7 +8,6 @@ import {
   FaSlidersH,
 } from 'react-icons/fa';
 import RightDrawer from '../Drawer/RightDrawer';
-import ColorModeSwitcher from '../../ColorModeSwitcher';
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,12 +36,6 @@ export default function TopNav() {
         </Flex>
       </HStack>
       <HStack spacing={8}>
-        <Link to="/store/wishlist">
-          <Icon as={FaHeart} />
-        </Link>
-        <Link to="/admin">
-          <Icon as={FaSlidersH} />
-        </Link>
         <Text>
           <Icon
             _hover={{ cursor: 'pointer' }}
@@ -54,9 +47,12 @@ export default function TopNav() {
           <Icon as={FaShoppingBag} />
           {bookTotal === 0 ? '' : bookTotal}
         </Link>
-        <Text>
-          <ColorModeSwitcher />
-        </Text>
+        <Link to="/store/wishlist">
+          <Icon as={FaHeart} />
+        </Link>
+        <Link to="/admin">
+          <Icon as={FaSlidersH} />
+        </Link>
       </HStack>
       <RightDrawer isOpen={isOpen} onClose={onClose} />
     </HStack>

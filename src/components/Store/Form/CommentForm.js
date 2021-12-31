@@ -63,6 +63,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
             name="rate"
             rules={{ required: true }}
             control={control}
+            defaultValue={0}
             render={({ onChange, value }) => (
               <Rating
                 value={value}

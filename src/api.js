@@ -7,6 +7,13 @@ export function login(variables) {
   );
 }
 
+export function loginWithProvider(variables) {
+  return request(
+    'query($email: String!, $name: String!){token: loginWithProvider(email: $email, name: $name)}',
+    variables
+  );
+}
+
 export function register(variables) {
   return request(
     'mutation($input: RegisterData!){token: register(input: $input)}',
@@ -36,7 +43,7 @@ export function fetchUserInfo() {
 
 export function fetchUserOrder() {
   return request(
-    'query{orders: getUserOrders{id, name, address, total, status,  phone, createdAt, items{id, name, price, discount, quantity, images{secure_url}}}}'
+    'query{orders: getUserOrders{id, name, address, total, status,  phone, createdAt, items{id, name, slug ,price, discount, quantity, images{secure_url}}}}'
   );
 }
 
@@ -139,7 +146,7 @@ export function removeWishlist(variables) {
 
 export function getWishlist() {
   return request(
-    'query{products: getWishlist{id, name, images{secure_url, public_id}, price, discount}}'
+    'query{products: getWishlist{id, name, slug, images{secure_url, public_id}, price, discount}}'
   );
 }
 
@@ -195,7 +202,7 @@ export function removeProduct(variables) {
 
 export function fetchOrders() {
   return request(
-    'query{orders: getOrders{id, name, address, total, status, user{email, id, name},phone, createdAt, items{id, name, price, discount, quantity, images{secure_url}}}}'
+    'query{orders: getOrders{id, name, address, total, status, user{email, id, name},phone, createdAt, items{id, name, price, slug, discount, quantity, images{secure_url}}}}'
   );
 }
 

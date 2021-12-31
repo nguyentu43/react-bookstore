@@ -5,6 +5,11 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   VStack,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
@@ -94,12 +99,22 @@ export default function ProductEditForm({
               name="price"
               id="price"
               control={control}
-              as={Input}
-              type="number"
-              min={0}
-              step={0.01}
               defaultValue={1}
               rules={{ required: true }}
+              render={({ onChange, value }) => 
+                <NumberInput
+                onChange={onChange}
+                value={value}
+                step={0.01}
+                min={0}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              }
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>
@@ -109,13 +124,23 @@ export default function ProductEditForm({
               name="discount"
               id="discount"
               control={control}
-              as={Input}
-              step={0.01}
-              type="number"
-              min={0}
-              max={1}
               defaultValue={0}
               rules={{ required: true }}
+              render={({ onChange, value }) => 
+                <NumberInput
+                onChange={onChange}
+                value={value}
+                step={0.01}
+                min={0}
+                max={1}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              }
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>
@@ -127,7 +152,7 @@ export default function ProductEditForm({
               id="images"
               control={control}
               defaultValue={[]}
-              rules={{ required: true }}
+              rules={{ validate: value => value.length > 0 }}
               render={({ onChange, value }) => (
                 <ImagePicker images={value} onChange={onChange} />
               )}
@@ -145,6 +170,7 @@ export default function ProductEditForm({
               rules={{ required: true }}
               render={({ onChange, value }) => (
                 <Editor
+                  apiKey={process.env.REACT_APP_TINYMCE_API}
                   init={{
                     height: 500,
                     menubar: true,
