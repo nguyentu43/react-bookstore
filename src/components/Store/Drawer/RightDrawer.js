@@ -47,7 +47,7 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
           <DrawerBody>
             {auth.isLogin ? (
               <VStack align="flex-start">
-                <Button as={Link} to="/store/order" colorScheme="green">
+                <Button as={Link} to="/store/order" onClick={onClose} colorScheme="green">
                   Order
                 </Button>
                 <Button onClick={handleLogout} colorScheme="red">

@@ -14,6 +14,7 @@ import LoadingData from './components/LoadingData';
 import ScrollTop from 'react-router-scroll-top';
 import { setCart, setAuth } from './redux/actions';
 import { useDispatch } from 'react-redux';
+import NotFound from './pages/Store/NotFound';
 
 const AdminRoute = React.lazy(() => import('./pages/Admin/Route'));
 
@@ -64,6 +65,7 @@ function App() {
               <Switch>
                 <Route path="/store" component={StoreRoute} />
                 <Route path="/admin" component={AdminRoute} />
+                <Route path="/404" component={NotFound}/>
                 <Redirect to="/store" />
               </Switch>
             </Suspense>

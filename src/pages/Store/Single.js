@@ -17,7 +17,6 @@ import {
   TabPanels,
   Tabs,
   Text,
-  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { FcContacts, FcBookmark } from 'react-icons/fc';
@@ -26,7 +25,7 @@ import AddProductForm from '../../components/Store/Form/AddProductForm';
 import CarouselWrapper from '../../components/Store/Wrapper/CarouselWrapper';
 import FeaturedShortedProductBlock from '../../components/Store/Block/FeaturedShortedProductBlock';
 import SupportInfoBlock from '../../components/Store/Block/SupportInfoBlock';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { fetchProduct, fetchProducts } from '../../api';
 import { useEffect, useMemo, useState } from 'react';
 import Product from '../../components/Store/Product';
@@ -40,7 +39,7 @@ export default function Single() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setProducts] = useState([]);
-  const toast = useToast();
+  const history = useHistory();
 
   const auth = useSelector(state => state.auth);
 
@@ -78,7 +77,7 @@ export default function Single() {
         setProduct(product);
         setProducts(related_products);
       } catch (error) {
-        toast({ status: 'error', title: 'System Error. Try again' });
+         history.replace("/404");
       }
     }
 
