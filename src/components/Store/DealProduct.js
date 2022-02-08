@@ -22,7 +22,7 @@ export default function DealProduct({
   const bg = useColorModeValue('white', 'blue.900');
   return (
     <Stack
-      direction={['column', 'column', 'row']}
+      direction={['column', 'column', 'column', 'row']}
       borderWidth={1}
       borderRadius="md"
       px={4}
