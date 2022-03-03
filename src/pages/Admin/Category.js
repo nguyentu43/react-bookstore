@@ -61,7 +61,7 @@ export default function Category() {
             <ParentInput>
               <option>Choose parent</option>
               {table.data
-                .filter(category => category.parent === null)
+                .filter(category => category.parent === null && table.row.original.id !== category.id)
                 .map(category => (
                   <option key={category.id} value={category.id}>
                     {category.name}
