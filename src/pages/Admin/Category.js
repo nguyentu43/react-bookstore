@@ -59,7 +59,7 @@ export default function Category() {
           const ParentInput = customInput(Select, table);
           return (
             <ParentInput>
-              <option value=''>Choose parent</option>
+              <option value='0'>Choose parent</option>
               {table.data
                 .filter(category => category.parent === null && table.row.original.id !== category.id)
                 .map(category => (
