@@ -35,7 +35,8 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
         toast({ title: response.errors[0].message, status: 'error' });
       }
     },
-    onFailure(_){
+    onFailure(err){
+      console.log(err);
       toast({ title: "Login with Google Error", status: "error" });
     }
   });
