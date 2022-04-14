@@ -3,9 +3,11 @@ import CarouselWrapper from '../Wrapper/CarouselWrapper';
 import Product from '../Product';
 import { useEffect, useState } from 'react';
 import { fetchRecommendationProducts } from '../../../api';
+import LoadingDataSkeleton from '../../LoadingDataSkeleton';
 
 export default function RecommendationBlock() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       const { products } = await fetchRecommendationProducts({
@@ -13,6 +15,7 @@ export default function RecommendationBlock() {
         limit: 12,
       });
       setProducts(products);
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -23,11 +26,13 @@ export default function RecommendationBlock() {
       rightButtonName="View All"
       to="/store/recommendation"
     >
-      <CarouselWrapper slidesToShow={5} dots={false} arrows={true}>
-        {products.map(item => (
-          <Product inSlider={true} {...item} key={item.id} />
-        ))}
-      </CarouselWrapper>
+      <LoadingDataSkeleton loading={loading} line={10}>
+        <CarouselWrapper slidesToShow={5} dots={false} arrows={true}>
+          {products.map(item => (
+            <Product inSlider={true} {...item} key={item.id} />
+          ))}
+        </CarouselWrapper>
+      </LoadingDataSkeleton>
     </BlockLayout>
   );
 }

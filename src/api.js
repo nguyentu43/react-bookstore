@@ -158,7 +158,7 @@ export function getPaymentCode(variables) {
 }
 
 export function fetchUsers() {
-  return request('query{users: getUsers{id, name, email, isAdmin}}');
+  return request('query{users: getUsers{id, name, email, isAdmin, createdAt}}');
 }
 
 export function addUser(variables) {

@@ -67,19 +67,9 @@ export default function CarouselWrapper({ children, ...rest }) {
 
   const childrenCount = React.Children.count(children);
 
-  if(childrenCount < settings.slidesToShow)
-  {
-    return (
-      <SimpleGrid
-        columns={[1, 2, 3, 5]}
-      >
-        {children}
-      </SimpleGrid>);
+  if (childrenCount < settings.slidesToShow) {
+    return <SimpleGrid columns={[1, 2, 3, 5]}>{children}</SimpleGrid>;
   }
 
-  return (
-    <Slider {...settings}>
-      {children}
-    </Slider>
-  );
+  return <Slider {...settings}>{children}</Slider>;
 }

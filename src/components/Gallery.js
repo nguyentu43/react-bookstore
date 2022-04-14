@@ -43,6 +43,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   const fileInput = useRef(null);
   const [urls, setUrls] = useState('');
   const toast = useToast();
+  const [uploading, setUploading] = useState(false);
 
   async function handleUpload() {
     const files = Array.from(fileInput.current.files);
@@ -52,10 +53,12 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
     }
 
     try {
+      setUploading(true);
       await uploadImages({
         files,
         urls,
       });
+      setUploading(false);
       await fetchData(true);
       setError(null);
       fileInput.current.value = '';
@@ -78,6 +81,7 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
       await fetchData(true);
     } catch (error) {
       setError('Delete Error');
+      setUploading(false);
     }
   }
 
@@ -117,14 +121,22 @@ export default function Gallery({ dialog, onInsert, multiple = true }) {
   return (
     <Box>
       <Box>
-        <input type="file" id="gallery" multiple ref={fileInput} accept='.jpg,.png'/>
+        <input
+          type="file"
+          id="gallery"
+          multiple
+          ref={fileInput}
+          accept=".jpg,.png"
+        />
         <Textarea
-          placeholder="Enter url images"
+          placeholder="Enter url images, seperate line by enter"
           mt={2}
           value={urls}
           onChange={e => setUrls(e.target.value)}
         />
-        <Button onClick={handleUpload}>Upload</Button>
+        <Button onClick={handleUpload} isLoading={uploading}>
+          Upload
+        </Button>
       </Box>
 
       {error && (

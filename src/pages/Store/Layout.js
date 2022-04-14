@@ -2,7 +2,6 @@
 import { Box, useToast } from '@chakra-ui/react';
 import BottomFooter from '../../components/Store/Footer/BottomFooter';
 import BottomNav from '../../components/Store/Nav/BottomNav';
-import TopFooter from '../../components/Store/Footer/TopFooter';
 import TopNav from '../../components/Store/Nav/TopNav';
 import { useEffect, useState } from 'react';
 import { fetchCategories } from '../../api';
@@ -31,7 +30,6 @@ export default function Layout({ children }) {
       </Box>
       <Box id="main">{children}</Box>
       <Box id="footer">
-        <TopFooter />
         <BottomFooter />
       </Box>
     </Box>

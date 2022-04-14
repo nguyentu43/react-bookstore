@@ -93,7 +93,7 @@ export default function BottomFooter() {
         borderTopWidth={1}
         justify="space-between"
       >
-        <Text>©{ (new Date()).getFullYear() } Bookstore. All rights reserved</Text>
+        <Text>© {new Date().getFullYear()} Bookstore. All rights reserved</Text>
         <HStack spacing={[8, 12]}>
           <Icon w={10} h={10} as={FaCcMastercard} />
           <Icon w={10} h={10} as={FaPaypal} />

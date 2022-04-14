@@ -1,4 +1,4 @@
-import { Avatar, HStack, Icon, IconButton } from '@chakra-ui/react';
+import { HStack, Icon, IconButton } from '@chakra-ui/react';
 import { FaHome } from 'react-icons/fa';
 import { FcMenu } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ export default function TopNav({ onToggle }) {
         <Link to="/store">
           <Icon as={FaHome} w={8} h={8} />
         </Link>
-        <Avatar size="sm" />
       </HStack>
     </HStack>
   );

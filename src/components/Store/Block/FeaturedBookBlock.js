@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../../api';
+import LoadingDataSkeleton from '../../LoadingDataSkeleton';
 import BlockLayout from '../BlockLayout';
 import Product from '../Product';
 
@@ -17,6 +18,8 @@ export default function FeaturedBookBlock() {
     saleBooks: [],
     newestBooks: [],
   });
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,54 +39,57 @@ export default function FeaturedBookBlock() {
       });
 
       setData({ saleBooks, newestBooks, featuredBooks });
+      setLoading(false);
     }
     fetchData();
   }, []);
 
   return (
     <BlockLayout blockName="Featured Books">
-      <Tabs isFitted variant="enclosed">
-        <TabList>
-          <Tab>Featured</Tab>
-          <Tab>On Sale</Tab>
-          <Tab>Newest</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel px={0}>
-            <SimpleGrid
-              borderTopWidth={1}
-              borderLeftWidth={1}
-              columns={[1, 2, 3, 5]}
-            >
-              {data.featuredBooks.map(item => (
-                <Product key={item.id} {...item} />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel px={0}>
-            <SimpleGrid
-              borderTopWidth={1}
-              borderLeftWidth={1}
-              columns={[1, 2, 3, 5]}
-            >
-              {data.saleBooks.map(item => (
-                <Product key={item.id} {...item} />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel px={0}>
-            <SimpleGrid
-              borderTopWidth={1}
-              borderLeftWidth={1}
-              columns={[1, 2, 3, 5]}
-            >
-              {data.newestBooks.map(item => (
-                <Product key={item.id} {...item} />
-              ))}
-            </SimpleGrid>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <LoadingDataSkeleton loading={loading} line={10}>
+        <Tabs isFitted variant="enclosed">
+          <TabList>
+            <Tab>Featured</Tab>
+            <Tab>On Sale</Tab>
+            <Tab>Newest</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel px={0}>
+              <SimpleGrid
+                borderTopWidth={1}
+                borderLeftWidth={1}
+                columns={[1, 2, 3, 5]}
+              >
+                {data.featuredBooks.map(item => (
+                  <Product key={item.id} {...item} />
+                ))}
+              </SimpleGrid>
+            </TabPanel>
+            <TabPanel px={0}>
+              <SimpleGrid
+                borderTopWidth={1}
+                borderLeftWidth={1}
+                columns={[1, 2, 3, 5]}
+              >
+                {data.saleBooks.map(item => (
+                  <Product key={item.id} {...item} />
+                ))}
+              </SimpleGrid>
+            </TabPanel>
+            <TabPanel px={0}>
+              <SimpleGrid
+                borderTopWidth={1}
+                borderLeftWidth={1}
+                columns={[1, 2, 3, 5]}
+              >
+                {data.newestBooks.map(item => (
+                  <Product key={item.id} {...item} />
+                ))}
+              </SimpleGrid>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </LoadingDataSkeleton>
     </BlockLayout>
   );
 }

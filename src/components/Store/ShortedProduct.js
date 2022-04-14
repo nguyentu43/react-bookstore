@@ -20,7 +20,12 @@ export default function ShortedProduct({
         history.push('/store/book/' + slug);
       }}
     >
-      <Image loading="lazy" w={70} objectFit="contain" src={images[0].secure_url} />
+      <Image
+        loading="lazy"
+        w={70}
+        objectFit="contain"
+        src={images[0].secure_url}
+      />
       <VStack align="flex-start">
         <Text fontWeight="bold">{name}</Text>
         <Text>

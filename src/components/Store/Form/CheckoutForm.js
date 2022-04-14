@@ -24,7 +24,7 @@ export default function CheckoutForm() {
   const { push } = useHistory();
 
   const { items, total } = useSelector(state => state.cart);
-  const {email} = useSelector(state => state.auth);
+  const { email } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   const toast = useToast();
@@ -67,8 +67,7 @@ export default function CheckoutForm() {
       if (error) {
         if (error.type === 'validation_error') {
           setCardError(true);
-        }
-        else{
+        } else {
           toast({ status: 'error', title: 'Stripe error' });
         }
       } else {

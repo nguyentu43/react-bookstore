@@ -1,8 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  SimpleGrid,
-  useToast
-} from '@chakra-ui/react';
+import { SimpleGrid, useToast } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { fetchRecommendationProducts } from '../../api';
 import InfoEmptyList from '../../components/InfoEmptyList';
@@ -35,12 +32,9 @@ export default withAuth(function RecommendationBooks() {
 
   return (
     <BlockLayout blockName="Recommendation">
-      <SimpleGrid 
-        columns={[1, 2, 4, 5]} 
-        borderTopWidth={1}
-        borderLeftWidth={1}>
+      <SimpleGrid columns={[1, 2, 4, 5]} borderTopWidth={1} borderLeftWidth={1}>
         {products.map(item => (
-          <Product key={item.id} {...item}/>
+          <Product key={item.id} {...item} />
         ))}
       </SimpleGrid>
       {products.length === 0 && <InfoEmptyList />}

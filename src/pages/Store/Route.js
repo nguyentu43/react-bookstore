@@ -25,7 +25,11 @@ export default function StoreRoute() {
         <Route path="/store/search" component={Search} exact />
         <Route path="/store/cart" component={Cart} exact />
         <Route path="/store/checkout" component={Checkout} exact />
-        <Route path="/store/recommendation" component={RecommendationBooks} exact />
+        <Route
+          path="/store/recommendation"
+          component={RecommendationBooks}
+          exact
+        />
         <Route path="/store/login" component={Login} />
         <Route path="/store/register" component={Register} />
         <Route path="/store/forgot-password" component={ForgotPassword} />

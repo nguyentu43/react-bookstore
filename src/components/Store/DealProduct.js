@@ -31,7 +31,12 @@ export default function DealProduct({
       spacing={5}
       bg={bg}
     >
-      <Image loading="lazy" h={60} objectFit="contain" src={images[0].secure_url} />
+      <Image
+        loading="lazy"
+        h={60}
+        objectFit="contain"
+        src={images[0].secure_url}
+      />
       <VStack align="stretch" spacing={1}>
         <Text
           as={Link}

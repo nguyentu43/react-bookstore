@@ -65,7 +65,7 @@ function App() {
               <Switch>
                 <Route path="/store" component={StoreRoute} />
                 <Route path="/admin" component={AdminRoute} />
-                <Route path="/404" component={NotFound}/>
+                <Route path="/404" component={NotFound} />
                 <Redirect to="/store" />
               </Switch>
             </Suspense>
