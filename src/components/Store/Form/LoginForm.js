@@ -20,9 +20,9 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
   const { handleSubmit, errors, control } = useForm();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { signIn } = useGoogleLogin({ 
-    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID, 
-    async onSuccess({profileObj: { name, email }}){
+  const { signIn } = useGoogleLogin({
+    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+    async onSuccess({ profileObj: { name, email } }) {
       try {
         const { token } = await loginWithProvider({ name, email });
         localStorage.setItem('token', token);
@@ -35,9 +35,9 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
         toast({ title: response.errors[0].message, status: 'error' });
       }
     },
-    onFailure(_){
-      toast({ title: "Login with Google Error", status: "error" });
-    }
+    onFailure(_) {
+      toast({ title: 'Login with Google Error', status: 'error' });
+    },
   });
 
   const style = {};

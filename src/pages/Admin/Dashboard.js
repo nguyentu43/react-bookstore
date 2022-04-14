@@ -114,26 +114,6 @@ export default function Dashboard() {
           )}
         </BlockLayout>
       </GridItem>
-      <GridItem colSpan={[1, 2]}>
-        <BlockLayout blockName="World Selling Region">
-          <Chart
-            chartType="GeoChart"
-            data={[
-              ['City', 'Population', 'Area'],
-              ['Rome', 2761477, 1285.31],
-              ['Milan', 1324110, 181.76],
-              ['Naples', 959574, 117.27],
-            ]}
-            options={{
-              region: 'IT',
-              displayMode: 'markers',
-              colorAxis: { colors: ['green', 'blue'] },
-            }}
-            mapsApiKey="AIzaSyD5LRDYeqyPfkp4CTXWoVXzL_WVMDZt6G0"
-            rootProps={{ 'data-testid': '2' }}
-          />
-        </BlockLayout>
-      </GridItem>
     </SimpleGrid>
   );
 }

@@ -9,7 +9,9 @@ export default function Rating({ readonly, value, onChange, size }) {
       fullSymbol={<Icon color="yellow.400" h={size} w={size} as={FaStar} />}
       placeholderRating={value}
       onChange={onChange}
-      placeholderSymbol={<Icon color="yellow.400" h={size} w={size} as={FaStar} />}
+      placeholderSymbol={
+        <Icon color="yellow.400" h={size} w={size} as={FaStar} />
+      }
       readonly={readonly}
     />
   );

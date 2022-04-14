@@ -75,9 +75,10 @@ export default function Single() {
           limit: 10,
         });
         setProduct(product);
+        document.title = product.name + " | Bookstore";
         setProducts(related_products);
       } catch (error) {
-         history.replace("/404");
+        history.replace('/404');
       }
     }
 

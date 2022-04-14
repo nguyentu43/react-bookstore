@@ -7,6 +7,7 @@ import ConfirmButton from '../../components/ConfirmButton';
 import customInput from '../../hocs/customInput';
 import { fetchUsers, updateUser, addUser, removeUser } from '../../api';
 import random from 'crypto-random-string';
+import moment from 'moment';
 
 export default function User() {
   const columns = useMemo(
@@ -57,6 +58,11 @@ export default function User() {
             />
           );
         },
+      },
+      {
+        Header: 'CreatedAt',
+        accessor: 'createdAt',
+        Cell: ({ value }) => moment(Number(value)).format('DD/MM/YYYY'),
       },
       {
         Header: 'Action',
@@ -117,7 +123,7 @@ export default function User() {
           name: 'New User',
           email: random({ length: 10 }) + '@example.xyz',
           password: '123123',
-          isAdmin:false
+          isAdmin: false,
         },
       });
       fetchData();

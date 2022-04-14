@@ -21,7 +21,8 @@ import ShortedProduct from '../../components/Store/ShortedProduct';
 import Table from '../../components/Table';
 import withAuth from '../../hocs/withAuth';
 import { setCart } from '../../redux/actions';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import ConfirmButton from '../../components/ConfirmButton';
 
 function QuantityInput({ quantity, id, changeQuantity }) {
   const [value, setValue] = useState(quantity);

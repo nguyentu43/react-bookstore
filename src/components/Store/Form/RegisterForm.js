@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { fetchUserInfo, register } from '../../../api';
 import graphQLClient from '../../../graphqlClient';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCart, setAuth } from '../../../redux/actions';
 
 export default function RegisterForm() {

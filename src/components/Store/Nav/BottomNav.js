@@ -93,6 +93,7 @@ export default function BottomNav({ categories }) {
         <IconButton
           onClick={onOpen}
           size="md"
+          colorScheme='teal'
           icon={<Icon as={FaAlignJustify} />}
         />
         <Heading as={Link} to="/store">
@@ -110,7 +111,7 @@ export default function BottomNav({ categories }) {
             value={keyword}
             onChange={handleChangeKeyword}
             onKeyPress={handleEnter}
-            placeholder="Search by keyword"
+            placeholder="Typing your keyword..."
           />
           <InputRightElement
             children={

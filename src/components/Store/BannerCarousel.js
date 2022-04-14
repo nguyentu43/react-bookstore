@@ -33,18 +33,23 @@ function Item() {
         </FadeIn>
         <FadeIn delay={600}>
           <Heading size="2xl" fontWeight="none">
-            Featured Books of the
+            We Have
           </Heading>
-          <Heading size="2xl">February</Heading>
+          <Heading size="2xl">The Best Books</Heading>
         </FadeIn>
         <FadeIn delay={700}>
-          <Button as={Link} to="/store" colorScheme="blue">
-            See More
+          <Button as={Link} to="/store/search" colorScheme="blue">
+            See Now
           </Button>
         </FadeIn>
       </VStack>
       <FadeIn delay={500}>
-        <Image loading="lazy" w="auto" h={['auto', 'auto', 180, 240]} src={Book} />
+        <Image
+          loading="lazy"
+          w="auto"
+          h={['auto', 'auto', 180, 240]}
+          src={Book}
+        />
       </FadeIn>
     </Stack>
   );

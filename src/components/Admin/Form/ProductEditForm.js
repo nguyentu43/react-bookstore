@@ -101,20 +101,20 @@ export default function ProductEditForm({
               control={control}
               defaultValue={1}
               rules={{ required: true }}
-              render={({ onChange, value }) => 
+              render={({ onChange, value }) => (
                 <NumberInput
-                onChange={onChange}
-                value={value}
-                step={0.01}
-                min={0}
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              }
+                  onChange={onChange}
+                  value={value}
+                  step={0.01}
+                  min={0}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              )}
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>
@@ -126,21 +126,21 @@ export default function ProductEditForm({
               control={control}
               defaultValue={0}
               rules={{ required: true }}
-              render={({ onChange, value }) => 
+              render={({ onChange, value }) => (
                 <NumberInput
-                onChange={onChange}
-                value={value}
-                step={0.01}
-                min={0}
-                max={1}
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              }
+                  onChange={onChange}
+                  value={value}
+                  step={0.01}
+                  min={0}
+                  max={1}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              )}
             />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>

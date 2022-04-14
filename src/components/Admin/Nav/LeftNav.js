@@ -35,7 +35,7 @@ export default function LeftNav({ onClose }) {
       <HStack px={4} pb={2}>
         <Avatar mr={4} size="lg" />
         <Text fontSize="lg" fontWeight="bold">
-          { auth.name }
+          {auth.name}
         </Text>
       </HStack>
       <Box borderTopWidth={1}>

@@ -17,7 +17,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
     defaultValues: data,
   });
 
-  const {id} = useSelector(state => state.auth);
+  const { id } = useSelector(state => state.auth);
 
   async function saveComment(input) {
     if (!data.id) {
@@ -32,7 +32,10 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   return (
     <form onSubmit={handleSubmit(data => saveComment(data))}>
       <VStack align="flex-start" p={4} borderWidth={1} borderRadius="md" mb={4}>
-        <Heading size="md"> {!data.id ? "Leave some feedback about this book" : "Edit rating"}</Heading>
+        <Heading size="md">
+          {' '}
+          {!data.id ? 'Leave some feedback about this book' : 'Edit rating'}
+        </Heading>
         <FormControl isInvalid={errors.title}>
           <Controller
             id="title"
@@ -65,11 +68,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
             control={control}
             defaultValue={0}
             render={({ onChange, value }) => (
-              <Rating
-                value={value}
-                size={5}
-                onChange={onChange}
-              />
+              <Rating value={value} size={5} onChange={onChange} />
             )}
           />
           <FormErrorMessage>This field is required</FormErrorMessage>

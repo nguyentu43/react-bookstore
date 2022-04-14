@@ -6,7 +6,7 @@ import FeaturedCategoryBlock from '../../components/Store/Block/FeaturedCategory
 import NewReleaseBlock from '../../components/Store/Block/NewReleaseBlock';
 import RecommendationBlock from '../../components/Store/Block/RecommendationBlock';
 import WeekDealBlock from '../../components/Store/Block/WeekDealBlock';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Index() {
   const auth = useSelector(state => state.auth);
@@ -14,7 +14,7 @@ export default function Index() {
     <>
       <BannerCarousel />
       <FeaturedCategoryBlock />
-      { auth.isLogin && <RecommendationBlock/> }
+      {auth.isLogin && <RecommendationBlock />}
       <BestSellingBlock />
       <FeaturedBookBlock />
       <WeekDealBlock />
