@@ -5,19 +5,16 @@ import {
   Heading,
   Image,
   Box,
-  useColorModeValue,
+  SlideFade
 } from '@chakra-ui/react';
 import Book from '../../imgs/books.png';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
-import FadeIn from 'react-fade-in';
 import { Link } from 'react-router-dom';
 
 function Item() {
-  const bg = useColorModeValue('pink.50', 'pink.500');
-
   return (
     <Stack
-      bg={bg}
+      bg="pink.50"
       py={[12, 24]}
       px={[4, 6, 12]}
       direction={['column', 'column', 'row']}
@@ -26,31 +23,31 @@ function Item() {
       spacing={4}
     >
       <VStack align="flex-start" spacing={3}>
-        <FadeIn delay={500}>
+        <SlideFade in={true} transition={{delay: 5}}>
           <Heading size="sm" color="gray.500">
             THE BOOKSTORE EDITORS'
           </Heading>
-        </FadeIn>
-        <FadeIn delay={600}>
+        </SlideFade>
+        <SlideFade in={true} transition={{delay: 8}}>
           <Heading size="2xl" fontWeight="none">
             We Have
           </Heading>
           <Heading size="2xl">The Best Books</Heading>
-        </FadeIn>
-        <FadeIn delay={700}>
+        </SlideFade>
+        <SlideFade in={true}>
           <Button as={Link} to="/store/search" colorScheme="blue">
             See Now
           </Button>
-        </FadeIn>
+        </SlideFade>
       </VStack>
-      <FadeIn delay={500}>
+      <SlideFade in={true}>
         <Image
           loading="lazy"
           w="auto"
           h={['auto', 'auto', 180, 240]}
           src={Book}
         />
-      </FadeIn>
+      </SlideFade>
     </Stack>
   );
 }
