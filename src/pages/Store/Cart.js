@@ -22,7 +22,6 @@ import Table from '../../components/Table';
 import withAuth from '../../hocs/withAuth';
 import { setCart } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import ConfirmButton from '../../components/ConfirmButton';
 
 function QuantityInput({ quantity, id, changeQuantity }) {
   const [value, setValue] = useState(quantity);
@@ -160,7 +159,7 @@ export default withAuth(function Cart() {
           prefix={'$'}
         />
       </Heading>
-      <Button mt={4} as={Link} to="/store/checkout" colorScheme="red">
+      <Button mt={4} as={Link} to="/store/checkout" colorScheme="teal" variant="outline">
         Checkout
       </Button>
     </BlockLayout>

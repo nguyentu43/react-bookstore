@@ -40,6 +40,7 @@ export default function Single() {
   const [product, setProduct] = useState(null);
   const [relatedProducts, setProducts] = useState([]);
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   const auth = useSelector(state => state.auth);
 
@@ -66,26 +67,29 @@ export default function Single() {
     );
   }, [product, auth]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { product } = await fetchProduct({ slug });
-        const { products: related_products } = await fetchProducts({
-          search: 'category=' + product.category.id,
-          limit: 10,
-        });
-        setProduct(product);
-        document.title = product.name + ' | Bookstore';
-        setProducts(related_products);
-      } catch (error) {
-        history.replace('/404');
-      }
+  async function fetchData() {
+    try {
+      setLoading(true);
+      const { product } = await fetchProduct({ slug });
+      const { products: related_products } = await fetchProducts({
+        search: 'category=' + product.category.id,
+        limit: 10,
+      });
+      setProduct(product);
+      document.title = product.name + ' | Bookstore';
+      setProducts(related_products);
+    } catch (error) {
+      history.replace('/404');
+    } finally{
+      setLoading(false);
     }
+  }
 
+  useEffect(() => {
     fetchData();
   }, [slug]);
 
-  if (!product) {
+  if (loading) {
     return <LoadingData />;
   }
 
