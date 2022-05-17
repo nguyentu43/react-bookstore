@@ -39,7 +39,7 @@ function Item() {
         </FadeIn>
         <FadeIn delay={700}>
           <Button as={Link} to="/store/search" colorScheme="blue">
-            See Now
+            Explorer
           </Button>
         </FadeIn>
       </VStack>
