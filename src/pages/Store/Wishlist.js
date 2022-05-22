@@ -45,7 +45,7 @@ export default withAuth(function Wishlist() {
 
   return (
     <BlockLayout blockName="Wishlist">
-      <SimpleGrid columns={[1, 2, 4, 5]} gap={4}>
+      <SimpleGrid columns={[1, 2, 3, 4]} gap={4}>
         {products.map(item => (
           <VStack key={item.id} borderWidth={1} p={2} align="stretch">
             <IconButton
