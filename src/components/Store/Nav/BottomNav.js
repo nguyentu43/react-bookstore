@@ -93,7 +93,7 @@ export default function BottomNav({ categories }) {
         <IconButton
           onClick={onOpen}
           size="md"
-          colorScheme="teal"
+          colorScheme="blue"
           icon={<Icon as={FaAlignJustify} />}
         />
         <Heading as={Link} to="/store">
@@ -116,7 +116,6 @@ export default function BottomNav({ categories }) {
           <InputRightElement
             children={
               <IconButton
-                colorScheme="blue"
                 onClick={() => setKeyword('')}
                 icon={<Icon as={FaBackspace} />}
               />

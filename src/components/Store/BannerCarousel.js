@@ -1,15 +1,8 @@
-import {
-  Button,
-  Stack,
-  VStack,
-  Heading,
-  Image,
-  Box,
-  SlideFade,
-} from '@chakra-ui/react';
+import { Button, Stack, VStack, Heading, Image, Box } from '@chakra-ui/react';
 import Book from '../../imgs/books.png';
 import CarouselWrapper from './Wrapper/CarouselWrapper';
 import { Link } from 'react-router-dom';
+import DelayFade from '../Admin/DelayFade';
 
 function Item() {
   return (
@@ -23,31 +16,31 @@ function Item() {
       spacing={4}
     >
       <VStack align="flex-start" spacing={3}>
-        <SlideFade in={true} transition={{ delay: 5 }}>
+        <DelayFade>
           <Heading size="sm" color="gray.500">
             THE BOOKSTORE EDITORS'
           </Heading>
-        </SlideFade>
-        <SlideFade in={true} transition={{ delay: 8 }}>
+        </DelayFade>
+        <DelayFade delay={0.5}>
           <Heading size="2xl" fontWeight="none">
             We Have
           </Heading>
           <Heading size="2xl">The Best Books</Heading>
-        </SlideFade>
-        <SlideFade in={true}>
+        </DelayFade>
+        <DelayFade delay={0.8}>
           <Button as={Link} to="/store/search" colorScheme="blue">
-            See Now
+            Explorer
           </Button>
-        </SlideFade>
+        </DelayFade>
       </VStack>
-      <SlideFade in={true}>
+      <DelayFade delay={0.3}>
         <Image
           loading="lazy"
           w="auto"
           h={['auto', 'auto', 180, 240]}
           src={Book}
         />
-      </SlideFade>
+      </DelayFade>
     </Stack>
   );
 }

@@ -52,8 +52,9 @@ const RightDrawer = forwardRef(({ isOpen, onClose }, ref) => {
                   to="/store/order"
                   onClick={onClose}
                   colorScheme="green"
+                  variant='outline'
                 >
-                  Order
+                  Orders
                 </Button>
                 <Button onClick={handleLogout} colorScheme="red">
                   Logout

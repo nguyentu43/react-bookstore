@@ -57,33 +57,6 @@ export default function BottomFooter() {
             <Text>Sign in/Join</Text>
           </VStack>
         </GridItem>
-        <GridItem>
-          <Heading size="lg">Explore</Heading>
-          <VStack mt={6} align="flex-start">
-            <Text>About us</Text>
-            <Text>Site map</Text>
-            <Text>Bookmarks</Text>
-            <Text>Sign in/Join</Text>
-          </VStack>
-        </GridItem>
-        <GridItem>
-          <Heading size="lg">Explore</Heading>
-          <VStack mt={6} align="flex-start">
-            <Text>About us</Text>
-            <Text>Site map</Text>
-            <Text>Bookmarks</Text>
-            <Text>Sign in/Join</Text>
-          </VStack>
-        </GridItem>
-        <GridItem>
-          <Heading size="lg">Explore</Heading>
-          <VStack mt={6} align="flex-start">
-            <Text>About us</Text>
-            <Text>Site map</Text>
-            <Text>Bookmarks</Text>
-            <Text>Sign in/Join</Text>
-          </VStack>
-        </GridItem>
       </SimpleGrid>
       <Stack
         direction={['column', 'column', 'row']}

@@ -10,7 +10,7 @@ export default function NotFound() {
       <Heading as="h3" size="2xl">
         Page not found
       </Heading>
-      <Button colorScheme="teal" variant="solid" as={Link} to="/store">
+      <Button colorScheme="blue" variant="solid" as={Link} to="/store">
         Go back to store
       </Button>
     </VStack>

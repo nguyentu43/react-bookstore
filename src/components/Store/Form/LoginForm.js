@@ -90,10 +90,10 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit" colorScheme="blue">
+        <Button type="submit" colorScheme="blue" variant='outline'>
           Login
         </Button>
-        <Button type="button" colorScheme="red" onClick={signIn}>
+        <Button type="button" colorScheme="red" variant='outline' onClick={signIn}>
           Login with Google
         </Button>
         <Button
@@ -101,6 +101,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
           to="/store/register"
           onClick={onCloseDraw}
           colorScheme="green"
+          variant='outline'
         >
           Register
         </Button>

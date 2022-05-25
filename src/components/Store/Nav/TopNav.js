@@ -49,7 +49,7 @@ export default function TopNav() {
         {isLogin && (
           <>
             <Tooltip label="Shopping Cart">
-              <Text as={Link} to="/store/cart" color="orange.500">
+              <Text as={Link} to="/store/cart" color="blue.500">
                 <Icon as={FaShoppingBag} />
                 {bookTotal === 0 ? '' : bookTotal}
               </Text>
@@ -62,11 +62,7 @@ export default function TopNav() {
             </Tooltip>
           </>
         )}
-        <Button
-          size="xs"
-          onClick={onOpen}
-          colorScheme={isLogin ? 'teal' : 'blue'}
-        >
+        <Button size="xs" onClick={onOpen} colorScheme="blue" variant='outline'>
           <Icon as={isLogin ? FaUserAlt : FaSignInAlt} mr="5px" />
           {isLogin ? 'My Account' : 'Login/Register'}
         </Button>

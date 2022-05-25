@@ -76,10 +76,10 @@ export default function RegisterForm() {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit" colorScheme="green">
+        <Button type="submit" colorScheme="green" variant='outline'>
           Create account
         </Button>
-        <Button as={Link} to="/store/login" colorScheme="blue">
+        <Button as={Link} to="/store/login" colorScheme="blue" variant='outline'>
           Login
         </Button>
       </VStack>

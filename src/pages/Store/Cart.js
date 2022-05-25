@@ -163,7 +163,7 @@ export default withAuth(function Cart() {
         mt={4}
         as={Link}
         to="/store/checkout"
-        colorScheme="teal"
+        colorScheme="blue"
         variant="outline"
       >
         Checkout

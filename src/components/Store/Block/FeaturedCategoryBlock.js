@@ -55,7 +55,7 @@ export default function FeaturedCategoryBlock() {
               <Button
                 to={'/store/search?category=' + item.id}
                 as={Link}
-                colorScheme="teal"
+                colorScheme="blue"
                 size="md"
                 variant="outline"
               >
