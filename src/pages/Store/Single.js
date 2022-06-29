@@ -34,6 +34,7 @@ import CommentForm from '../../components/Store/Form/CommentForm';
 import Comment from '../../components/Store/Comment';
 import Rating from '../../components/Store/Rating';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 export default function Single() {
   const { slug } = useParams();
@@ -76,7 +77,6 @@ export default function Single() {
         limit: 10,
       });
       setProduct(product);
-      document.title = product.name + ' | Bookstore';
       setProducts(related_products);
     } catch (error) {
       history.replace('/404');
@@ -95,6 +95,9 @@ export default function Single() {
 
   return (
     <>
+      <Helmet>
+        <title>{product.name + ' - Bookstore'}</title>
+      </Helmet>
       <Breadcrumb category={product.category} />
       <BlockLayout>
         <SimpleGrid columns={[1, 1, 1, 3]} gap={20}>
@@ -108,6 +111,7 @@ export default function Single() {
                       key={index}
                       src={image.secure_url}
                       objectFit="contain"
+                      title={slug}
                     />
                   ))}
                 </CarouselWrapper>

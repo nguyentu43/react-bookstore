@@ -6,6 +6,7 @@ import {
   Input,
   useToast,
   VStack,
+  useBoolean
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
@@ -18,9 +19,11 @@ export default function RegisterForm() {
   const { handleSubmit, errors, control } = useForm();
   const dispatch = useDispatch();
   const toast = useToast();
+  const [loadingButtonState, loadingButtonAction] = useBoolean(false);
 
   async function handleRegister(data) {
     try {
+      loadingButtonAction.on();
       const { token } = await register({ input: data });
       localStorage.setItem('token', token);
       graphQLClient.setHeader('authorization', 'Bearer ' + token);
@@ -30,6 +33,8 @@ export default function RegisterForm() {
       toast({ title: 'Register successfully', status: 'success' });
     } catch ({ response }) {
       toast({ title: response.errors[0].message, status: 'error' });
+    } finally{
+      loadingButtonAction.off();
     }
   }
 
@@ -76,10 +81,16 @@ export default function RegisterForm() {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit" colorScheme="green" variant='outline'>
+        <Button type="submit" colorScheme="green" variant="outline">
           Create account
         </Button>
-        <Button as={Link} to="/store/login" colorScheme="blue" variant='outline'>
+        <Button
+          isLoading={loadingButtonState}
+          as={Link}
+          to="/store/login"
+          colorScheme="blue"
+          variant="outline"
+        >
           Login
         </Button>
       </VStack>

@@ -80,7 +80,7 @@ export default function FilterBlock() {
 
   function handleFilter() {
     let query = [];
-    for (const sub of location.search.substr(1).split('&')) {
+    for (const sub of location.search.substring(1).split('&')) {
       const params = sub.split('=');
       if (['category', 'author', 'range', 'order'].indexOf(params[0]) === -1) {
         query.push(sub);
@@ -217,7 +217,7 @@ export default function FilterBlock() {
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem px={4} py={2}>
-          <Button colorScheme="blue" onClick={handleFilter}>
+          <Button variant="outline" colorScheme="blue" onClick={handleFilter}>
             Filter
           </Button>
         </AccordionItem>

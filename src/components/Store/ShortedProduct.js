@@ -1,6 +1,6 @@
 import { HStack, Image, Text, VStack } from '@chakra-ui/react';
 import CurrencyFormat from 'react-currency-format';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function ShortedProduct({
   name,
@@ -9,21 +9,20 @@ export default function ShortedProduct({
   images = [],
   slug,
 }) {
-  const history = useHistory();
-
   return (
     <HStack
       align="flex-start"
       spacing={4}
       _hover={{ cursor: 'pointer' }}
-      onClick={() => {
-        history.push('/store/book/' + slug);
-      }}
+      as={Link}
+      title={slug}
+      to={'/store/book/' + slug}
     >
       <Image
         loading="lazy"
         w={70}
         objectFit="contain"
+        alt={slug}
         src={images[0].secure_url}
       />
       <VStack align="flex-start">

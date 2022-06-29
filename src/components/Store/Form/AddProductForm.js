@@ -8,6 +8,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   useToast,
+  useBoolean
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
@@ -21,6 +22,7 @@ export default function AddProductForm({ id }) {
   const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
   const toast = useToast();
+  const [isLoadingAddButton, addButtonLoading] = useBoolean(false);
 
   async function handleAddProduct(data) {
     if (!isLogin) {
@@ -39,11 +41,14 @@ export default function AddProductForm({ id }) {
     }
 
     try {
+      addButtonLoading.on();
       const { cart } = await addItemToCart({ input });
       dispatch(setCart(cart));
       toast({ title: 'The book is added to cart' });
     } catch (error) {
       toast({ status: 'error', title: 'System Error. Try again' });
+    } finally{
+      addButtonLoading.off();
     }
   }
 
@@ -71,6 +76,7 @@ export default function AddProductForm({ id }) {
           </NumberInputStepper>
         </NumberInput>
         <IconButton
+          isLoading={isLoadingAddButton}
           icon={<Icon as={FaCartPlus} />}
           type="submit"
           colorScheme="blue"

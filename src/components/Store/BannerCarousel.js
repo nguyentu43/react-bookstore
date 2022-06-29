@@ -39,6 +39,7 @@ function Item() {
           w="auto"
           h={['auto', 'auto', 180, 240]}
           src={Book}
+          alt="books"
         />
       </DelayFade>
     </Stack>

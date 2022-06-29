@@ -307,6 +307,17 @@ export function fetchImages(variables) {
   );
 }
 
+export function refundStripe(variables) {
+  return request(
+    `
+      mutation($paymentID: String!) {
+        refundStripe(paymentID: $paymentID)
+      }
+    `,
+    variables
+  );
+}
+
 export function getDashboardData(variables) {
   return request(
     `

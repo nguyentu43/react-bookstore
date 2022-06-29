@@ -89,7 +89,7 @@ export default function BottomNav({ categories }) {
       justify="space-between"
       align={['stretch', 'stretch', 'center']}
     >
-      <HStack spacing={[4, 8]}>
+      <HStack spacing={[2, 4]}>
         <IconButton
           onClick={onOpen}
           size="md"

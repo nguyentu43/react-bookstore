@@ -7,6 +7,7 @@ import {
   Text,
   useToast,
   VStack,
+  useBoolean
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -20,6 +21,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
   const { handleSubmit, errors, control } = useForm();
   const dispatch = useDispatch();
   const toast = useToast();
+  const [loadingButtonState, loadingButtonAction] = useBoolean(false);
   const { signIn } = useGoogleLogin({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     async onSuccess({ profileObj: { name, email } }) {
@@ -48,6 +50,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
 
   async function handleLogin(data) {
     try {
+      loadingButtonAction.on();
       const { token } = await login({ ...data });
       localStorage.setItem('token', token);
       graphQLClient.setHeader('authorization', 'Bearer ' + token);
@@ -57,6 +60,8 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
       toast({ title: 'Login successfully', status: 'success' });
     } catch ({ response }) {
       toast({ title: response.errors[0].message, status: 'error' });
+    } finally{
+      loadingButtonAction.off();
     }
   }
 
@@ -90,10 +95,15 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit" colorScheme="blue" variant='outline'>
+        <Button isLoading={loadingButtonState} type="submit" colorScheme="blue" variant="outline">
           Login
         </Button>
-        <Button type="button" colorScheme="red" variant='outline' onClick={signIn}>
+        <Button
+          type="button"
+          colorScheme="red"
+          variant="outline"
+          onClick={signIn}
+        >
           Login with Google
         </Button>
         <Button
@@ -101,7 +111,7 @@ export default function LoginForm({ inDrawer, onCloseDraw }) {
           to="/store/register"
           onClick={onCloseDraw}
           colorScheme="green"
-          variant='outline'
+          variant="outline"
         >
           Register
         </Button>

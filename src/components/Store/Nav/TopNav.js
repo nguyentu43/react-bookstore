@@ -62,7 +62,7 @@ export default function TopNav() {
             </Tooltip>
           </>
         )}
-        <Button size="xs" onClick={onOpen} colorScheme="blue" variant='outline'>
+        <Button size="xs" onClick={onOpen} colorScheme="blue" variant="outline">
           <Icon as={isLogin ? FaUserAlt : FaSignInAlt} mr="5px" />
           {isLogin ? 'My Account' : 'Login/Register'}
         </Button>

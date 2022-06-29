@@ -14,7 +14,7 @@ export default function WeekDealBlock() {
   useEffect(() => {
     async function fetchData() {
       const { products } = await fetchProducts({
-        search: 'range=1-25',
+        search: 'range=1-50',
         limit: 10,
       });
       setProducts(products);

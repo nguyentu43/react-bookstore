@@ -6,6 +6,7 @@ import {
   Input,
   useToast,
   VStack,
+  useBoolean
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -15,14 +16,18 @@ export default function RequestPasswordForm({ token }) {
   const { handleSubmit, errors, control } = useForm();
   const toast = useToast();
   const history = useHistory();
+  const [loadingButtonState, loadingButtonAction] = useBoolean(false);
 
   async function handleReset({ password }) {
     try {
+      loadingButtonAction.on();
       await verifyTokenAndResetPassword({ password, token });
       toast({ title: 'Password has been reset', status: 'success' });
       history.replace('/store/login');
     } catch (error) {
       toast({ title: 'Reset password error', status: 'error' });
+    } finally{
+      loadingButtonAction.off();
     }
   }
 
@@ -43,7 +48,7 @@ export default function RequestPasswordForm({ token }) {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit" colorScheme="green">
+        <Button type="submit" colorScheme="green" isLoading={loadingButtonState}>
           Create new password
         </Button>
       </VStack>

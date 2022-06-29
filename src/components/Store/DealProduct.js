@@ -35,6 +35,7 @@ export default function DealProduct({
         loading="lazy"
         h={60}
         objectFit="contain"
+        alt={slug}
         src={images[0].secure_url}
       />
       <VStack align="stretch" spacing={1}>
@@ -42,6 +43,7 @@ export default function DealProduct({
           as={Link}
           to={'/store/book/' + slug}
           fontWeight="bold"
+          title={slug}
           fontSize="xl"
           noOfLines={2}
         >

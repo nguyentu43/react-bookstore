@@ -7,11 +7,11 @@ import {
   Input,
   useToast,
   VStack,
+  useBoolean,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { checkout, getPaymentCode } from '../../../api';
+import { checkout, getPaymentCode, refundStripe } from '../../../api';
 import { useHistory } from 'react-router-dom';
 import { setCart } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,8 @@ const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
 
 export default function CheckoutForm() {
   const { handleSubmit, errors, control } = useForm();
-  const [cardError, setCardError] = useState(false);
+  const [cardError, setCardError] = useBoolean(false);
+  const [loadingButton, setButton] = useBoolean(false);
   const { push } = useHistory();
 
   const { items, total } = useSelector(state => state.cart);
@@ -46,13 +47,24 @@ export default function CheckoutForm() {
     },
   };
 
+  async function refund(paymentID) {
+    try {
+      await refundStripe({ paymentID });
+    } catch (error) {
+      toast({ status: 'error', title: 'Checkout Error. Try again!' });
+    }
+  }
+
   async function createOrder(data) {
     if (!stripe || !elements) return;
 
-    setCardError(false);
+    setCardError.off();
     const cardElement = elements.getElement(CardElement);
 
+    let paymentID;
+
     try {
+      setButton.on();
       const { code } = await getPaymentCode({ total: Math.round(total * 100) });
       const { error, paymentIntent } = await stripe.confirmCardPayment(code, {
         payment_method: {
@@ -66,15 +78,16 @@ export default function CheckoutForm() {
 
       if (error) {
         if (error.type === 'validation_error') {
-          setCardError(true);
+          setCardError.on();
         } else {
           toast({ status: 'error', title: 'Stripe error' });
         }
       } else {
+        paymentID = paymentIntent.id
         await checkout({
           input: {
             ...data,
-            paymentID: paymentIntent.id,
+            paymentID,
             total,
             items: items.map(({ id, quantity, price, discount }) => ({
               id,
@@ -90,6 +103,9 @@ export default function CheckoutForm() {
       }
     } catch (error) {
       toast({ status: 'error', title: 'Checkout Error. Try again!' });
+      if (paymentID) await refund(paymentID);
+    } finally {
+      setButton.off();
     }
   }
 
@@ -151,7 +167,7 @@ export default function CheckoutForm() {
             <CardElement options={cardElementOptions} />
           </Box>
         </FormControl>
-        <Button colorScheme="green" type="submit">
+        <Button isLoading={loadingButton} colorScheme="green" type="submit">
           Order
         </Button>
       </VStack>

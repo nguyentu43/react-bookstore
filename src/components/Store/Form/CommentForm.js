@@ -6,6 +6,7 @@ import {
   Input,
   VStack,
   Textarea,
+  useBoolean
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -16,10 +17,12 @@ export default function CommentForm({ data = {}, productID, onPost }) {
   const { handleSubmit, errors, control, reset } = useForm({
     defaultValues: data,
   });
+  const [loadingButtonState, loadingButtonAction] = useBoolean(false);
 
   const { id } = useSelector(state => state.auth);
 
   async function saveComment(input) {
+    loadingButtonAction.on();
     if (!data.id) {
       await addRating({ input, userID: id, productID });
       reset();
@@ -27,6 +30,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
       await updateRating({ input, userID: id, id: data.id });
     }
     onPost();
+    loadingButtonAction.off();
   }
 
   return (
@@ -73,7 +77,7 @@ export default function CommentForm({ data = {}, productID, onPost }) {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button colorScheme="blue" type="submit">
+        <Button isLoading={loadingButtonState} colorScheme="blue" type="submit">
           Post
         </Button>
       </VStack>

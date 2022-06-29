@@ -6,6 +6,7 @@ import {
   Input,
   useToast,
   VStack,
+  useBoolean
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { requestResetPassword } from '../../../api';
@@ -13,13 +14,17 @@ import { requestResetPassword } from '../../../api';
 export default function RequestPasswordForm() {
   const { handleSubmit, errors, control } = useForm();
   const toast = useToast();
+  const [loadingButtonState, loadingButtonAction] = useBoolean(false);
 
   async function handleRequest(data) {
     try {
+      loadingButtonAction.on();
       await requestResetPassword(data);
       toast({ title: 'A email has been sent. Check your email' });
     } catch (error) {
       toast({ title: 'Send mail error', status: 'error' });
+    } finally{
+      loadingButtonAction.off();
     }
   }
 
@@ -39,7 +44,7 @@ export default function RequestPasswordForm() {
           />
           <FormErrorMessage>This field is required</FormErrorMessage>
         </FormControl>
-        <Button type="submit">Send Email</Button>
+        <Button type="submit" isLoading={loadingButtonState}>Send Email</Button>
       </VStack>
     </form>
   );
